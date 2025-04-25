@@ -98,14 +98,14 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 617414723189047832}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 5
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -131,7 +131,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInWater: 0
   waterStartTransform: {fileID: 0}
-  fallSpeed: 2
+  hookCastPower: 50
+  airGravityScale: 1
+  waterFallSpeed: 2
   horizontalSpeed: 5
   splashFX: {fileID: 3693815365882286521}
 --- !u!1001 &4671862615567671666

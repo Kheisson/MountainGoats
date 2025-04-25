@@ -18,7 +18,7 @@ public class EyesFollowController : MonoBehaviour
     public Eye[] eyes;
     public Transform target;
 
-    private void Start()
+    private void Awake()
     {
         // Save original local positions
         foreach (var eye in eyes)

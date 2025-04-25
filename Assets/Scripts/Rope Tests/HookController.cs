@@ -1,6 +1,7 @@
 using UnityEngine;
 using Services;
 using Core;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class HookController : MonoBehaviour
@@ -10,9 +11,13 @@ public class HookController : MonoBehaviour
     
     [SerializeField] private bool isInWater;
     [SerializeField] private Transform waterStartTransform;
-    [SerializeField] private float fallSpeed = 2f;
+    [SerializeField] private float hookCastPower = 4.5f;
+    [SerializeField] private float airGravityScale = 5f;
+    [SerializeField] private float waterFallSpeed = 2f;
     [SerializeField] private float horizontalSpeed = 5f;
     [SerializeField] private ParticleSystem splashFX;
+
+    private bool isCast = false;
     
     private void Awake()
     {
@@ -28,6 +33,16 @@ public class HookController : MonoBehaviour
         {
             SubscribeToInput();
         }
+    }
+
+    public void CastHook(Vector2 direction)
+    {
+        if (isCast) return;
+        
+        _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
+        _rigidbody2D.gravityScale = airGravityScale;
+        
+        _rigidbody2D.AddForce(direction * hookCastPower, ForceMode2D.Impulse);
     }
 
     protected void Update()
@@ -56,10 +71,9 @@ public class HookController : MonoBehaviour
 
     private void SubscribeToInput()
     {
-        if (_inputService != null)
-        {
-            _inputService.OnMove += HandleInputMovement;
-        }
+        if (_inputService == null) return;
+        
+        _inputService.OnMove += HandleInputMovement;
     }
 
     private void OnDestroy()
@@ -77,7 +91,7 @@ public class HookController : MonoBehaviour
 
     private void HandleFall()
     {
-        var newY = _rigidbody2D.position.y - fallSpeed * Time.deltaTime;
+        var newY = _rigidbody2D.position.y - waterFallSpeed * Time.deltaTime;
         _rigidbody2D.position = new Vector2(_rigidbody2D.position.x, newY);
     }
 
