@@ -8,6 +8,8 @@ namespace Services
     {
         [SerializeField] private InputActionAsset _inputActions;
         
+        private const string PLAYER_ACTION_NAME = "Player";
+        private const string MOVE_ACTION_NAME = "Move";
         private InputActionMap _playerActionMap;
         private InputAction _moveAction;
         private bool _isMoving;
@@ -32,7 +34,7 @@ namespace Services
                 return;
             }
 
-            _playerActionMap = _inputActions.FindActionMap("Player");
+            _playerActionMap = _inputActions.FindActionMap(PLAYER_ACTION_NAME);
             
             if (_playerActionMap == null)
             {
@@ -40,7 +42,7 @@ namespace Services
                 return;
             }
 
-            _moveAction = _playerActionMap.FindAction("Move");
+            _moveAction = _playerActionMap.FindAction(MOVE_ACTION_NAME);
             
             if (_moveAction != null)
             {
@@ -78,11 +80,10 @@ namespace Services
 
         private void Update()
         {
-            if (_isMoving && _moveAction != null)
-            {
-                Vector2 moveInput = _moveAction.ReadValue<Vector2>();
-                OnMove?.Invoke(moveInput);
-            }
+            if (!_isMoving || _moveAction == null) return;
+            
+            var moveInput = _moveAction.ReadValue<Vector2>();
+            OnMove?.Invoke(moveInput);
         }
 
         private void OnMoveAction(InputAction.CallbackContext ctx)
