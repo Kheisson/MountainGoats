@@ -31,13 +31,10 @@ namespace Examples
                 _sceneLoader.SceneUnloadedEvent -= OnSceneUnloaded;
             }
         }
-
-        private void Update()
+        
+        public void LoadMainMenu()
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                LoadSceneWithLoadingScreen().Forget();
-            }
+            LoadSceneWithLoadingScreen().Forget();
         }
 
         private async UniTaskVoid LoadSceneWithLoadingScreen()

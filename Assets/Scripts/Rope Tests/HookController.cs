@@ -1,10 +1,11 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Services;
 using Core;
-using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class HookController : MonoBehaviour
+public class HookController : BaseMonoBehaviour
 {
     private IInputService _inputService;
     private Rigidbody2D _rigidbody2D;
@@ -16,37 +17,26 @@ public class HookController : MonoBehaviour
     [SerializeField] private float waterFallSpeed = 2f;
     [SerializeField] private float horizontalSpeed = 5f;
     [SerializeField] private ParticleSystem splashFX;
-
-    private bool isCast = false;
     
-    private void Awake()
+    private bool isCast = false;
+    protected override HashSet<Type> RequiredServices => new() { typeof(IInputService) };
+
+    protected override void Awake()
     {
-        _inputService = ServiceLocator.Instance.GetService<IInputService>();
+        base.Awake();
         _rigidbody2D = GetComponent<Rigidbody2D>();
-        
-        if (_inputService == null)
-        {
-            MgLogger.LogWarning("InputService not initialized yet, waiting for initialization...", this);
-            ServiceLocator.Instance.ServiceRegisteredEvent += HandleServiceRegistered;
-        }
-        else
-        {
-            SubscribeToInput();
-        }
     }
 
-    public void CastHook(Vector2 direction)
+    protected override void OnServicesInitialized()
     {
-        if (isCast) return;
-        
-        _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
-        _rigidbody2D.gravityScale = airGravityScale;
-        
-        _rigidbody2D.AddForce(direction * hookCastPower, ForceMode2D.Impulse);
+        _inputService = ServiceLocator.Instance.GetService<IInputService>();
+        _inputService.OnMove += HandleInputMovement;
     }
 
     protected void Update()
     {
+        if (!_isInitialized) return;
+        
         if (isInWater)
         {
             HandleFall();
@@ -60,33 +50,24 @@ public class HookController : MonoBehaviour
         }
     }
 
-    private void HandleServiceRegistered(IService service)
+    protected override void OnDestroy()
     {
-        if (service is not IInputService inputService) return;
+        base.OnDestroy();
         
-        _inputService = inputService;
-        SubscribeToInput();
-        ServiceLocator.Instance.ServiceRegisteredEvent -= HandleServiceRegistered;
-    }
-
-    private void SubscribeToInput()
-    {
-        if (_inputService == null) return;
-        
-        _inputService.OnMove += HandleInputMovement;
-    }
-
-    private void OnDestroy()
-    {
         if (_inputService != null)
         {
             _inputService.OnMove -= HandleInputMovement;
         }
+    }
+    
+    public void CastHook(Vector2 direction)
+    {
+        if (isCast) return;
         
-        if (ServiceLocator.Instance != null)
-        {
-            ServiceLocator.Instance.ServiceRegisteredEvent -= HandleServiceRegistered;
-        }
+        _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
+        _rigidbody2D.gravityScale = airGravityScale;
+        
+        _rigidbody2D.AddForce(direction * hookCastPower, ForceMode2D.Impulse);
     }
 
     private void HandleFall()
