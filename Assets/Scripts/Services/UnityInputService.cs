@@ -1,0 +1,106 @@
+using Core;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+namespace Services
+{
+    public class UnityInputService : MonoService, IInputService
+    {
+        [SerializeField] private InputActionAsset _inputActions;
+        
+        private InputActionMap _playerActionMap;
+        private InputAction _moveAction;
+        private bool _isMoving;
+
+        public event System.Action<Vector2> OnMove;
+
+        protected void Awake()
+        {
+            ServiceLocator.Instance.RegisterService<IInputService>(this);
+            Initialize();
+        }
+
+        public override void Initialize()
+        {
+            if (IsInitialized) return;
+            
+            base.Initialize();
+            
+            if (_inputActions == null)
+            {
+                MgLogger.LogError("Input Actions asset is not assigned!", this);
+                return;
+            }
+
+            _playerActionMap = _inputActions.FindActionMap("Player");
+            
+            if (_playerActionMap == null)
+            {
+                MgLogger.LogError("Player Action Map not found in Input Actions!", this);
+                return;
+            }
+
+            _moveAction = _playerActionMap.FindAction("Move");
+            
+            if (_moveAction != null)
+            {
+                _moveAction.performed += OnMoveAction;
+                _moveAction.canceled += OnMoveAction;
+                _moveAction.started += OnMoveAction;
+            }
+
+            _playerActionMap.Enable();
+            
+            IsInitialized = true;
+            MgLogger.Log("Input Service initialized", this);
+        }
+
+        public override void Shutdown()
+        {
+            if (_playerActionMap != null)
+            {
+                _playerActionMap.Disable();
+                
+                if (_moveAction != null)
+                {
+                    _moveAction.performed -= OnMoveAction;
+                    _moveAction.canceled -= OnMoveAction;
+                    _moveAction.started -= OnMoveAction;
+                }
+            }
+
+            OnMove = null;
+            
+            base.Shutdown();
+            
+            MgLogger.Log("Input Service shutdown", this);
+        }
+
+        private void Update()
+        {
+            if (_isMoving && _moveAction != null)
+            {
+                Vector2 moveInput = _moveAction.ReadValue<Vector2>();
+                OnMove?.Invoke(moveInput);
+            }
+        }
+
+        private void OnMoveAction(InputAction.CallbackContext ctx)
+        {
+            var moveInput = ctx.ReadValue<Vector2>();
+            OnMove?.Invoke(moveInput);
+            
+            switch (ctx.phase)
+            {
+                case InputActionPhase.Started:
+                case InputActionPhase.Performed:
+                    _isMoving = true;
+                    break;
+                case InputActionPhase.Canceled:
+                    _isMoving = false;
+                    OnMove?.Invoke(Vector2.zero);
+                    break;
+            }
+        }
+    }
+} 

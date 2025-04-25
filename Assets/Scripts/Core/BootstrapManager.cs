@@ -1,6 +1,7 @@
+using Services;
 using UnityEngine;
 
-namespace MountainGoats.Core
+namespace Core
 {
     public class BootstrapManager : MonoBehaviour
     {
@@ -10,7 +11,7 @@ namespace MountainGoats.Core
         {
             if (ServiceLocator.Instance == null)
             {
-                Debug.LogError("ServiceLocator not found! Make sure it's in the scene.");
+                MgLogger.LogError("ServiceLocator not found! Make sure it's in the scene.");
                 return;
             }
 
@@ -22,16 +23,10 @@ namespace MountainGoats.Core
             InitializeServices();
         }
 
-        private void InitializeServices()
+        private static void InitializeServices()
         {
-            Debug.Log("Initializing services...");
-
-            // Create and register pure C# services
-            // var scoreService = new ScoreService();
-            // ServiceLocator.Instance.RegisterService(scoreService);
-            // scoreService.Initialize();
-
-            Debug.Log("Services initialized successfully");
+            MgLogger.Log("Initializing services...");
+            MgLogger.Log("Services initialized successfully");
         }
     }
 } 

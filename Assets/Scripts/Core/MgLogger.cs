@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace MountainGoats.Core
+namespace Core
 {
-    public static class MGLogger
+    public static class MgLogger
     {
         public static void Log(object message, object context = null)
         {

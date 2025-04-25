@@ -1,4 +1,4 @@
-namespace MountainGoats.Core
+namespace Services
 {
     public interface IService
     {
