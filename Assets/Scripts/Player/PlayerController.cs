@@ -12,10 +12,12 @@ public class PlayerController : MonoBehaviour
     private Camera mainCam;
     private Vector3 clampedAimDir;
     private bool isCast = false;
+    private Vector3 hookOffset;
     
     private void Awake()
     {
         mainCam = Camera.main;
+        hookOffset = hookController.transform.position - aimTransform.position;
     }
 
     protected void Update()
@@ -52,6 +54,10 @@ public class PlayerController : MonoBehaviour
 
         aimTransform.position = transform.position + clampedAimDir * aimRadiusDistance;
         aimTransform.up = clampedAimDir;
+        if (!isCast)
+        {
+            hookController.transform.position = aimTransform.position + hookOffset;
+        }
     }
     
     private void OnDrawGizmosSelected()

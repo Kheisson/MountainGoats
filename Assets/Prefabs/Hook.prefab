@@ -131,8 +131,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInWater: 0
   waterStartTransform: {fileID: 0}
-  hookCastPower: 50
-  airGravityScale: 1
+  hookCastPower: 15
+  airGravityScale: 3.75
   waterFallSpeed: 2
   horizontalSpeed: 5
   splashFX: {fileID: 3693815365882286521}
