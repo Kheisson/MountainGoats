@@ -1,0 +1,13 @@
+using System;
+using Cysharp.Threading.Tasks;
+
+namespace Services
+{
+    public interface ISceneLoader : IService
+    {
+        UniTask LoadSceneAsync(string sceneName, bool showLoadingScreen = true);
+        UniTask LoadSceneAsync(int sceneIndex, bool showLoadingScreen = true);
+        event Action<string> SceneLoadedEvent;
+        event Action<string> SceneUnloadedEvent;
+    }
+}

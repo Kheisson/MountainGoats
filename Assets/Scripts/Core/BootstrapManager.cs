@@ -26,6 +26,18 @@ namespace Core
         private static void InitializeServices()
         {
             MgLogger.Log("Initializing services...");
+            
+            var sceneLoader = ServiceLocator.Instance.GetService<ISceneLoader>();
+            
+            if (sceneLoader != null)
+            {
+                MgLogger.Log("SceneLoader initialized successfully");
+            }
+            else
+            {
+                MgLogger.LogError("Failed to initialize SceneLoader");
+            }
+
             MgLogger.Log("Services initialized successfully");
         }
     }

@@ -21,6 +21,12 @@ namespace Services
             ServiceLocator.Instance.RegisterService<IInputService>(this);
             Initialize();
         }
+        
+        protected void OnDestroy()
+        {
+            Shutdown();
+            ServiceLocator.Instance?.UnregisterService<IInputService>();
+        }
 
         public override void Initialize()
         {
