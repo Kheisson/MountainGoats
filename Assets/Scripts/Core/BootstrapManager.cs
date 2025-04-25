@@ -1,6 +1,5 @@
 using Services;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Core
 {

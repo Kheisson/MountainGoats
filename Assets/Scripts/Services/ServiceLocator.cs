@@ -13,8 +13,6 @@ namespace Services
         
         private readonly Dictionary<Type, IService> _services = new();
         
-        public event Action<IService> ServiceRegisteredEvent;
-        
         private static bool ApplicationQuitting { get; set; }
 
         public static ServiceLocator Instance
@@ -71,7 +69,6 @@ namespace Services
                 return;
             }
 
-            OnServiceRegistered(service);
             MgLogger.Log($"Registered service as: {interfaceType.Name}", this);
         }
 
@@ -104,6 +101,31 @@ namespace Services
             return null;
         }
 
+        public IService GetService(Type serviceType)
+        {
+            if (!typeof(IService).IsAssignableFrom(serviceType))
+            {
+                MgLogger.LogError($"Type {serviceType.Name} does not implement IService", this);
+                return null;
+            }
+
+            if (_services.TryGetValue(serviceType, out var service))
+            {
+                return service;
+            }
+
+            foreach (var kvp in _services)
+            {
+                if (serviceType.IsAssignableFrom(kvp.Key))
+                {
+                    return kvp.Value;
+                }
+            }
+
+            MgLogger.LogWarning($"Service of type {serviceType.Name} not found", this);
+            return null;
+        }
+
         private void OnDestroy()
         {
             var localServices = new List<IService>(_services.Values);
@@ -125,11 +147,6 @@ namespace Services
             
             _services.Clear();
             MgLogger.Log("Shutdown complete", instanceForLogging);
-        }
-
-        protected virtual void OnServiceRegistered(IService service)
-        {
-            ServiceRegisteredEvent?.Invoke(service);
         }
     }
 }
