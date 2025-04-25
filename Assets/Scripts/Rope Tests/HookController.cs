@@ -1,9 +1,11 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Services;
 using Core;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class HookController : MonoBehaviour
+public class HookController : BaseMonoBehaviour
 {
     private IInputService _inputService;
     private Rigidbody2D _rigidbody2D;
@@ -14,24 +16,24 @@ public class HookController : MonoBehaviour
     [SerializeField] private float horizontalSpeed = 5f;
     [SerializeField] private ParticleSystem splashFX;
     
-    private void Awake()
+    protected override HashSet<Type> RequiredServices => new() { typeof(IInputService) };
+
+    protected override void Awake()
+    {
+        base.Awake();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+    }
+
+    protected override void OnServicesInitialized()
     {
         _inputService = ServiceLocator.Instance.GetService<IInputService>();
-        _rigidbody2D = GetComponent<Rigidbody2D>();
-        
-        if (_inputService == null)
-        {
-            MgLogger.LogWarning("InputService not initialized yet, waiting for initialization...", this);
-            ServiceLocator.Instance.ServiceRegisteredEvent += HandleServiceRegistered;
-        }
-        else
-        {
-            SubscribeToInput();
-        }
+        _inputService.OnMove += HandleInputMovement;
     }
 
     protected void Update()
     {
+        if (!_isInitialized) return;
+        
         if (isInWater)
         {
             HandleFall();
@@ -45,33 +47,13 @@ public class HookController : MonoBehaviour
         }
     }
 
-    private void HandleServiceRegistered(IService service)
+    protected override void OnDestroy()
     {
-        if (service is not IInputService inputService) return;
+        base.OnDestroy();
         
-        _inputService = inputService;
-        SubscribeToInput();
-        ServiceLocator.Instance.ServiceRegisteredEvent -= HandleServiceRegistered;
-    }
-
-    private void SubscribeToInput()
-    {
-        if (_inputService != null)
-        {
-            _inputService.OnMove += HandleInputMovement;
-        }
-    }
-
-    private void OnDestroy()
-    {
         if (_inputService != null)
         {
             _inputService.OnMove -= HandleInputMovement;
-        }
-        
-        if (ServiceLocator.Instance != null)
-        {
-            ServiceLocator.Instance.ServiceRegisteredEvent -= HandleServiceRegistered;
         }
     }
 
