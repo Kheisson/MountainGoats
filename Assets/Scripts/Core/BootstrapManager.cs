@@ -6,6 +6,7 @@ namespace Core
     public class BootstrapManager : MonoBehaviour
     {
         [SerializeField] private bool initializeInEditor = false;
+        [SerializeField] private SceneLoader _sceneLoader;
         
         private void Awake()
         {
@@ -23,21 +24,13 @@ namespace Core
             InitializeServices();
         }
 
-        private static void InitializeServices()
+        private void InitializeServices()
         {
             MgLogger.Log("Initializing services...");
             
-            var sceneLoader = ServiceLocator.Instance.GetService<ISceneLoader>();
+            _sceneLoader = Instantiate(_sceneLoader, transform);
+            _sceneLoader.Initialize();
             
-            if (sceneLoader != null)
-            {
-                MgLogger.Log("SceneLoader initialized successfully");
-            }
-            else
-            {
-                MgLogger.LogError("Failed to initialize SceneLoader");
-            }
-
             MgLogger.Log("Services initialized successfully");
         }
     }

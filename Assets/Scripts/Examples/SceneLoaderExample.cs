@@ -44,6 +44,7 @@ namespace Examples
         {
             try
             {
+                await _sceneLoader.UnloadSceneAsync("MainMenu");
                 await _sceneLoader.LoadSceneAsync("RopeDemo");
             }
             catch (System.Exception e)

@@ -10,7 +10,8 @@ namespace Services
     public class SceneLoader : MonoBehaviour, ISceneLoader
     {
         private const float MIN_LOADING_TIME = 1f;
-        private const string BOOTSTRAP_SCENE = "Bootstrap";
+        private const string BOOTSTRAP_SCENE = "Bootstrapper";
+        private const string MAIN_MENU_SCENE = "MainMenu";
         
         private SceneLoaderUI _loadingScreen;
         private bool _isLoading;
@@ -51,6 +52,42 @@ namespace Services
             }
 
             await LoadSceneInternal(sceneIndex, showLoadingScreen);
+        }
+        
+        public async UniTask UnloadSceneAsync(string sceneName, bool showLoadingScreen = true)
+        {
+            await UnloadSceneInternal(sceneName, showLoadingScreen);
+        }
+        
+        public async UniTask UnloadSceneAsync(int sceneIndex, bool showLoadingScreen = true)
+        {
+            await UnloadSceneInternal(sceneIndex, showLoadingScreen);
+        }
+        
+        private async UniTask UnloadSceneInternal(object sceneIdentifier, bool showLoadingScreen)
+        {
+            _isLoading = true;
+
+            if (showLoadingScreen)
+            {
+                ShowLoadingScreen();
+                await _loadingScreen.PlayExitAnimation();
+            }
+
+            var loadedScene = SceneManager.GetSceneByName(sceneIdentifier.ToString());
+
+            if (loadedScene.IsValid() && loadedScene.isLoaded)
+            {
+                await SceneManager.UnloadSceneAsync(loadedScene);
+            }
+
+            if (showLoadingScreen)
+            {
+                await _loadingScreen.PlayEnterAnimation();
+                HideLoadingScreen();
+            }
+
+            _isLoading = false;
         }
 
         private async UniTask LoadSceneInternal(object sceneIdentifier, bool showLoadingScreen)
@@ -155,9 +192,9 @@ namespace Services
 
         public void Initialize()
         {
-            if (!SceneManager.GetSceneByName(BOOTSTRAP_SCENE).IsValid())
+            if (!SceneManager.GetSceneByName(MAIN_MENU_SCENE).IsValid())
             {
-                SceneManager.LoadScene(BOOTSTRAP_SCENE, LoadSceneMode.Additive);
+                SceneManager.LoadScene(MAIN_MENU_SCENE, LoadSceneMode.Additive);
             }
         }
 
