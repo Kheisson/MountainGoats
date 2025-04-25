@@ -7,7 +7,7 @@ using UI;
 
 namespace Services
 {
-    public class SceneLoader : MonoBehaviour, ISceneLoader
+    public class SceneLoaderService : MonoBehaviour, ISceneLoader
     {
         private const float MIN_LOADING_TIME = 1f;
         private const string BOOTSTRAP_SCENE = "Bootstrapper";

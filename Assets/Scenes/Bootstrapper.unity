@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initializeInEditor: 1
-  _sceneLoader: {fileID: 6179821871983376729, guid: 42caafb5c604a46bb99dfd3096bfb109, type: 3}
+  sceneLoaderService: {fileID: 6179821871983376729, guid: 42caafb5c604a46bb99dfd3096bfb109, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

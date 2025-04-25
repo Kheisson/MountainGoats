@@ -1,12 +1,13 @@
 using Services;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Core
 {
     public class BootstrapManager : MonoBehaviour
     {
         [SerializeField] private bool initializeInEditor = false;
-        [SerializeField] private SceneLoader _sceneLoader;
+        [SerializeField] private SceneLoaderService sceneLoaderService;
         
         private void Awake()
         {
@@ -28,8 +29,8 @@ namespace Core
         {
             MgLogger.Log("Initializing services...");
             
-            _sceneLoader = Instantiate(_sceneLoader, transform);
-            _sceneLoader.Initialize();
+            sceneLoaderService = Instantiate(sceneLoaderService, transform);
+            sceneLoaderService.Initialize();
             
             MgLogger.Log("Services initialized successfully");
         }
