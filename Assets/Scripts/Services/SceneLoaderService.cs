@@ -7,15 +7,14 @@ using UI;
 
 namespace Services
 {
-    public class SceneLoaderService : MonoBehaviour, ISceneLoader
+    public class SceneLoaderService : MonoService, ISceneLoader
     {
         private const float MIN_LOADING_TIME = 1f;
-        private const string BOOTSTRAP_SCENE = "Bootstrapper";
-        private const string MAIN_MENU_SCENE = "MainMenu";
-        
         private SceneLoaderUI _loadingScreen;
         private bool _isLoading;
         
+        public override bool IsPersistent => true;
+
         public event Action<string> SceneLoadedEvent;
         public event Action<string> SceneUnloadedEvent;
 
@@ -111,8 +110,8 @@ namespace Services
 
             var asyncLoad = sceneIdentifier switch
             {
-                string sceneName => SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive),
-                int sceneIndex => SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive),
+                string sceneName => SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single),
+                int sceneIndex => SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Single),
                 _ => throw new ArgumentException("Invalid scene identifier type")
             };
 
@@ -176,7 +175,7 @@ namespace Services
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            if (scene.name != BOOTSTRAP_SCENE)
+            if (scene.name != ProjectConstants.Scenes.BOOTSTRAPPER)
             {
                 SceneLoadedEvent?.Invoke(scene.name);
             }
@@ -184,21 +183,21 @@ namespace Services
 
         private void OnSceneUnloaded(Scene scene)
         {
-            if (scene.name != BOOTSTRAP_SCENE)
+            if (scene.name != ProjectConstants.Scenes.BOOTSTRAPPER)
             {
                 SceneUnloadedEvent?.Invoke(scene.name);
             }
         }
 
-        public void Initialize()
+        public override void Initialize()
         {
-            if (!SceneManager.GetSceneByName(MAIN_MENU_SCENE).IsValid())
+            if (!SceneManager.GetSceneByName(ProjectConstants.Scenes.MAIN_MENU).IsValid())
             {
-                SceneManager.LoadScene(MAIN_MENU_SCENE, LoadSceneMode.Additive);
+                SceneManager.LoadScene(ProjectConstants.Scenes.MAIN_MENU, LoadSceneMode.Single);
             }
         }
 
-        public void Shutdown()
+        public override void Shutdown()
         {
         }
     }
