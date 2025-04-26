@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
         aimTransform.up = clampedAimDir;
         if (!isCast)
         {
-            hookController.transform.position = aimTransform.position + hookOffset;
+            hookController.transform.position = clampedAimDir * (aimRadiusDistance + hookOffset.magnitude);
         }
     }
     
