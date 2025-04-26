@@ -68,6 +68,8 @@ namespace Services
                 MgLogger.LogError($"Service for interface {interfaceType.Name} already registered", this);
                 return;
             }
+            
+            CheckAndPersistIfNeeded(service);
 
             MgLogger.Log($"Registered service as: {interfaceType.Name}", this);
         }
@@ -124,6 +126,16 @@ namespace Services
 
             MgLogger.LogWarning($"Service of type {serviceType.Name} not found", this);
             return null;
+        }
+        
+        private void CheckAndPersistIfNeeded(IService service)
+        {
+            if (service is not MonoService monoService) return;
+
+            if (!monoService.IsPersistent) return;
+            
+            monoService.transform.parent = transform;
+            MgLogger.Log($"Adding Persistent service of type {monoService.GetType().Name}", this);
         }
 
         private void OnDestroy()

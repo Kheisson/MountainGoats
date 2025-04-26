@@ -13,6 +13,8 @@ namespace Services
         private InputActionMap _playerActionMap;
         private InputAction _moveAction;
         private bool _isMoving;
+        
+        public override bool IsPersistent => false;
 
         public event System.Action<Vector2> OnMove;
 
