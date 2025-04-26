@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Cameras;
 using UnityEngine;
 using Services;
 using Core;
@@ -8,6 +9,7 @@ using Core;
 public class HookController : BaseMonoBehaviour
 {
     private IInputService _inputService;
+    private ICameraService _cameraService;
     private Rigidbody2D _rigidbody2D;
     
     [SerializeField] private Transform waterStartTransform;
@@ -20,7 +22,7 @@ public class HookController : BaseMonoBehaviour
     private bool isCast = false;
     private bool isInWater;
     
-    protected override HashSet<Type> RequiredServices => new() { typeof(IInputService) };
+    protected override HashSet<Type> RequiredServices => new() { typeof(IInputService), typeof(ICameraService) };
 
     protected override void Awake()
     {
@@ -31,6 +33,7 @@ public class HookController : BaseMonoBehaviour
     protected override void OnServicesInitialized()
     {
         _inputService = ServiceLocator.Instance.GetService<IInputService>();
+        _cameraService = ServiceLocator.Instance.GetService<ICameraService>();
         _inputService.OnMove += HandleInputMovement;
     }
 
@@ -48,6 +51,14 @@ public class HookController : BaseMonoBehaviour
             _rigidbody2D.linearVelocity = Vector2.zero;
             _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
             splashFX.gameObject.SetActive(true);
+            _cameraService?.SwitchCamera(ECamera.Hook, transform);
+        }
+        else if (transform.position.y > waterStartTransform.position.y && isInWater)
+        {
+            isInWater = false;
+            _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
+            splashFX.gameObject.SetActive(false);
+            _cameraService?.SwitchCamera(ECamera.Player);
         }
     }
 
@@ -69,6 +80,7 @@ public class HookController : BaseMonoBehaviour
         _rigidbody2D.gravityScale = airGravityScale;
         
         _rigidbody2D.AddForce(direction * hookCastPower * powerMultiplier, ForceMode2D.Impulse);
+        isCast = true;
     }
 
     private void HandleFall()
@@ -93,6 +105,7 @@ public class HookController : BaseMonoBehaviour
         isCast = false;
         isInWater = false;
         splashFX.gameObject.SetActive(false);
+        _cameraService?.SwitchCamera(ECamera.Player);
     }
 #endif
 }
