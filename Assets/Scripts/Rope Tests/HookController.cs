@@ -10,7 +10,6 @@ public class HookController : BaseMonoBehaviour
     private IInputService _inputService;
     private Rigidbody2D _rigidbody2D;
     
-    [SerializeField] private bool isInWater;
     [SerializeField] private Transform waterStartTransform;
     [SerializeField] private float hookCastPower = 4.5f;
     [SerializeField] private float airGravityScale = 5f;
@@ -19,6 +18,8 @@ public class HookController : BaseMonoBehaviour
     [SerializeField] private ParticleSystem splashFX;
     
     private bool isCast = false;
+    private bool isInWater;
+    
     protected override HashSet<Type> RequiredServices => new() { typeof(IInputService) };
 
     protected override void Awake()
@@ -60,14 +61,14 @@ public class HookController : BaseMonoBehaviour
         }
     }
     
-    public void CastHook(Vector2 direction)
+    public void CastHook(Vector2 direction, float powerMultiplier)
     {
         if (isCast) return;
         
         _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
         _rigidbody2D.gravityScale = airGravityScale;
         
-        _rigidbody2D.AddForce(direction * hookCastPower, ForceMode2D.Impulse);
+        _rigidbody2D.AddForce(direction * hookCastPower * powerMultiplier, ForceMode2D.Impulse);
     }
 
     private void HandleFall()
@@ -83,4 +84,15 @@ public class HookController : BaseMonoBehaviour
         var newX = _rigidbody2D.position.x + direction.x * horizontalSpeed * Time.deltaTime;
         _rigidbody2D.position = new Vector2(newX, _rigidbody2D.position.y);
     }
+    
+#if UNITY_EDITOR
+    public void CheatReset()
+    {
+        _rigidbody2D.linearVelocity = Vector2.zero;
+        _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
+        isCast = false;
+        isInWater = false;
+        splashFX.gameObject.SetActive(false);
+    }
+#endif
 }

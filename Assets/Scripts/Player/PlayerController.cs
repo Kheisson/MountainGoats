@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,14 +9,21 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float aimOffset = -90f;
     [SerializeField] private float aimRadiusDistance;
     [SerializeField] private HookController hookController;
+    [SerializeField] private GameObject powerBarHolder;
+    [SerializeField] private Image powerBar;
+    [SerializeField] private float powerThrowMaxSeconds = 2.25f;
+    [SerializeField] private float powerBarMaxMultiplier = 3.5f;
     
     private Camera mainCam;
     private Vector3 clampedAimDir;
     private bool isCast = false;
     private Vector3 hookOffset;
+    private float currentHoldTime = 0; 
     
     private void Awake()
     {
+        powerBarHolder.SetActive(false);
+        
         mainCam = Camera.main;
         hookOffset = hookController.transform.position - aimTransform.position;
     }
@@ -28,10 +36,31 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateCastHook()
     {
-        if (!isCast && Input.GetButton("Fire1"))
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            hookController.CastHook(clampedAimDir);
+            hookController.CheatReset();
+            isCast = false;
+            hookController.transform.position = clampedAimDir * (aimRadiusDistance + hookOffset.magnitude);
+        }
+#endif
+        
+        if (isCast) return;
+        
+        if (Input.GetButton("Fire1"))
+        {
+            powerBarHolder.SetActive(true);
+            
+            currentHoldTime += Time.deltaTime;
+            powerBar.fillAmount = currentHoldTime / powerThrowMaxSeconds;
+        }
+        else if (Input.GetButtonUp("Fire1"))
+        {
+            powerBarHolder.SetActive(false);
+            
+            currentHoldTime = 0;
             isCast = true;
+            hookController.CastHook(clampedAimDir, powerBar.fillAmount);
         }
     }
 

@@ -129,9 +129,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4239e2e81b824434ebb121c616a1d6b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isInWater: 0
   waterStartTransform: {fileID: 0}
-  hookCastPower: 15
+  hookCastPower: 20
   airGravityScale: 3.75
   waterFallSpeed: 2
   horizontalSpeed: 5
