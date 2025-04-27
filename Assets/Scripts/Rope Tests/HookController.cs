@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using Analytics;
 using Cameras;
 using UnityEngine;
 using Services;
 using Core;
+using GameInput;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class HookController : BaseMonoBehaviour
@@ -21,6 +23,7 @@ public class HookController : BaseMonoBehaviour
     
     private bool isCast = false;
     private bool isInWater;
+    private float _waterDepth;
     
     protected override HashSet<Type> RequiredServices => new() { typeof(IInputService), typeof(ICameraService) };
 
@@ -59,6 +62,7 @@ public class HookController : BaseMonoBehaviour
             _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
             splashFX.gameObject.SetActive(false);
             _cameraService?.SwitchCamera(ECamera.Player);
+            TrySendingDepthReachedEvent(_waterDepth);
         }
     }
 
@@ -85,8 +89,18 @@ public class HookController : BaseMonoBehaviour
 
     private void HandleFall()
     {
-        var newY = _rigidbody2D.position.y - waterFallSpeed * Time.deltaTime;
-        _rigidbody2D.position = new Vector2(_rigidbody2D.position.x, newY);
+        _waterDepth = _rigidbody2D.position.y - waterFallSpeed * Time.deltaTime;
+        _rigidbody2D.position = new Vector2(_rigidbody2D.position.x, _waterDepth);
+    }
+
+    private void TrySendingDepthReachedEvent(float newY)
+    {
+        // This is a placeholder for the actual event sending logic
+        var roundedY = Mathf.RoundToInt(newY / 10) * 10;
+        MgLogger.Log($"Sending event for Y: {Math.Abs(roundedY)}");
+        var depthReachedEvent = new DepthReachedEvent(Math.Abs(roundedY));
+        depthReachedEvent.TrySendEvent();
+        _waterDepth = 0;
     }
 
     private void HandleInputMovement(Vector2 direction)

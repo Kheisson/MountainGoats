@@ -1,5 +1,12 @@
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Services;
+using Unity.Services.Analytics;
+using Unity.Services.Core;
 using UnityEngine;
+using Analytics;
+using Scenes;
+using Storage;
 
 namespace Core
 {
@@ -8,7 +15,7 @@ namespace Core
         [SerializeField] private bool initializeInEditor = false;
         [SerializeField] private SceneLoaderService sceneLoaderService;
         
-        private void Awake()
+        private async UniTask Awake()
         {
             if (ServiceLocator.Instance == null)
             {
@@ -21,17 +28,40 @@ namespace Core
                 return;
             }
 
-            InitializeServices();
+            await InitializeServices();
         }
 
-        private void InitializeServices()
+        private async UniTask InitializeServices()
         {
             MgLogger.Log("Initializing services...");
+            
+            await InitializeUnityServices();
+            
+            var dataStorageService = new DataStorageService();
+            dataStorageService.Initialize();
+            ServiceLocator.Instance.RegisterService<IDataStorageService>(dataStorageService);
+            
+            var analyticsService = new UnityGameAnalyticsService();
+            analyticsService.Initialize();
+            ServiceLocator.Instance.RegisterService<IGameAnalyticsService>(analyticsService);
             
             sceneLoaderService = Instantiate(sceneLoaderService, transform);
             sceneLoaderService.Initialize();
             
             MgLogger.Log("Services initialized successfully");
+        }
+
+        private async UniTask InitializeUnityServices()
+        {
+            var awaiter = UnityServices.InitializeAsync().GetAwaiter();
+            
+            while (!awaiter.IsCompleted)
+            {
+                await UniTask.Yield();
+            }
+            
+            MgLogger.Log("Unity services initialized successfully");
+            awaiter.GetResult();
         }
     }
 } 

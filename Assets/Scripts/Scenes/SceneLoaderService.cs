@@ -1,11 +1,12 @@
 using System;
+using Core;
 using Cysharp.Threading.Tasks;
+using Services;
+using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Core;
-using UI;
 
-namespace Services
+namespace Scenes
 {
     public class SceneLoaderService : MonoService, ISceneLoader
     {

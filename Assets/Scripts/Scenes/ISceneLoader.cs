@@ -1,7 +1,8 @@
 using System;
 using Cysharp.Threading.Tasks;
+using Services;
 
-namespace Services
+namespace Scenes
 {
     public interface ISceneLoader : IService
     {

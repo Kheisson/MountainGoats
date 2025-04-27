@@ -2,6 +2,7 @@ using UnityEngine;
 using Services;
 using Core;
 using Cysharp.Threading.Tasks;
+using Scenes;
 
 namespace Examples
 {
