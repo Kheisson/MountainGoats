@@ -120,6 +120,7 @@ public class HookController : BaseMonoBehaviour
         isInWater = false;
         splashFX.gameObject.SetActive(false);
         _cameraService?.SwitchCamera(ECamera.Player);
+        TrySendingDepthReachedEvent(_waterDepth);
     }
 #endif
 }
