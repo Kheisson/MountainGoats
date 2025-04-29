@@ -1,7 +1,8 @@
 using System;
+using Services;
 using UnityEngine;
 
-namespace Services
+namespace GameInput
 {
     public interface IInputService : IService
     {

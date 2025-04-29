@@ -1,8 +1,9 @@
 using Core;
+using Services;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Services
+namespace GameInput
 {
     public class UnityInputService : MonoService, IInputService
     {
