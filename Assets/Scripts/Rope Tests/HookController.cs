@@ -62,7 +62,6 @@ public class HookController : BaseMonoBehaviour
             _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
             splashFX.gameObject.SetActive(false);
             _cameraService?.SwitchCamera(ECamera.Player);
-            TrySendingDepthReachedEvent(_waterDepth);
         }
     }
 
@@ -120,7 +119,6 @@ public class HookController : BaseMonoBehaviour
         isInWater = false;
         splashFX.gameObject.SetActive(false);
         _cameraService?.SwitchCamera(ECamera.Player);
-        TrySendingDepthReachedEvent(_waterDepth);
     }
 #endif
 }
