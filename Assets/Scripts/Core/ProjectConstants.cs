@@ -2,6 +2,12 @@ namespace Core
 {
     public static class ProjectConstants
     {
+        public class Global
+        {
+            public const string PROJECT_NAME = "MgGame";
+
+        }
+        
         public class Scenes
         {
             public const string BOOTSTRAPPER = "Bootstrapper";
