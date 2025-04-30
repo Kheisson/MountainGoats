@@ -48,10 +48,6 @@ public class HookController : BaseMonoBehaviour
         {
             HandleFall();
         }
-        else if (transform.position.y <= waterStartTransform.position.y)
-        {
-
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)

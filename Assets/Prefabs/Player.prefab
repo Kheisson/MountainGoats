@@ -382,7 +382,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aimTransform: {fileID: 6397603851554156434}
-  aimAngleRange: 90
+  aimAngleRange: 160
   aimRadiusDistance: 2.5
   hookController: {fileID: 0}
   fishingRodController: {fileID: 234606682788764238}
