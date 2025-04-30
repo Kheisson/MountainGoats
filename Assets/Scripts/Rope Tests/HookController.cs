@@ -47,19 +47,19 @@ public class HookController : BaseMonoBehaviour
         }
         else if (transform.position.y <= waterStartTransform.position.y)
         {
-            isInWater = true;
-            _rigidbody2D.linearVelocity = Vector2.zero;
-            _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
-            splashFX.gameObject.SetActive(true);
-            _cameraService?.SwitchCamera(ECamera.Hook, transform);
+
         }
-        else if (transform.position.y > waterStartTransform.position.y && isInWater)
-        {
-            isInWater = false;
-            _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
-            splashFX.gameObject.SetActive(false);
-            _cameraService?.SwitchCamera(ECamera.Player);
-        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!other.CompareTag("Water")) return;
+        
+        isInWater = true;
+        _rigidbody2D.linearVelocity = Vector2.zero;
+        _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
+        splashFX.gameObject.SetActive(true);
+        _cameraService?.SwitchCamera(ECamera.Hook, transform);
     }
 
     protected override void OnDestroy()
@@ -98,10 +98,11 @@ public class HookController : BaseMonoBehaviour
     }
     
 #if UNITY_EDITOR
-    public void CheatReset()
+    public void CheatReset(Vector3 resetPos)
     {
         _rigidbody2D.linearVelocity = Vector2.zero;
         _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
+        _rigidbody2D.position = resetPos; // without it, it has a race condition with the FixedUpdate for the physics calculationss
         isCast = false;
         isInWater = false;
         splashFX.gameObject.SetActive(false);

@@ -8,7 +8,6 @@ public class RopeSimulator2D : MonoBehaviour
     public Transform origin;
     public Transform hook;
     public float segmentLength = 0.15f;
-    public float ropeLengthLimit = 20f;
     public int constraintIterations = 6;
     public float gravity = -9.81f;
     public float baseDrag = 0.075f;
@@ -21,6 +20,8 @@ public class RopeSimulator2D : MonoBehaviour
 
     private LineRenderer lineRenderer;
     private List<RopeSegment> segments;
+
+    public bool SimulationPlaying { get; set; } = true;
 
     void Awake()
     {
@@ -37,6 +38,8 @@ public class RopeSimulator2D : MonoBehaviour
 
     void Update()
     {
+        if (!SimulationPlaying) return;
+        
         GrowRopeIfNeeded();
         Simulate();
         ApplyConstraints();
@@ -45,12 +48,12 @@ public class RopeSimulator2D : MonoBehaviour
 
     void GrowRopeIfNeeded()
     {
-        float verticalDistance = Mathf.Abs(origin.position.y - hook.position.y);
-        float growThreshold = totalRopeLength + segmentLength * growThresholdFactor;
+        var verticalDistance = Mathf.Abs(origin.position.y - hook.position.y);
+        var growThreshold = totalRopeLength + segmentLength * growThresholdFactor;
 
         if (verticalDistance > growThreshold)
         {
-            RopeSegment last = segments[segments.Count - 1];
+            RopeSegment last = segments[^1];
             Vector2 dir = ((Vector2)hook.position - last.posNow).normalized;
             Vector2 newPos = last.posNow + dir * segmentLength;
 
@@ -62,8 +65,8 @@ public class RopeSimulator2D : MonoBehaviour
             lineRenderer.positionCount = segments.Count;
             totalRopeLength += segmentLength;
 
-            RopeSegment segA = segments[segments.Count - 2];
-            RopeSegment segB = segments[segments.Count - 1];
+            RopeSegment segA = segments[^2];
+            RopeSegment segB = segments[^1];
 
             float dist = (segA.posNow - segB.posNow).magnitude;
             float error = dist - segmentLength;
@@ -73,8 +76,8 @@ public class RopeSimulator2D : MonoBehaviour
             segA.posNow -= change * 0.5f;
             segB.posNow += change * 0.5f;
 
-            segments[segments.Count - 2] = segA;
-            segments[segments.Count - 1] = segB;
+            segments[^2] = segA;
+            segments[^1] = segB;
 
             if (segments.Count > maxPinnedSegments && pinIndex < segments.Count - 2)
             {
@@ -89,17 +92,17 @@ public class RopeSimulator2D : MonoBehaviour
 
     void Simulate()
     {
-        for (int i = 1; i < segments.Count; i++)
+        for (var i = 1; i < segments.Count; i++)
         {
-            RopeSegment seg = segments[i];
+            var seg = segments[i];
 
-            Vector2 velocity = seg.posNow - seg.posOld;
-            float dragFactor = Mathf.Lerp(1f - baseDrag, 1f, (float)i / (segments.Count - 1));
+            var velocity = seg.posNow - seg.posOld;
+            var dragFactor = Mathf.Lerp(1f - baseDrag, 1f, (float)i / (segments.Count - 1));
             velocity *= dragFactor;
 
             seg.posOld = seg.posNow;
             seg.posNow += velocity;
-            seg.posNow += Vector2.up * gravity * Time.deltaTime * Time.deltaTime;
+            seg.posNow += Vector2.up * (gravity * Time.deltaTime * Time.deltaTime);
 
             segments[i] = seg;
         }
@@ -107,13 +110,14 @@ public class RopeSimulator2D : MonoBehaviour
 
     void ApplyConstraints()
     {
-        RopeSegment pin = segments[pinIndex];
+        var pin = segments[pinIndex];
         pin.posNow = origin.position;
         segments[pinIndex] = pin;
 
-        for (int k = 0; k < constraintIterations; k++)
+        for (var k = 0; k < constraintIterations; k++)
         {
-            for (int i = 0; i < segments.Count - 1; i++)
+            var i = 0;
+            for (; i < segments.Count - 1; i++)
             {
                 RopeSegment segA = segments[i];
                 RopeSegment segB = segments[i + 1];
@@ -133,20 +137,48 @@ public class RopeSimulator2D : MonoBehaviour
             }
 
             // Rope end tries to stay locked to the hook position
-            RopeSegment tail = segments[segments.Count - 1];
+            RopeSegment tail = segments[^1];
             tail.posNow = Vector2.Lerp(tail.posNow, (Vector2)hook.position, 0.85f); // tight follow
-            segments[segments.Count - 1] = tail;
+            segments[^1] = tail;
 
 
         }
     }
 
-    void DrawRope()
+    private void DrawRope()
     {
-        for (int i = 0; i < segments.Count; i++)
+        for (var i = 0; i < segments.Count; i++)
         {
             lineRenderer.SetPosition(i, segments[i].posNow);
         }
+    }
+    
+    public void ResetRope()
+    {
+        // Clear the current rope segments and reset variables
+        segments.Clear();
+        pinIndex = 0;
+        totalRopeLength = 0f;
+
+        // Initialize the first two segments
+        Vector2 startPoint = origin.position;
+        segments.Add(new RopeSegment(startPoint));
+        segments.Add(new RopeSegment(startPoint - Vector2.up * segmentLength));
+
+        // Reset the line renderer to match the number of segments
+        lineRenderer.positionCount = segments.Count;
+
+        // Reset the rope length and other properties
+        totalRopeLength = segments.Count * segmentLength;
+
+        // Optionally reset the origin and hook positions
+        origin.position = startPoint;
+
+        // You can also set any additional properties to their initial values
+        // If you have gravity, baseDrag, or other variables that need resetting, do that here too.
+        SimulationPlaying = false; // If you want the simulation to restart automatically.
+    
+        Debug.Log("Rope has been reset.");
     }
 
     private struct RopeSegment

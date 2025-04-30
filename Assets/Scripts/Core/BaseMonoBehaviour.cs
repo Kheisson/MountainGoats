@@ -12,10 +12,14 @@ namespace Core
         protected bool _isInitialized;
         private CancellationTokenSource _cancellationTokenSource;
         
-        protected abstract HashSet<Type> RequiredServices { get; }
+        protected virtual HashSet<Type> RequiredServices { get; }
+        protected virtual void OnServicesInitialized() { }
 
+        protected Camera MainCamera;
+        
         protected virtual async void Awake()
         {
+            MainCamera = Camera.main;
             _cancellationTokenSource = new CancellationTokenSource();
             await InitializeServicesAsync(_cancellationTokenSource.Token);
         }
@@ -45,9 +49,6 @@ namespace Core
                 await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken);
             }
         }
-
-        protected abstract void OnServicesInitialized();
-
         protected virtual void OnDestroy()
         {
             _cancellationTokenSource?.Cancel();
