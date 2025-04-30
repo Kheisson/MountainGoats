@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6077062668196778491}
   - component: {fileID: 919100748418828672}
+  - component: {fileID: 3819699247357872440}
   - component: {fileID: 3673262514256410712}
   - component: {fileID: 7788074497178503895}
   m_Layer: 0
@@ -90,6 +91,52 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!61 &3819699247357872440
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617414723189047832}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0.21133333}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.28866667}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!50 &3673262514256410712
 Rigidbody2D:
   serializedVersion: 5
@@ -143,18 +190,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6077062668196778491}
     m_Modifications:
-    - target: {fileID: 1918306189224579412, guid: 39edf877f1721a144ba069a180950623, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.11488595
-      objectReference: {fileID: 0}
-    - target: {fileID: 1918306189224579412, guid: 39edf877f1721a144ba069a180950623, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.2848471
-      objectReference: {fileID: 0}
-    - target: {fileID: 1918306189224579412, guid: 39edf877f1721a144ba069a180950623, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -3.096265
-      objectReference: {fileID: 0}
     - target: {fileID: 1918306189224579412, guid: 39edf877f1721a144ba069a180950623, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.7071068
