@@ -5,7 +5,6 @@ using UnityEngine;
 public class RopeSimulator2D : MonoBehaviour
 {
     [Header("Rope Settings")]
-    public Transform origin;
     public Transform hook;
     public float segmentLength = 0.15f;
     public int constraintIterations = 6;
@@ -20,25 +19,19 @@ public class RopeSimulator2D : MonoBehaviour
 
     private LineRenderer lineRenderer;
     private List<RopeSegment> segments;
-
-    public bool SimulationPlaying { get; set; } = true;
+    
+    private bool simulationPlaying = false;
+    private Vector2 headOrigin;
 
     void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
         segments = new List<RopeSegment>();
-
-        Vector2 startPoint = origin.position;
-        segments.Add(new RopeSegment(startPoint));
-        segments.Add(new RopeSegment(startPoint - Vector2.up * segmentLength));
-
-        lineRenderer.positionCount = segments.Count;
-        totalRopeLength = segments.Count * segmentLength;
     }
 
     void Update()
     {
-        if (!SimulationPlaying) return;
+        if (!simulationPlaying) return;
         
         GrowRopeIfNeeded();
         Simulate();
@@ -46,9 +39,21 @@ public class RopeSimulator2D : MonoBehaviour
         DrawRope();
     }
 
+    public void StartSimulation(Vector2 newStartPos)
+    {
+        headOrigin = newStartPos;
+        segments.Add(new RopeSegment(headOrigin));
+        segments.Add(new RopeSegment(headOrigin - Vector2.up * segmentLength));
+
+        lineRenderer.positionCount = segments.Count;
+        totalRopeLength = segments.Count * segmentLength;
+
+        simulationPlaying = true;
+    }
+    
     void GrowRopeIfNeeded()
     {
-        var verticalDistance = Mathf.Abs(origin.position.y - hook.position.y);
+        var verticalDistance = Mathf.Abs(headOrigin.y - hook.position.y);
         var growThreshold = totalRopeLength + segmentLength * growThresholdFactor;
 
         if (verticalDistance > growThreshold)
@@ -82,7 +87,7 @@ public class RopeSimulator2D : MonoBehaviour
             if (segments.Count > maxPinnedSegments && pinIndex < segments.Count - 2)
             {
                 pinIndex++;
-                origin.position = segments[pinIndex].posNow;
+                headOrigin = segments[pinIndex].posNow;
                 segments.RemoveRange(0, pinIndex);
                 pinIndex = 0;
                 lineRenderer.positionCount = segments.Count;
@@ -111,7 +116,7 @@ public class RopeSimulator2D : MonoBehaviour
     void ApplyConstraints()
     {
         var pin = segments[pinIndex];
-        pin.posNow = origin.position;
+        pin.posNow = headOrigin;
         segments[pinIndex] = pin;
 
         for (var k = 0; k < constraintIterations; k++)
@@ -155,28 +160,12 @@ public class RopeSimulator2D : MonoBehaviour
     
     public void ResetRope()
     {
-        // Clear the current rope segments and reset variables
         segments.Clear();
         pinIndex = 0;
         totalRopeLength = 0f;
-
-        // Initialize the first two segments
-        Vector2 startPoint = origin.position;
-        segments.Add(new RopeSegment(startPoint));
-        segments.Add(new RopeSegment(startPoint - Vector2.up * segmentLength));
-
-        // Reset the line renderer to match the number of segments
         lineRenderer.positionCount = segments.Count;
 
-        // Reset the rope length and other properties
-        totalRopeLength = segments.Count * segmentLength;
-
-        // Optionally reset the origin and hook positions
-        origin.position = startPoint;
-
-        // You can also set any additional properties to their initial values
-        // If you have gravity, baseDrag, or other variables that need resetting, do that here too.
-        SimulationPlaying = false; // If you want the simulation to restart automatically.
+        simulationPlaying = false;
     
         Debug.Log("Rope has been reset.");
     }
