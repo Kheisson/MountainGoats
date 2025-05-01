@@ -106,8 +106,7 @@ public class HookController : BaseMonoBehaviour
         _rigidbody2D.position = new Vector2(newX, _rigidbody2D.position.y);
     }
     
-#if UNITY_EDITOR
-    public void CheatReset(Vector3 resetPos)
+    public void ResetHook(Vector3 resetPos)
     {
         _rigidbody2D.linearVelocity = Vector2.zero;
         _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
@@ -117,5 +116,4 @@ public class HookController : BaseMonoBehaviour
         splashFX.gameObject.SetActive(false);
         _cameraService?.SwitchCamera(ECamera.Player);
     }
-#endif
 }
