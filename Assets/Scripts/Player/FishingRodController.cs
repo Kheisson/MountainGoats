@@ -6,7 +6,7 @@ public class FishingRodController : BaseMonoBehaviour
 {
     [SerializeField] private FishingRodGameObject[] fishingRodViewStates;
     
-    private int currentIndex = -1;
+    private int currentIndex = 0;
     public Transform CurrentActiveHookPivot => fishingRodViewStates[currentIndex].HookPivot;
     
     public bool TrySetFishingRodStateAccordingToAngle(float normalizedCurrentAngle)

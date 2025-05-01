@@ -368,7 +368,6 @@ MonoBehaviour:
     pupilMoveAmount: 0.25
     eyeSmoothSpeed: 8
     pupilSmoothSpeed: 2.75
-  target: {fileID: 0}
 --- !u!114 &7608021396388370812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -384,13 +383,14 @@ MonoBehaviour:
   aimTransform: {fileID: 6397603851554156434}
   aimAngleRange: 160
   aimRadiusDistance: 2.5
-  hookController: {fileID: 0}
-  fishingRodController: {fileID: 234606682788764238}
-  ropeSimulator2D: {fileID: 6184816767885258098}
   powerBarHolder: {fileID: 5834851316341236824}
   powerBar: {fileID: 7967844529778785376}
   powerThrowMaxSeconds: 1.25
   powerBarMaxMultiplier: 20
+  hookController: {fileID: 0}
+  fishingRodController: {fileID: 234606682788764238}
+  ropeSimulator2D: {fileID: 6184816767885258098}
+  eyesFollowController: {fileID: 8552831880361962019}
 --- !u!1 &2499217191160564527
 GameObject:
   m_ObjectHideFlags: 0

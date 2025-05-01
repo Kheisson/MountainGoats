@@ -4,26 +4,28 @@ using UnityEngine.UI;
 
 public class PlayerController : BaseMonoBehaviour
 {
+    [Header("Aim")]
     [SerializeField] private Transform aimTransform;
     [SerializeField] private float aimAngleRange = 60f;
     [SerializeField] private float aimRadiusDistance;
-    [SerializeField] private HookController hookController;
-    [SerializeField] private FishingRodController fishingRodController;
-    [SerializeField] private RopeSimulator2D ropeSimulator2D;
     [SerializeField] private GameObject powerBarHolder;
+    [Header("Power Bar")]
     [SerializeField] private Image powerBar;
     [SerializeField] private float powerThrowMaxSeconds = 2.25f;
     [SerializeField] private float powerBarMaxMultiplier = 3.5f;
+    [Header("Controllers")]
+    [SerializeField] private HookController hookController;
+    [SerializeField] private FishingRodController fishingRodController;
+    [SerializeField] private RopeSimulator2D ropeSimulator2D;
+    [SerializeField] private EyesFollowController eyesFollowController;
     
     private Vector3 clampedAimDir;
     private bool isCast = false;
     private float currentHoldTime = 0;
     
-    protected override void Awake()
+    protected void Start()
     {
-        base.Awake();
-        
-        powerBarHolder.SetActive(false);
+        ResetCasting();
     }
 
     protected void Update()
@@ -31,9 +33,7 @@ public class PlayerController : BaseMonoBehaviour
 #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.R))
         {
-            hookController.CheatReset(fishingRodController.CurrentActiveHookPivot.position);
-            ropeSimulator2D.ResetRope();
-            isCast = false;
+            ResetCasting();
         }
 #endif
 
@@ -48,8 +48,7 @@ public class PlayerController : BaseMonoBehaviour
 
         ThrowFunctionalityAimAndReleaseToThrow();
     }
-
-    // Option A - Aim and release to throw
+    
     private void ThrowFunctionalityAimAndReleaseToThrow()
     {
         if (Input.GetButton("Fire1"))
@@ -61,13 +60,19 @@ public class PlayerController : BaseMonoBehaviour
         }
         else if (Input.GetButtonUp("Fire1"))
         {
-            powerBarHolder.SetActive(false);
-            
-            currentHoldTime = 0;
-            isCast = true;
-            hookController.CastHook(clampedAimDir, powerBar.fillAmount);
-            ropeSimulator2D.StartSimulation(fishingRodController.CurrentActiveHookPivot.position);
+            CastHook();
         }
+    }
+
+    private void CastHook()
+    {
+        powerBarHolder.SetActive(false);
+        
+        currentHoldTime = 0;
+        isCast = true;
+        hookController.CastHook(clampedAimDir, powerBar.fillAmount);
+        ropeSimulator2D.StartSimulation(fishingRodController.CurrentActiveHookPivot.position);
+        eyesFollowController.Target = hookController.transform;
     }
 
     private void UpdateAimThrowPosition()
@@ -97,7 +102,17 @@ public class PlayerController : BaseMonoBehaviour
         aimTransform.position = transform.position + clampedAimDir * aimRadiusDistance;
         aimTransform.up = clampedAimDir;
     }
-    
+
+    private void ResetCasting()
+    {
+        eyesFollowController.Target = aimTransform;
+        hookController.ResetHook(fishingRodController.CurrentActiveHookPivot.position);
+        ropeSimulator2D.ResetRope();
+        powerBarHolder.SetActive(false);
+        isCast = false;
+    }
+
+    #region Gizmos
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
@@ -138,4 +153,6 @@ public class PlayerController : BaseMonoBehaviour
             prevPoint = newPoint;
         }
     }
+
+    #endregion
 }
