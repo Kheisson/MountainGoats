@@ -8,12 +8,13 @@ public class PlayerController : BaseMonoBehaviour
     [SerializeField] private Transform aimTransform;
     [SerializeField] private float aimAngleRange = 60f;
     [SerializeField] private float aimRadiusDistance;
-    [SerializeField] private GameObject powerBarHolder;
     [Header("Power Bar")]
+    [SerializeField] private GameObject powerBarHolder;
     [SerializeField] private Image powerBar;
     [SerializeField] private float powerThrowMaxSeconds = 2.25f;
     [SerializeField] private float powerBarMaxMultiplier = 3.5f;
     [Header("Controllers")]
+    [SerializeField] private PlayerAnimationsController playerAnimationsController;
     [SerializeField] private HookController hookController;
     [SerializeField] private FishingRodController fishingRodController;
     [SerializeField] private RopeSimulator2D ropeSimulator2D;
@@ -22,6 +23,8 @@ public class PlayerController : BaseMonoBehaviour
     private Vector3 clampedAimDir;
     private bool isCast = false;
     private float currentHoldTime = 0;
+
+    private float CurrentPowerNormalized => currentHoldTime / powerThrowMaxSeconds;
     
     protected void Start()
     {
@@ -56,11 +59,18 @@ public class PlayerController : BaseMonoBehaviour
             powerBarHolder.SetActive(true);
             
             currentHoldTime += Time.deltaTime;
-            powerBar.fillAmount = currentHoldTime / powerThrowMaxSeconds;
+            powerBar.fillAmount = CurrentPowerNormalized;
         }
         else if (Input.GetButtonUp("Fire1"))
         {
-            CastHook();
+            var aimSideSign = Mathf.Sign(aimTransform.position.x - transform.position.x);
+            var isAimingLeft = aimSideSign < 0;
+            playerAnimationsController.PlayHookCastAnimationSequence(
+                fishingRodController.CurrentActiveRodHolder,
+                fishingRodController.CurrentActiveRodPivot,
+                isAimingLeft,
+                CurrentPowerNormalized,
+                CastHook);
         }
     }
 
@@ -105,6 +115,7 @@ public class PlayerController : BaseMonoBehaviour
 
     private void ResetCasting()
     {
+        playerAnimationsController.Reset();
         eyesFollowController.Target = aimTransform;
         hookController.ResetHook(fishingRodController.CurrentActiveHookPivot.position);
         ropeSimulator2D.ResetRope();
