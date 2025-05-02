@@ -40,7 +40,7 @@ public class HookController : BaseMonoBehaviour
         _inputService.OnMove += HandleInputMovement;
     }
 
-    protected void Update()
+    protected void FixedUpdate()
     {
         if (!_isInitialized) return;
         
