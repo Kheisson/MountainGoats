@@ -153,7 +153,7 @@ namespace Services
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError($"Error shutting down service {service.GetType().Name}: {e.Message}");
+                    MgLogger.LogError($"Error shutting down service {service.GetType().Name}: {e.Message}");
                 }
             }
             

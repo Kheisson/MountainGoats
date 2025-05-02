@@ -11,8 +11,8 @@ namespace Core
     {
         protected bool _isInitialized;
         private CancellationTokenSource _cancellationTokenSource;
-        
-        protected virtual HashSet<Type> RequiredServices { get; }
+
+        protected virtual HashSet<Type> RequiredServices { get; } = new();
         protected virtual void OnServicesInitialized() { }
 
         protected Camera MainCamera;
