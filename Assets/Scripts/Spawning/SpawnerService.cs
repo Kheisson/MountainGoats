@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 namespace Spawning
 {
-    public class GarbageSpawner : MonoService, IGarbageSpawner
+    public class SpawnerService : MonoService, ISpawnerService
     {
         [SerializeField]
         private LevelsConfigurationData levelsConfiguration;

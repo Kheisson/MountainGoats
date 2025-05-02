@@ -2,7 +2,7 @@ using Services;
 
 namespace Spawning
 {
-    public interface IGarbageSpawner : IService
+    public interface ISpawnerService : IService
     {
         void SpawnInitialGarbage();
 

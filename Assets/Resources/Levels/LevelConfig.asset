@@ -10,27 +10,32 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55d3869b4c21453092279077ae981e07, type: 3}
-  m_Name: New Depth Configuration Data
+  m_Name: LevelConfig
   m_EditorClassIdentifier: 
-  depthPerLevel: 5
-  levelsData:
+  <DepthPerLevel>k__BackingField: 5
+  <Levels>k__BackingField:
   - <SpawnableItems>k__BackingField:
     - {fileID: 11400000, guid: 1967058fd4a0449769a494130b5399b0, type: 2}
-    minItemsForLevel: 1
-    maxItemsForLevel: 2
+    <MinItemsForLevel>k__BackingField: 1
+    <MaxItemsForLevel>k__BackingField: 5
+    <HorizontalRange>k__BackingField: 25
   - <SpawnableItems>k__BackingField:
     - {fileID: 11400000, guid: 1967058fd4a0449769a494130b5399b0, type: 2}
-    minItemsForLevel: 1
-    maxItemsForLevel: 2
+    <MinItemsForLevel>k__BackingField: 1
+    <MaxItemsForLevel>k__BackingField: 5
+    <HorizontalRange>k__BackingField: 25
   - <SpawnableItems>k__BackingField:
     - {fileID: 11400000, guid: 1967058fd4a0449769a494130b5399b0, type: 2}
-    minItemsForLevel: 1
-    maxItemsForLevel: 2
+    <MinItemsForLevel>k__BackingField: 1
+    <MaxItemsForLevel>k__BackingField: 5
+    <HorizontalRange>k__BackingField: 25
   - <SpawnableItems>k__BackingField:
     - {fileID: 11400000, guid: 1967058fd4a0449769a494130b5399b0, type: 2}
-    minItemsForLevel: 1
-    maxItemsForLevel: 2
+    <MinItemsForLevel>k__BackingField: 1
+    <MaxItemsForLevel>k__BackingField: 5
+    <HorizontalRange>k__BackingField: 25
   - <SpawnableItems>k__BackingField:
     - {fileID: 11400000, guid: 1967058fd4a0449769a494130b5399b0, type: 2}
-    minItemsForLevel: 1
-    maxItemsForLevel: 2
+    <MinItemsForLevel>k__BackingField: 1
+    <MaxItemsForLevel>k__BackingField: 5
+    <HorizontalRange>k__BackingField: 25
