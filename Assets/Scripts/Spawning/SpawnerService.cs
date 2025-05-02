@@ -44,5 +44,17 @@ namespace Spawning
                 Instantiate(prefabToSpawn, new Vector2(spawnPositionX, spawnPositionY), quaternion.identity);
             }
         }
+        
+        protected void Awake()
+        {
+            ServiceLocator.Instance.RegisterService<ISpawnerService>(this);
+            Initialize();
+        }
+        
+        protected void OnDestroy()
+        {
+            Shutdown();
+            ServiceLocator.Instance?.UnregisterService<ISpawnerService>();
+        }
     }
 }

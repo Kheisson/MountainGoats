@@ -3,6 +3,7 @@ using Services;
 using Unity.Services.Core;
 using UnityEngine;
 using Analytics;
+using EventsSystem;
 using Scenes;
 using Storage;
 
@@ -45,6 +46,10 @@ namespace Core
             
             sceneLoaderService = Instantiate(sceneLoaderService, transform);
             sceneLoaderService.Initialize();
+
+            var eventsSystemService = new EventsSystemService();
+            eventsSystemService.Initialize();
+            ServiceLocator.Instance.RegisterService<IEventsSystemService>(eventsSystemService);
             
             MgLogger.Log("Services initialized successfully");
         }

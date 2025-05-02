@@ -14,5 +14,11 @@ namespace Core
             public const string MAIN_MENU = "MainMenu";
             public const string GAME = "RopeDemo";
         }
+        
+        public class Events
+        {
+            public const string PLAY_STARTED = "play_started";
+            public const string PLAY_ENDED = "play_ended";
+        }
     }
 }

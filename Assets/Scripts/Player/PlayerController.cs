@@ -1,4 +1,8 @@
+using System;
+using System.Collections.Generic;
 using Core;
+using EventsSystem;
+using Services;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,12 +22,20 @@ public class PlayerController : BaseMonoBehaviour
     private Vector3 clampedAimDir;
     private bool isCast = false;
     private float currentHoldTime = 0;
-    
+    private IEventsSystemService eventsSystemService;
+
     protected override void Awake()
     {
         base.Awake();
         
         powerBarHolder.SetActive(false);
+    }
+
+    protected override HashSet<Type> RequiredServices => new HashSet<Type>() {typeof(IEventsSystemService)};
+    
+    protected override void OnServicesInitialized()
+    {
+        eventsSystemService = ServiceLocator.Instance.GetService<IEventsSystemService>();
     }
 
     protected void Update()
@@ -33,6 +45,7 @@ public class PlayerController : BaseMonoBehaviour
         {
             hookController.CheatReset(fishingRodController.CurrentActiveHookPivot.position);
             ropeSimulator2D.ResetRope();
+            eventsSystemService?.Publish(ProjectConstants.Events.PLAY_ENDED);
             isCast = false;
         }
 #endif
@@ -67,6 +80,7 @@ public class PlayerController : BaseMonoBehaviour
             isCast = true;
             hookController.CastHook(clampedAimDir, powerBar.fillAmount);
             ropeSimulator2D.StartSimulation(fishingRodController.CurrentActiveHookPivot.position);
+            eventsSystemService?.Publish(ProjectConstants.Events.PLAY_STARTED);
         }
     }
 

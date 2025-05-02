@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Core;
 using Cysharp.Threading.Tasks;
+using EventsSystem;
 using Services;
 using Spawning;
 
@@ -10,28 +11,41 @@ namespace GameManagement
     public class GameManager : BaseMonoBehaviour
     {
         private ISpawnerService _spawnerService;
-        private EGameState _gameState;
+        private IEventsSystemService _eventsSystemService;
+        private IDisposable _playStartedSubscription;
+        private IDisposable _playEndedSubscription;
 
-        protected override HashSet<Type> RequiredServices { get; } = new HashSet<Type>()
+        protected override HashSet<Type> RequiredServices => new HashSet<Type>()
         {
-            typeof(ISpawnerService)
+            typeof(ISpawnerService),
+            typeof(IEventsSystemService)
         };
 
         protected override void OnServicesInitialized()
         {
             _spawnerService = ServiceLocator.Instance.GetService<ISpawnerService>();
-        }
-
-        private async void Start()
-        {
-            _gameState = EGameState.Idle;
-            await UniTask.WaitUntil(() => _isInitialized);
+            _eventsSystemService = ServiceLocator.Instance.GetService<IEventsSystemService>();
+            
+            _playStartedSubscription = _eventsSystemService.Subscribe(ProjectConstants.Events.PLAY_STARTED, OnPlayStarted);
+            _playEndedSubscription = _eventsSystemService.Subscribe(ProjectConstants.Events.PLAY_ENDED, OnPlayEnded);
+            
             _spawnerService.SpawnInitialGarbage();
         }
 
-        private void OnEnable()
+        protected override void OnDestroy()
         {
-            
+            base.OnDestroy();
+            _playStartedSubscription?.Dispose();
+            _playEndedSubscription?.Dispose();
+        }
+
+        private void OnPlayStarted()
+        {
+        }
+        
+        private void OnPlayEnded()
+        {
+            _spawnerService.RefillGarbage();
         }
     }
 }
