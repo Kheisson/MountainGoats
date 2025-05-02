@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using System;
+using Core;
 
 namespace Storage
 {
@@ -43,7 +44,7 @@ namespace Storage
             }
             catch (Exception e)
             {
-                Debug.LogError($"Failed to save data: {e.Message}");
+                MgLogger.LogError($"Failed to save data: {e.Message}");
             }
         }
 
@@ -57,7 +58,7 @@ namespace Storage
             }
             catch (Exception e)
             {
-                Debug.LogError($"Failed to load data: {e.Message}");
+                MgLogger.LogError($"Failed to load data: {e.Message}");
                 return new T();
             }
         }
@@ -71,7 +72,7 @@ namespace Storage
             }
             catch (Exception e)
             {
-                Debug.LogError($"Failed to load game data: {e.Message}");
+                MgLogger.LogError($"Failed to load game data: {e.Message}");
                 _gameData = new GameData();
             }
         }
@@ -101,7 +102,7 @@ namespace Storage
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError($"Failed to save game data: {e.Message}");
+                    MgLogger.LogError($"Failed to save game data: {e.Message}");
                 }
             }
 
