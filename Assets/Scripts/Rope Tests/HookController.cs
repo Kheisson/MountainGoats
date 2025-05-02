@@ -20,13 +20,16 @@ public class HookController : BaseMonoBehaviour
     [SerializeField] private float waterFallSpeed = 2f;
     [SerializeField] private float horizontalSpeed = 5f;
     [SerializeField] private ParticleSystem splashFX;
+    [SerializeField] private GameObject art;
     
     private bool isCast = false;
     private bool isInWater;
     private float _waterDepth;
     
     protected override HashSet<Type> RequiredServices => new() { typeof(IInputService), typeof(ICameraService) };
-
+    
+    public void SetVisibility(bool value) => art.SetActive(value);
+    
     protected override void Awake()
     {
         base.Awake();
@@ -106,14 +109,18 @@ public class HookController : BaseMonoBehaviour
         _rigidbody2D.position = new Vector2(newX, _rigidbody2D.position.y);
     }
     
-    public void ResetHook(Vector3 resetPos)
+    public void ResetHookCast()
     {
-        _rigidbody2D.linearVelocity = Vector2.zero;
-        _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
-        _rigidbody2D.position = resetPos; // without it, it has a race condition with the FixedUpdate for the physics calculationss
         isCast = false;
         isInWater = false;
         splashFX.gameObject.SetActive(false);
         _cameraService?.SwitchCamera(ECamera.Player);
+    }
+
+    public void ResetHookPosition(Vector3 resetPos)
+    {
+        _rigidbody2D.linearVelocity = Vector2.zero;
+        _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
+        _rigidbody2D.position = resetPos; // without it, it has a race condition with the FixedUpdate for the physics calculationss
     }
 }

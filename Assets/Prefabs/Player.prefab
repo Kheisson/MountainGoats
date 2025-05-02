@@ -271,7 +271,7 @@ MonoBehaviour:
   playerAnimationsController: {fileID: 1465779485831642028}
   hookController: {fileID: 0}
   fishingRodController: {fileID: 234606682788764238}
-  ropeSimulator2D: {fileID: 6184816767885258098}
+  ropeSimulator2D: {fileID: 0}
   eyesFollowController: {fileID: 8552831880361962019}
 --- !u!114 &1465779485831642028
 MonoBehaviour:
@@ -313,7 +313,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   rodCastReadyAnimationDuration: 0.5
   rodSetAnimationDuration: 0.1
-  goRotationMultiplier: -150
+  goRotationMultiplier: -75
   rodCastGoAnimationCurve:
     serializedVersion: 2
     m_Curve:
@@ -1248,17 +1248,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 79730862278779253, guid: 7f631e49911431a49aba92d300a0b697, type: 3}
   m_PrefabInstance: {fileID: 1632352227626045767}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6184816767885258098 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4860410560100564021, guid: 7f631e49911431a49aba92d300a0b697, type: 3}
-  m_PrefabInstance: {fileID: 1632352227626045767}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cafe7f85d1b37484db68466b8d4ff658, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &9086606767789742623
 PrefabInstance:
   m_ObjectHideFlags: 0

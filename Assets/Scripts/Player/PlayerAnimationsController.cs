@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Core;
 using DG.Tweening;
 using UnityEngine;
@@ -19,8 +20,10 @@ public class PlayerAnimationsController : BaseMonoBehaviour
     [Header("Reset Rotation Parameters")]
     [SerializeField] private AnimationCurve rodCastReturnAnimationCurve ;
     [SerializeField] private float rodCastReturnAnimationDuration ;
-    
-    
+
+    private Transform lastTarget = null;
+    private Vector3 originPosition;
+    private Quaternion originRotation;
     // Before GPT
     // public void PlayHookCastAnimation(Transform rodPivot, bool castLeftSide, float normalizedThrowPower)
     // {
@@ -46,6 +49,10 @@ public class PlayerAnimationsController : BaseMonoBehaviour
     
     public void PlayHookCastAnimationSequence(Transform rod, Transform rodPivot, bool castLeftSide, float normalizedThrowPower, Action onAnimationComplete)
     {
+        lastTarget = rod;
+        originPosition = lastTarget.position;
+        originRotation = lastTarget.rotation;
+        
         var pivot = rodPivot.transform.position;
         var target = rod;
 
@@ -107,15 +114,32 @@ public class PlayerAnimationsController : BaseMonoBehaviour
             DOTween.Kill(target); // Avoid overlapping tweens
 
             // Animate position and rotation back to original
-            target.DOMove(startPos, rodCastReturnAnimationDuration).SetEase(rodCastReturnAnimationCurve);
-            target.DORotateQuaternion(startRot, rodCastReturnAnimationDuration).SetEase(rodCastReturnAnimationCurve);
+            ResetLastTargetRod();
         });
         
         seq.Play();
     }
 
-    public void Reset()
+    public void ResetFishingRod(Action onComplete)
     {
         DOTween.Clear();
+        
+        ResetLastTargetRod(onComplete);
+    }
+
+    private void ResetLastTargetRod(Action onComplete = null)
+    {
+        if (lastTarget == null) return;
+        
+        WaitForFrame(() =>
+        {
+            Sequence seq = DOTween.Sequence();
+
+            seq.Join(lastTarget.DOMove(originPosition, rodCastReturnAnimationDuration).SetEase(rodCastReturnAnimationCurve));
+            seq.Join(lastTarget.DORotateQuaternion(originRotation, rodCastReturnAnimationDuration).SetEase(rodCastReturnAnimationCurve));
+            seq.OnComplete(() => onComplete?.Invoke());
+
+            seq.Play();
+        });
     }
 }

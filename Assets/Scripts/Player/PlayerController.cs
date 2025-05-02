@@ -17,7 +17,7 @@ public class PlayerController : BaseMonoBehaviour
     [SerializeField] private PlayerAnimationsController playerAnimationsController;
     [SerializeField] private HookController hookController;
     [SerializeField] private FishingRodController fishingRodController;
-    [SerializeField] private RopeSimulator2D ropeSimulator2D;
+    [SerializeField] private RopeSimulator2D_V2 ropeSimulator2D;
     [SerializeField] private EyesFollowController eyesFollowController;
     
     private Vector3 clampedAimDir;
@@ -36,7 +36,7 @@ public class PlayerController : BaseMonoBehaviour
 #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.R))
         {
-            ResetCasting();
+            ResetCasting(true);
         }
 #endif
 
@@ -63,6 +63,7 @@ public class PlayerController : BaseMonoBehaviour
         }
         else if (Input.GetButtonUp("Fire1"))
         {
+            isCast = true;
             var aimSideSign = Mathf.Sign(aimTransform.position.x - transform.position.x);
             var isAimingLeft = aimSideSign < 0;
             playerAnimationsController.PlayHookCastAnimationSequence(
@@ -79,9 +80,9 @@ public class PlayerController : BaseMonoBehaviour
         powerBarHolder.SetActive(false);
         
         currentHoldTime = 0;
-        isCast = true;
         hookController.CastHook(clampedAimDir, powerBar.fillAmount);
         ropeSimulator2D.StartSimulation(fishingRodController.CurrentActiveHookPivot.position);
+        ropeSimulator2D.head = fishingRodController.CurrentActiveHookPivot;
         eyesFollowController.Target = hookController.transform;
     }
 
@@ -113,14 +114,25 @@ public class PlayerController : BaseMonoBehaviour
         aimTransform.up = clampedAimDir;
     }
 
-    private void ResetCasting()
+    private void ResetCasting(bool resetFishingRod = false)
     {
-        playerAnimationsController.Reset();
+        isCast = false;
+
+        currentHoldTime = 0;
         eyesFollowController.Target = aimTransform;
-        hookController.ResetHook(fishingRodController.CurrentActiveHookPivot.position);
         ropeSimulator2D.ResetRope();
         powerBarHolder.SetActive(false);
-        isCast = false;
+        
+        // TODO: Decide what to do with the view of the hook until its' position is reset
+        hookController.ResetHookCast();
+
+        if (!resetFishingRod) return;
+        hookController.SetVisibility(false);
+        playerAnimationsController.ResetFishingRod(() =>
+        {
+            hookController.ResetHookPosition(fishingRodController.CurrentActiveHookPivot.position);
+            WaitForFrame(() => hookController.SetVisibility(true));
+        });
     }
 
     #region Gizmos
