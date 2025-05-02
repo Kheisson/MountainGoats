@@ -150,6 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelsConfiguration: {fileID: 11400000, guid: ea131720b09bf487f81d9b7441910f41, type: 2}
   seaLevel: {fileID: 2076107695}
+  garbageHolder: {fileID: 1304746960}
 --- !u!4 &402001618
 Transform:
   m_ObjectHideFlags: 0
@@ -591,6 +592,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LookAtOffset: {x: 0, y: 0, z: 90}
+--- !u!1 &1304746959
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1304746960}
+  m_Layer: 0
+  m_Name: GarbageHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1304746960
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1304746959}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1437788516
 GameObject:
   m_ObjectHideFlags: 0
@@ -1116,6 +1148,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5429724728323435672, guid: d86bea7796b9d744e91e25c50d750381, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 6184816767885258098, guid: d86bea7796b9d744e91e25c50d750381, type: 3}
       propertyPath: hook
       value: 
@@ -1213,3 +1249,4 @@ SceneRoots:
   - {fileID: 1707721933}
   - {fileID: 402001618}
   - {fileID: 1558033423}
+  - {fileID: 1304746960}

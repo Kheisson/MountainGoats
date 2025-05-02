@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55d3869b4c21453092279077ae981e07, type: 3}
   m_Name: LevelConfig
   m_EditorClassIdentifier: 
-  <DepthPerLevel>k__BackingField: 5
+  <DepthPerLevel>k__BackingField: 10
   <Levels>k__BackingField:
   - <SpawnableItems>k__BackingField:
     - {fileID: 11400000, guid: 1967058fd4a0449769a494130b5399b0, type: 2}

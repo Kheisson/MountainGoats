@@ -6,7 +6,7 @@ namespace Data
     {
         [Header("Visuals")]
         [SerializeField] private Sprite itemSprite;
-        [SerializeField] private GameObject itemPrefab;
+        [SerializeField] private Garbage itemPrefab;
 
         [Header("Item Information")]
         [SerializeField] private string itemName;
@@ -22,7 +22,7 @@ namespace Data
         [SerializeField] private float weightMultiplier = 1.0f;
 
         public Sprite ItemSprite => itemSprite;
-        public GameObject ItemPrefab => itemPrefab;
+        public Garbage ItemPrefab => itemPrefab;
         public string ItemName => itemName;
         public string Description => description;
         public float MinWeight => minWeight;
@@ -38,11 +38,11 @@ namespace Data
             return baseValue + (weight * weightMultiplier);
         }
         
-        public float CalculateRandomValue()
+        public (float weight, float value) CalculateRandomValue()
         {
             var weight = GetRandomWeight();
             
-            return CalculateValue(weight);
+            return (weight, CalculateValue(weight));
         }
     }
 } 

@@ -14,6 +14,9 @@ namespace Spawning
         [SerializeField] 
         private Transform seaLevel;
 
+        [SerializeField] 
+        private Transform garbageHolder;
+        
         public override bool IsPersistent => false;
 
         public void SpawnInitialGarbage()
@@ -38,10 +41,12 @@ namespace Spawning
             for (int i = 0; i < numOfItemsToSpawn; i++)
             {
                 float spawnPositionX = Random.Range(-levelData.HorizontalRange, levelData.HorizontalRange);
-                float spawnPositionY = Random.Range(levelBaseDepth, levelBaseDepth + levelsConfiguration.DepthPerLevel);
-                var prefabToSpawn = levelData.SpawnableItems[Random.Range(0, levelData.SpawnableItems.Count)].ItemPrefab;
-
-                Instantiate(prefabToSpawn, new Vector2(spawnPositionX, spawnPositionY), quaternion.identity);
+                float spawnPositionY = Random.Range(levelBaseDepth, levelBaseDepth - levelsConfiguration.DepthPerLevel);
+                GarbageItemData itemToSpawn = levelData.SpawnableItems[Random.Range(0, levelData.SpawnableItems.Count)];
+                var (weight, value) = itemToSpawn.CalculateRandomValue();
+                
+                Garbage instantiatedGarbage = Instantiate(itemToSpawn.ItemPrefab, new Vector2(spawnPositionX, spawnPositionY), quaternion.identity, garbageHolder);
+                instantiatedGarbage.Initialize(weight, value);
             }
         }
         
