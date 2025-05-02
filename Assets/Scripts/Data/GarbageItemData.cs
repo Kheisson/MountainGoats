@@ -1,3 +1,4 @@
+using GarbageManagement;
 using UnityEngine;
 
 namespace Data

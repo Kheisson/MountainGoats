@@ -20,6 +20,7 @@ namespace Core
         {
             public const string PLAY_STARTED = "play_started";
             public const string PLAY_ENDED = "play_ended";
+            public const string GARBAGE_COLLECTED = "garbage_collected";
         }
     }
 }

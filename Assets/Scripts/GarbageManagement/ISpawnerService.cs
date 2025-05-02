@@ -1,11 +1,11 @@
 using Services;
 
-namespace Spawning
+namespace GarbageManagement
 {
     public interface ISpawnerService : IService
     {
         void SpawnInitialGarbage();
 
-        void RefillGarbage();
+        void TryRefillGarbage();
     }
 }

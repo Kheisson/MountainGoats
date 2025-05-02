@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Core;
-using Cysharp.Threading.Tasks;
 using EventsSystem;
 using Services;
-using Spawning;
+using GarbageManagement;
 
 namespace GameManagement
 {
@@ -45,7 +44,7 @@ namespace GameManagement
         
         private void OnPlayEnded()
         {
-            _spawnerService.RefillGarbage();
+            _spawnerService.TryRefillGarbage();
         }
     }
 }
