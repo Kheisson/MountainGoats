@@ -28,12 +28,12 @@ namespace Data
         public float MinWeight => minWeight;
         public float MaxWeight => maxWeight;
         
-        public float GetRandomWeight()
+        private float GetRandomWeight()
         {
             return Random.Range(minWeight, maxWeight);
         }
         
-        public float CalculateValue(float weight)
+        private float CalculateValue(float weight)
         {
             return baseValue + (weight * weightMultiplier);
         }

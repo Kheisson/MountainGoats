@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55d3869b4c21453092279077ae981e07, type: 3}
+  m_Name: New Depth Configuration Data
+  m_EditorClassIdentifier: 
+  depthPerLevel: 5
+  levelsData:
+  - <SpawnableItems>k__BackingField:
+    - {fileID: 11400000, guid: 1967058fd4a0449769a494130b5399b0, type: 2}
+    minItemsForLevel: 1
+    maxItemsForLevel: 2
+  - <SpawnableItems>k__BackingField:
+    - {fileID: 11400000, guid: 1967058fd4a0449769a494130b5399b0, type: 2}
+    minItemsForLevel: 1
+    maxItemsForLevel: 2
+  - <SpawnableItems>k__BackingField:
+    - {fileID: 11400000, guid: 1967058fd4a0449769a494130b5399b0, type: 2}
+    minItemsForLevel: 1
+    maxItemsForLevel: 2
+  - <SpawnableItems>k__BackingField:
+    - {fileID: 11400000, guid: 1967058fd4a0449769a494130b5399b0, type: 2}
+    minItemsForLevel: 1
+    maxItemsForLevel: 2
+  - <SpawnableItems>k__BackingField:
+    - {fileID: 11400000, guid: 1967058fd4a0449769a494130b5399b0, type: 2}
+    minItemsForLevel: 1
+    maxItemsForLevel: 2
