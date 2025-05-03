@@ -182,7 +182,6 @@ GameObject:
   - component: {fileID: 3712351224264225522}
   - component: {fileID: 2996230683410013373}
   - component: {fileID: 1804135868782818098}
-  - component: {fileID: 2139356305748643910}
   - component: {fileID: 8745955624065008375}
   m_Layer: 0
   m_Name: HookCamera
@@ -268,19 +267,6 @@ MonoBehaviour:
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
   FollowOffset: {x: 0, y: 0, z: -10}
---- !u!114 &2139356305748643910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7091202208405541296}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4afa82ae3200b82408d605c3dbdd1e38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damping: 0
 --- !u!114 &8745955624065008375
 MonoBehaviour:
   m_ObjectHideFlags: 0

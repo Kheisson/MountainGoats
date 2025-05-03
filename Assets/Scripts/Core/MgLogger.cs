@@ -4,7 +4,7 @@ namespace Core
 {
     public static class MgLogger
     {
-        public static bool IsDebugMode => Debug.isDebugBuild;
+        public static bool IsDebugMode => true;
         
         public static void Log(object message, object context = null)
         {
