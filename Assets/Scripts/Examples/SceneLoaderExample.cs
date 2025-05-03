@@ -42,7 +42,7 @@ namespace Examples
         {
             try
             {
-                await _sceneLoader.LoadSceneAsync(ProjectConstants.Scenes.GARBAGE_DEMO);
+                await _sceneLoader.LoadSceneAsync(ProjectConstants.Scenes.GAME);
             }
             catch (System.Exception e)
             {
