@@ -62,7 +62,7 @@ public class RopeSimulator2D_V2 : MonoBehaviour
 
     void GrowRopeIfNeeded()
     {
-        if (segments.Count >= maxPinnedSegments)
+        if (segments.Count >= maxPinnedSegments + 1) // allow space for new segment before trimming
             return;
 
         RopeSegment segA = segments[^2];
@@ -74,11 +74,11 @@ public class RopeSimulator2D_V2 : MonoBehaviour
         if (dist > growThreshold)
         {
             Vector2 dir = (segB.posNow - segA.posNow).normalized;
-            Vector2 newPos = segB.posNow + dir * segmentLength;
+            Vector2 midPoint = segB.posNow + dir * (segmentLength * 0.9f);
 
-            RopeSegment newSeg = new RopeSegment(newPos);
+            RopeSegment newSeg = new RopeSegment(midPoint);
             Vector2 velocity = segB.posNow - segB.posOld;
-            newSeg.posOld = newSeg.posNow - velocity * 0.9f;
+            newSeg.posOld = newSeg.posNow - velocity * 0.8f;
 
             segments.Add(newSeg);
             lineRenderer.positionCount = segments.Count;
@@ -88,15 +88,25 @@ public class RopeSimulator2D_V2 : MonoBehaviour
             segB = segments[^1];
 
             float error = (segA.posNow - segB.posNow).magnitude - segmentLength;
-            Vector2 correction = (segA.posNow - segB.posNow).normalized * error;
+            Vector2 correction = (segA.posNow - segB.posNow).normalized * error * 0.5f;
 
-            segA.posNow -= correction * 0.5f;
-            segB.posNow += correction * 0.5f;
+            segA.posNow -= correction * 0.25f;
+            segB.posNow += correction * 0.75f;
 
             segments[^2] = segA;
             segments[^1] = segB;
+
+            // Trim top if over limit
+            if (segments.Count > maxPinnedSegments)
+            {
+                head.position = segments[1].posNow;
+                segments.RemoveAt(0);
+                lineRenderer.positionCount = segments.Count;
+            }
         }
     }
+
+
 
     void Simulate()
     {

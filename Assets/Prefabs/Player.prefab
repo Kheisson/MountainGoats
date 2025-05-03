@@ -1187,26 +1187,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2139271348798962481}
     m_Modifications:
-    - target: {fileID: 587942177214967590, guid: 7f0aaf559c4f5c14e809e1ad081ab9e7, type: 3}
-      propertyPath: hook
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1256275978195976031, guid: 7f0aaf559c4f5c14e809e1ad081ab9e7, type: 3}
-      propertyPath: hook
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1256275978195976031, guid: 7f0aaf559c4f5c14e809e1ad081ab9e7, type: 3}
-      propertyPath: gravity
-      value: -19.62
-      objectReference: {fileID: 0}
-    - target: {fileID: 1256275978195976031, guid: 7f0aaf559c4f5c14e809e1ad081ab9e7, type: 3}
-      propertyPath: waterLevel
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1256275978195976031, guid: 7f0aaf559c4f5c14e809e1ad081ab9e7, type: 3}
-      propertyPath: gravityScaleBelowWater
-      value: 0.46
-      objectReference: {fileID: 0}
     - target: {fileID: 4517183409600655231, guid: 7f0aaf559c4f5c14e809e1ad081ab9e7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

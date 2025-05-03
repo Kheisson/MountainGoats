@@ -22,6 +22,7 @@ public class PlayerController : BaseMonoBehaviour
     
     private Vector3 clampedAimDir;
     private bool isCast = false;
+    private bool isResetting = false;
     private float currentHoldTime = 0;
     private Transform hookOriginParent;
     
@@ -31,7 +32,7 @@ public class PlayerController : BaseMonoBehaviour
     {
         hookOriginParent = hookController.transform.parent;
 
-        ResetCasting();
+        Init();
     }
 
     protected void Update()
@@ -39,13 +40,45 @@ public class PlayerController : BaseMonoBehaviour
 #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.R))
         {
-            ResetCasting(true);
+            ResetCasting();
         }
 #endif
 
         if (isCast) return;
         UpdateAimThrowPosition();
         UpdateCastHook();
+    }
+    
+    private void Init()
+    {
+        isCast = false;
+
+        currentHoldTime = 0;
+        eyesFollowController.Target = aimTransform;
+        ropeSimulator2D.ResetRope();
+        powerBarHolder.SetActive(false);
+        
+        hookController.ResetHookCast();
+    }
+    
+    public void ResetCasting()
+    {
+        if (isResetting) return;
+        
+        isResetting = true;
+        Init();
+
+        // TODO: Decide what to do with the view of the hook until its' position is reset
+        hookController.SetVisibility(false);
+        playerAnimationsController.ResetFishingRod(() =>
+        {
+            hookController.ResetHookPosition(fishingRodController.CurrentActiveHookPivot.position);
+            WaitForFrame(() =>
+            {
+                hookController.SetVisibility(true);
+                isResetting = false;
+            });
+        });
     }
 
     private void UpdateCastHook()
@@ -57,11 +90,15 @@ public class PlayerController : BaseMonoBehaviour
     
     private void ThrowFunctionalityAimAndReleaseToThrow()
     {
+        if (isResetting) return;
+        
         if (Input.GetButton("Fire1"))
         {
             powerBarHolder.SetActive(true);
             
             currentHoldTime += Time.deltaTime;
+            currentHoldTime = Mathf.Min(currentHoldTime, powerThrowMaxSeconds);
+            
             powerBar.fillAmount = CurrentPowerNormalized;
         }
         else if (Input.GetButtonUp("Fire1"))
@@ -120,27 +157,6 @@ public class PlayerController : BaseMonoBehaviour
         
         aimTransform.position = transform.position + clampedAimDir * aimRadiusDistance;
         aimTransform.up = clampedAimDir;
-    }
-
-    private void ResetCasting(bool resetFishingRod = false)
-    {
-        isCast = false;
-
-        currentHoldTime = 0;
-        eyesFollowController.Target = aimTransform;
-        ropeSimulator2D.ResetRope();
-        powerBarHolder.SetActive(false);
-        
-        // TODO: Decide what to do with the view of the hook until its' position is reset
-        hookController.ResetHookCast();
-
-        if (!resetFishingRod) return;
-        hookController.SetVisibility(false);
-        playerAnimationsController.ResetFishingRod(() =>
-        {
-            hookController.ResetHookPosition(fishingRodController.CurrentActiveHookPivot.position);
-            WaitForFrame(() => hookController.SetVisibility(true));
-        });
     }
 
     #region Gizmos

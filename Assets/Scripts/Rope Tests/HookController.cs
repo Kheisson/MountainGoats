@@ -110,6 +110,9 @@ public class HookController : BaseMonoBehaviour
         _waterDepth = 0;
     }
 
+    public void MoveLeft() => HandleInputMovement(Vector2.left);
+    public void MoveRight() => HandleInputMovement(Vector2.right);
+
     private void HandleInputMovement(Vector2 direction)
     {
         if (!isInWater) return;
