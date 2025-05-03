@@ -21,11 +21,19 @@ MonoBehaviour:
     <HorizontalRange>k__BackingField: 25
   - <SpawnableItems>k__BackingField:
     - {fileID: 11400000, guid: 1967058fd4a0449769a494130b5399b0, type: 2}
+    - {fileID: 11400000, guid: 0dcd404cc27dd475e9f4bb8fab6f21a9, type: 2}
+    - {fileID: 11400000, guid: ec512b95f984f4d838a60a24a82f7b98, type: 2}
+    - {fileID: 11400000, guid: ccee2ee6bcffb4bdb808e70ca1bd04ca, type: 2}
     <MinItemsForLevel>k__BackingField: 1
     <MaxItemsForLevel>k__BackingField: 5
     <HorizontalRange>k__BackingField: 25
   - <SpawnableItems>k__BackingField:
     - {fileID: 11400000, guid: 1967058fd4a0449769a494130b5399b0, type: 2}
+    - {fileID: 11400000, guid: 59271e51fd2dd464f90a6d4895676303, type: 2}
+    - {fileID: 11400000, guid: e8f4a02433a6d43bb9c41f6dc8443f77, type: 2}
+    - {fileID: 11400000, guid: 028b079f03ab445bea96de261525e3fa, type: 2}
+    - {fileID: 11400000, guid: d9fe3654fac5541e9b82cbaf08b8a3b3, type: 2}
+    - {fileID: 11400000, guid: b78735767af7f4b67b9fe12ffa5e4b92, type: 2}
     <MinItemsForLevel>k__BackingField: 1
     <MaxItemsForLevel>k__BackingField: 5
     <HorizontalRange>k__BackingField: 25
