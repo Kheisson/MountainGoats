@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 342474d0f456946a79180d380491f62e, type: 3}
   m_Name: Plastic Bottle
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: 21300000, guid: e1ea74768fdda4becb642fda1fcc44cf, type: 3}
-  itemPrefab: {fileID: 5214515058056860415, guid: e0b895e5f76ba4fff88e139001a4fee1, type: 3}
-  itemName: Plastic Bottle
-  description: This is a plastic bottle
-  minWeight: 0.7
-  maxWeight: 1
-  baseValue: 1
-  weightMultiplier: 1
+  itemSprite: {fileID: -1921461086, guid: 28b414f168aec014d9f67fbefa82c5bc, type: 3}
+  itemPrefab: {fileID: 7562276194259523722, guid: dc4ce6dc7653f2b4cba97507f6325638, type: 3}
+  itemName: Water Bottle
+  description: A plastic water bottle. Over 1 million plastic bottles are purchased
+    every minute worldwide, with many ending up in our oceans where they can take
+    450 years to decompose.
+  minWeight: 0.01
+  maxWeight: 0.05
+  baseValue: 0.8
+  weightMultiplier: 15

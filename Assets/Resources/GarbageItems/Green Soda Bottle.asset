@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 342474d0f456946a79180d380491f62e, type: 3}
+  m_Name: Green Soda Bottle
+  m_EditorClassIdentifier: 
+  itemSprite: {fileID: -195843732, guid: 28b414f168aec014d9f67fbefa82c5bc, type: 3}
+  itemPrefab: {fileID: 9143659714946668973, guid: bb8fe7b0212700346a10500ab7f5110e, type: 3}
+  itemName: Green Soda Bottle
+  description: These often contain residual chemicals that leach into ocean water,
+    causing hormone disruption in marine animals.
+  minWeight: 0.03
+  maxWeight: 0.08
+  baseValue: 1.2
+  weightMultiplier: 13

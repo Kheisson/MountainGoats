@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 342474d0f456946a79180d380491f62e, type: 3}
+  m_Name: Chemical Container
+  m_EditorClassIdentifier: 
+  itemSprite: {fileID: -1057040524, guid: 28b414f168aec014d9f67fbefa82c5bc, type: 3}
+  itemPrefab: {fileID: 7469655172645875823, guid: c7dc86caeef15f54e8d759548627caa5, type: 3}
+  itemName: Chemical Container
+  description: A leaking toxic chemical container. These are among the most dangerous
+    ocean pollutants, releasing substances that can cause mutations, reproductive
+    issues, and death in marine species.
+  minWeight: 3
+  maxWeight: 7
+  baseValue: 5
+  weightMultiplier: 3

@@ -76,6 +76,7 @@ namespace Editor.Scripts
 
             _newItem.name = EditorGUILayout.TextField("Name", _newItem.name);
             var serializedObject = new SerializedObject(_newItem);
+            var itemNameProperty = serializedObject.FindProperty("itemName");
             var spriteProperty = serializedObject.FindProperty("itemSprite");
             var prefabProperty = serializedObject.FindProperty("itemPrefab");
             var descriptionProperty = serializedObject.FindProperty("description");
@@ -84,6 +85,7 @@ namespace Editor.Scripts
             var baseValueProperty = serializedObject.FindProperty("baseValue");
             var weightMultiplierProperty = serializedObject.FindProperty("weightMultiplier");
 
+            EditorGUILayout.PropertyField(itemNameProperty);
             EditorGUILayout.PropertyField(spriteProperty);
             EditorGUILayout.PropertyField(prefabProperty);
             EditorGUILayout.PropertyField(descriptionProperty);
@@ -119,7 +121,17 @@ namespace Editor.Scripts
             
             if (item.ItemSprite != null)
             {
-                GUILayout.Label(item.ItemSprite.texture, GUILayout.Width(50), GUILayout.Height(50));
+                var spriteStyle = new GUIStyle
+                {
+                    normal =
+                    {
+                        background = AssetPreview.GetAssetPreview(item.ItemSprite),
+                    },
+                };
+
+                var spriteRect = GUILayoutUtility.GetRect(50, 50, GUILayout.ExpandWidth(false), GUILayout.ExpandHeight(false));
+                GUI.Box(spriteRect, GUIContent.none, spriteStyle);
+                
             }
             
             EditorGUILayout.BeginVertical();
