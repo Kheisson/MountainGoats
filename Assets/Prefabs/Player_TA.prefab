@@ -229,8 +229,8 @@ MonoBehaviour:
     pupilTransform: {fileID: 228637394270323761}
     eyeStartLocalPos: {x: -0.225, y: 0.4, z: 0}
     pupilStartLocalPos: {x: 0, y: 0, z: 0}
-    eyeMoveAmount: 0.25
-    pupilMoveAmount: 0.25
+    eyeMoveAmount: 0.05
+    pupilMoveAmount: 0.05
     eyeSmoothSpeed: 8
     pupilSmoothSpeed: 2.75
   - eyeTransform: {fileID: 3282832001069138018}
@@ -245,8 +245,8 @@ MonoBehaviour:
     pupilTransform: {fileID: 1093909152076097143}
     eyeStartLocalPos: {x: 0.225, y: 0.4, z: 0}
     pupilStartLocalPos: {x: 0, y: 0, z: 0}
-    eyeMoveAmount: 0.25
-    pupilMoveAmount: 0.25
+    eyeMoveAmount: 0.05
+    pupilMoveAmount: 0.05
     eyeSmoothSpeed: 8
     pupilSmoothSpeed: 2.75
 --- !u!114 &7608021396388370812
@@ -267,7 +267,7 @@ MonoBehaviour:
   powerBarHolder: {fileID: 5834851316341236824}
   powerBar: {fileID: 7967844529778785376}
   powerThrowMaxSeconds: 0.9
-  powerBarBasePower: 1.35
+  powerBarBasePower: 0.85
   powerBarMaxMultiplier: 1.5
   playerAnimationsController: {fileID: 1465779485831642028}
   hookController: {fileID: 0}
