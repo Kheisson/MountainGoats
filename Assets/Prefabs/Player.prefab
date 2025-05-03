@@ -267,7 +267,8 @@ MonoBehaviour:
   powerBarHolder: {fileID: 5834851316341236824}
   powerBar: {fileID: 7967844529778785376}
   powerThrowMaxSeconds: 0.9
-  powerBarMaxMultiplier: 1.25
+  powerBarBasePower: 1.35
+  powerBarMaxMultiplier: 1.5
   playerAnimationsController: {fileID: 1465779485831642028}
   hookController: {fileID: 0}
   fishingRodController: {fileID: 234606682788764238}
@@ -339,7 +340,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   rodGoAnimationDuration: 0.5
-  hookReleaseAtPercentage: 0.385
+  hookReleaseAtPercentage: 0.395
   rodCastReturnAnimationCurve:
     serializedVersion: 2
     m_Curve:

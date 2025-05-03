@@ -89,7 +89,8 @@ public class HookController : BaseMonoBehaviour
             _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
             _rigidbody2D.gravityScale = airGravityScale;
         
-            _rigidbody2D.AddForce(direction * hookCastPower * powerMultiplier, ForceMode2D.Impulse);
+            // _rigidbody2D.AddForce(direction * hookCastPower * powerMultiplier, ForceMode2D.Impulse);
+            _rigidbody2D.linearVelocity = direction * hookCastPower * powerMultiplier;
             isCast = true;
         });
     }

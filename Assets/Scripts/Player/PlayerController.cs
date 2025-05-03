@@ -12,6 +12,7 @@ public class PlayerController : BaseMonoBehaviour
     [SerializeField] private GameObject powerBarHolder;
     [SerializeField] private Image powerBar;
     [SerializeField] private float powerThrowMaxSeconds = 2.25f;
+    [SerializeField] private float powerBarBasePower = 3.5f;
     [SerializeField] private float powerBarMaxMultiplier = 3.5f;
     [Header("Controllers")]
     [SerializeField] private PlayerAnimationsController playerAnimationsController;
@@ -120,15 +121,23 @@ public class PlayerController : BaseMonoBehaviour
 
     private void CastHook()
     {
-        hookController.transform.parent = hookOriginParent;
-        powerBarHolder.SetActive(false);
-        
-        hookController.CastHook(clampedAimDir * CurrentPowerNormalized * powerBarMaxMultiplier, powerBar.fillAmount);
-        ropeSimulator2D.StartSimulation(fishingRodController.CurrentActiveHookPivot.position);
-        ropeSimulator2D.head = fishingRodController.CurrentActiveHookPivot;
-        eyesFollowController.Target = hookController.transform;
-        
+        var castPower = CurrentPowerNormalized;
         currentHoldTime = 0;
+
+        var hookPosBefore = hookController.transform.position;
+        WaitForFrame(() =>
+        {
+            var hookMovementDelta = hookController.transform.position - hookPosBefore;
+            
+            hookController.transform.parent = hookOriginParent;
+            powerBarHolder.SetActive(false);
+        
+            hookController.CastHook((hookMovementDelta + clampedAimDir) * castPower * powerBarBasePower * powerBarMaxMultiplier, powerBar.fillAmount);
+            ropeSimulator2D.StartSimulation(fishingRodController.CurrentActiveHookPivot.position);
+            ropeSimulator2D.head = fishingRodController.CurrentActiveHookPivot;
+            eyesFollowController.Target = hookController.transform;
+        
+        });
     }
 
     private void UpdateAimThrowPosition()
