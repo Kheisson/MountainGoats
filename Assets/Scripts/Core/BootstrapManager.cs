@@ -13,6 +13,7 @@ namespace Core
     {
         [SerializeField] private bool initializeInEditor = false;
         [SerializeField] private SceneLoaderService sceneLoaderService;
+        private FullscreenEnforcer fullscreenEnforcer;
         
         private async UniTask Awake()
         {
@@ -27,7 +28,26 @@ namespace Core
                 return;
             }
 
+            await InitializeFullscreen();
             await InitializeServices();
+        }
+
+        private async UniTask InitializeFullscreen()
+        {
+            MgLogger.Log("Initializing fullscreen...");
+            
+            fullscreenEnforcer = gameObject.GetComponent<FullscreenEnforcer>();
+            
+            if (fullscreenEnforcer == null)
+            {
+                fullscreenEnforcer = gameObject.AddComponent<FullscreenEnforcer>();
+            }
+
+            fullscreenEnforcer.ForceFullscreen();
+
+            await UniTask.Yield();
+            
+            MgLogger.Log("Fullscreen initialized successfully");
         }
 
         private async UniTask InitializeServices()
