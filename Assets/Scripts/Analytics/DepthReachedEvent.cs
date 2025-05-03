@@ -12,14 +12,14 @@ namespace Analytics
         
         protected override bool ValidateEvent()
         {
-            if (_depth <= 0 || DataStorageService.GetGameData().DepthReached >= _depth)
+            if (_depth <= 0 || DataStorageService.GetGameData().depthReached >= _depth)
             {
                 return false;
             }
             
             DataStorageService.ModifyGameDataSync(gameData =>
             {
-                gameData.DepthReached = _depth;
+                gameData.depthReached = _depth;
                 SetParameter("depth", _depth);
                 
                 return true;
