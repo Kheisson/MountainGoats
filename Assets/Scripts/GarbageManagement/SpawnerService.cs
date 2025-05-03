@@ -21,7 +21,7 @@ namespace GarbageManagement
         [SerializeField] 
         private Transform garbageHolder;
 
-        private Dictionary<int, List<Garbage>> _garbagePerLevel;
+        private readonly Dictionary<int, List<Garbage>> _garbagePerLevel = new();
         private IEventsSystemService _eventSystemsService;
         private IDisposable _garbageCollectionSubscription;
 
