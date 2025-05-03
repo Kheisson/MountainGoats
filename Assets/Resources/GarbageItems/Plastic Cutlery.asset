@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 342474d0f456946a79180d380491f62e, type: 3}
+  m_Name: Plastic Cutlery
+  m_EditorClassIdentifier: 
+  itemSprite: {fileID: 707104201, guid: 28b414f168aec014d9f67fbefa82c5bc, type: 3}
+  itemPrefab: {fileID: 7469655172645875823, guid: e7a7a59047ccbfe4ba88207db8575040, type: 3}
+  itemName: Plastic Cutlery
+  description: Disposable plastic fork and knife. Over 40 billion plastic utensils
+    are used and discarded annually in the US alone, with many ending up in our oceans.
+  minWeight: 0.005
+  maxWeight: 0.015
+  baseValue: 0.5
+  weightMultiplier: 20
