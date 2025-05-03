@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1764034306888899225, guid: dc4ce6dc7653f2b4cba97507f6325638, type: 3}
       propertyPath: m_Name
-      value: Chains_0 3
+      value: Batteries_0
       objectReference: {fileID: 0}
     - target: {fileID: 4745141917478066206, guid: dc4ce6dc7653f2b4cba97507f6325638, type: 3}
       propertyPath: m_Sprite
@@ -59,5 +59,25 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1764034306888899225, guid: dc4ce6dc7653f2b4cba97507f6325638, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -3455642226277380582}
   m_SourcePrefab: {fileID: 100100000, guid: dc4ce6dc7653f2b4cba97507f6325638, type: 3}
+--- !u!1 &1666343095307547260 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1764034306888899225, guid: dc4ce6dc7653f2b4cba97507f6325638, type: 3}
+  m_PrefabInstance: {fileID: 1106497840706496741}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-3455642226277380582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1666343095307547260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71e9e1f6d2bb14df2ac15e1697bf45a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

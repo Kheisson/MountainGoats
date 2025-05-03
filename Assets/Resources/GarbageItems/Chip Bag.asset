@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 342474d0f456946a79180d380491f62e, type: 3}
+  m_Name: Chip Bag
+  m_EditorClassIdentifier: 
+  itemSprite: {fileID: -798900066, guid: 28b414f168aec014d9f67fbefa82c5bc, type: 3}
+  itemPrefab: {fileID: 7469655172645875823, guid: 66097f2c8f3c3d14e97b48b78af3fd5b, type: 3}
+  itemName: Chip Bag
+  description: A metallized plastic snack bag. These shiny bags are particularly
+    dangerous as marine animals are attracted to their reflective surface, mistaking
+    them for prey.
+  minWeight: 0.008
+  maxWeight: 0.02
+  baseValue: 0.6
+  weightMultiplier: 25

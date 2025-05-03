@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 342474d0f456946a79180d380491f62e, type: 3}
+  m_Name: Plastic Straw
+  m_EditorClassIdentifier: 
+  itemSprite: {fileID: 370077263, guid: 28b414f168aec014d9f67fbefa82c5bc, type: 3}
+  itemPrefab: {fileID: 7469655172645875823, guid: 9acbbcf1247adbb48accde883b3a53b9, type: 3}
+  itemName: Plastic Straw
+  description: A single-use plastic straw. These can become lodged in the nostrils
+    or throats of sea turtles and other marine creatures, causing injury or death.
+  minWeight: 0.001
+  maxWeight: 0.003
+  baseValue: 0.3
+  weightMultiplier: 100
