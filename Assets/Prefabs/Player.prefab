@@ -1188,6 +1188,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2139271348798962481}
     m_Modifications:
+    - target: {fileID: 1256275978195976031, guid: 7f0aaf559c4f5c14e809e1ad081ab9e7, type: 3}
+      propertyPath: maxPinnedSegments
+      value: 350
+      objectReference: {fileID: 0}
     - target: {fileID: 4517183409600655231, guid: 7f0aaf559c4f5c14e809e1ad081ab9e7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
