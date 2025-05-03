@@ -736,22 +736,10 @@ PrefabInstance:
       propertyPath: waterLevel
       value: 
       objectReference: {fileID: 2076107695}
-    - target: {fileID: 6184816767885258098, guid: d86bea7796b9d744e91e25c50d750381, type: 3}
-      propertyPath: hook
-      value: 
-      objectReference: {fileID: 691096696}
-    - target: {fileID: 6495895224106862943, guid: d86bea7796b9d744e91e25c50d750381, type: 3}
-      propertyPath: hook
-      value: 
-      objectReference: {fileID: 2076107695}
     - target: {fileID: 7608021396388370812, guid: d86bea7796b9d744e91e25c50d750381, type: 3}
       propertyPath: hookController
       value: 
       objectReference: {fileID: 691096697}
-    - target: {fileID: 8552831880361962019, guid: d86bea7796b9d744e91e25c50d750381, type: 3}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 691096696}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

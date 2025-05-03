@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4517183409600655231}
   - component: {fileID: 3185755184822693375}
-  - component: {fileID: 587942177214967590}
   - component: {fileID: 1256275978195976031}
   m_Layer: 0
   m_Name: Rope_v2
@@ -141,26 +140,6 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
---- !u!114 &587942177214967590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5834365954486487725}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cafe7f85d1b37484db68466b8d4ff658, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startOnAwake: 0
-  hook: {fileID: 0}
-  segmentLength: 0.15
-  constraintIterations: 7
-  gravity: -2.25
-  baseDrag: 0.25
-  growThresholdFactor: 0.05
-  maxPinnedSegments: 200
 --- !u!114 &1256275978195976031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,10 +153,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startOnAwake: 0
-  waterLevel: {fileID: 0}
-  gravityScaleAboveWater: 1
-  gravityScaleBelowWater: 0.3
-  underwaterDragMultiplier: 3
   head: {fileID: 4517183409600655231}
   hook: {fileID: 0}
   segmentLength: 0.15
@@ -186,3 +161,5 @@ MonoBehaviour:
   baseDrag: 0.25
   growThresholdFactor: 0.05
   maxPinnedSegments: 200
+  waterLevel: {fileID: 0}
+  underwaterDragMultiplier: 3

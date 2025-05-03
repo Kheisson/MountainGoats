@@ -5,13 +5,7 @@ using UnityEngine;
 public class RopeSimulator2D_V2 : MonoBehaviour
 {
     [SerializeField] private bool startOnAwake = false;
-    
-    [Header("Water Settings")]
-    public Transform waterLevel;
-    public float gravityScaleAboveWater = 1f;
-    public float gravityScaleBelowWater = 0.3f;
-    public float underwaterDragMultiplier = 3f; // How much stronger drag is underwater
-    
+
     [Header("Rope Settings")]
     public Transform head;
     public Transform hook;
@@ -20,9 +14,12 @@ public class RopeSimulator2D_V2 : MonoBehaviour
     public float gravity = -2.25f;
     public float baseDrag = 0.25f;
     public float growThresholdFactor = 0.05f;
-
-    [Header("Dynamic Pin Settings")]
     public int maxPinnedSegments = 200;
+
+    [Header("Water Settings")]
+    public Transform waterLevel;
+    public float underwaterDragMultiplier = 3f;
+    public float gravityScaleBelowWater = 0.3f;
 
     private LineRenderer lineRenderer;
     private List<RopeSegment> segments;
@@ -87,7 +84,6 @@ public class RopeSimulator2D_V2 : MonoBehaviour
             lineRenderer.positionCount = segments.Count;
             totalRopeLength += segmentLength;
 
-            // Apply constraint immediately between the new last two segments
             segA = segments[^2];
             segB = segments[^1];
 
@@ -101,7 +97,7 @@ public class RopeSimulator2D_V2 : MonoBehaviour
             segments[^1] = segB;
         }
     }
-    
+
     void Simulate()
     {
         for (int i = 1; i < segments.Count; i++)
@@ -110,17 +106,19 @@ public class RopeSimulator2D_V2 : MonoBehaviour
 
             Vector2 velocity = seg.posNow - seg.posOld;
 
-            // Apply stronger drag underwater
-            float dragScale = seg.posNow.y > waterLevel.position.y
-                ? baseDrag
-                : baseDrag * underwaterDragMultiplier; // or whatever multiplier you prefer
+            // Determine water-based drag and gravity scale
+            bool isAboveWater = seg.posNow.y > waterLevel.position.y;
+            float dragScale = isAboveWater ? baseDrag : baseDrag * underwaterDragMultiplier;
+            float gravityScale = isAboveWater ? 1f : gravityScaleBelowWater;
 
+            // Apply drag
             float dragFactor = Mathf.Lerp(1f - dragScale, 1f, (float)i / (segments.Count - 1));
             velocity *= dragFactor;
 
             seg.posOld = seg.posNow;
             seg.posNow += velocity;
-            float gravityScale = seg.posNow.y > waterLevel.position.y ? gravityScaleAboveWater : gravityScaleBelowWater;
+
+            // Apply scaled gravity
             seg.posNow += Vector2.up * gravity * gravityScale * Time.deltaTime * Time.deltaTime;
 
             segments[i] = seg;
@@ -154,7 +152,7 @@ public class RopeSimulator2D_V2 : MonoBehaviour
                 segments[i + 1] = segB;
             }
 
-            // Tight follow of hook at the end
+            // Tight follow of hook
             RopeSegment tail = segments[^1];
             tail.posNow = Vector2.Lerp(tail.posNow, (Vector2)hook.position, 0.85f);
             segments[^1] = tail;

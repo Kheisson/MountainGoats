@@ -266,7 +266,7 @@ MonoBehaviour:
   aimRadiusDistance: 2.5
   powerBarHolder: {fileID: 5834851316341236824}
   powerBar: {fileID: 7967844529778785376}
-  powerThrowMaxSeconds: 1.25
+  powerThrowMaxSeconds: 0.9
   powerBarMaxMultiplier: 1.25
   playerAnimationsController: {fileID: 1465779485831642028}
   hookController: {fileID: 0}
@@ -1196,8 +1196,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1256275978195976031, guid: 7f0aaf559c4f5c14e809e1ad081ab9e7, type: 3}
+      propertyPath: gravity
+      value: -19.62
+      objectReference: {fileID: 0}
+    - target: {fileID: 1256275978195976031, guid: 7f0aaf559c4f5c14e809e1ad081ab9e7, type: 3}
       propertyPath: waterLevel
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1256275978195976031, guid: 7f0aaf559c4f5c14e809e1ad081ab9e7, type: 3}
+      propertyPath: gravityScaleBelowWater
+      value: 0.46
       objectReference: {fileID: 0}
     - target: {fileID: 4517183409600655231, guid: 7f0aaf559c4f5c14e809e1ad081ab9e7, type: 3}
       propertyPath: m_LocalPosition.x
