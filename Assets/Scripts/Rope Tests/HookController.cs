@@ -7,12 +7,13 @@ using Services;
 using Core;
 using GameInput;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(Collider))]
 public class HookController : BaseMonoBehaviour
 {
     private IInputService _inputService;
     private ICameraService _cameraService;
     private Rigidbody2D _rigidbody2D;
+    private Collider2D _collider;
     
     [SerializeField] private Transform waterStartTransform;
     [SerializeField] private float hookCastPower = 4.5f;
@@ -20,6 +21,7 @@ public class HookController : BaseMonoBehaviour
     [SerializeField] private float waterFallSpeed = 2f;
     [SerializeField] private float horizontalSpeed = 5f;
     [SerializeField] private ParticleSystem splashFX;
+    [SerializeField] private GameObject art;
     
     private bool isCast = false;
     private bool isInWater;
@@ -31,6 +33,7 @@ public class HookController : BaseMonoBehaviour
     {
         base.Awake();
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        _collider = GetComponent<Collider2D>();
     }
 
     protected override void OnServicesInitialized()
@@ -74,12 +77,22 @@ public class HookController : BaseMonoBehaviour
     public void CastHook(Vector2 direction, float powerMultiplier)
     {
         if (isCast) return;
+
+        var beforeThrowPosition = transform.position;
+        WaitForFrame(() =>
+        {
+            _collider.enabled = true;
+            
+            var directionBeforeThrow = transform.position - beforeThrowPosition;
+            directionBeforeThrow.Normalize();
+            
+            _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
+            _rigidbody2D.gravityScale = airGravityScale;
         
-        _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
-        _rigidbody2D.gravityScale = airGravityScale;
-        
-        _rigidbody2D.AddForce(direction * hookCastPower * powerMultiplier, ForceMode2D.Impulse);
-        isCast = true;
+            // _rigidbody2D.AddForce(direction * hookCastPower * powerMultiplier, ForceMode2D.Impulse);
+            _rigidbody2D.linearVelocity = direction * hookCastPower * powerMultiplier;
+            isCast = true;
+        });
     }
 
     private void HandleFall()
@@ -98,6 +111,9 @@ public class HookController : BaseMonoBehaviour
         _waterDepth = 0;
     }
 
+    public void MoveLeft() => HandleInputMovement(Vector2.left);
+    public void MoveRight() => HandleInputMovement(Vector2.right);
+
     private void HandleInputMovement(Vector2 direction)
     {
         if (!isInWater) return;
@@ -106,16 +122,24 @@ public class HookController : BaseMonoBehaviour
         _rigidbody2D.position = new Vector2(newX, _rigidbody2D.position.y);
     }
     
-#if UNITY_EDITOR
-    public void CheatReset(Vector3 resetPos)
+    public void ResetHookCast()
     {
-        _rigidbody2D.linearVelocity = Vector2.zero;
-        _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
-        _rigidbody2D.position = resetPos; // without it, it has a race condition with the FixedUpdate for the physics calculationss
         isCast = false;
         isInWater = false;
         splashFX.gameObject.SetActive(false);
         _cameraService?.SwitchCamera(ECamera.Player);
+        _collider.enabled = false;
     }
-#endif
+
+    public void ResetHookPosition(Vector3 resetPos)
+    {
+        _rigidbody2D.linearVelocity = Vector2.zero;
+        _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
+        _rigidbody2D.position = resetPos; // without it, it has a race condition with the FixedUpdate for the physics calculationss
+    }
+    
+    public void SetVisibility(bool value)
+    {
+        art.SetActive(value);
+    }
 }

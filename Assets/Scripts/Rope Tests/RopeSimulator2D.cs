@@ -4,6 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(LineRenderer))]
 public class RopeSimulator2D : MonoBehaviour
 {
+    [SerializeField] private bool startOnAwake = false;
+    
     [Header("Rope Settings")]
     public Transform hook;
     public float segmentLength = 0.15f;
@@ -27,6 +29,11 @@ public class RopeSimulator2D : MonoBehaviour
     {
         lineRenderer = GetComponent<LineRenderer>();
         segments = new List<RopeSegment>();
+
+        if (startOnAwake)
+        {
+            StartSimulation(transform.position);
+        }
     }
 
     void Update()
@@ -41,6 +48,8 @@ public class RopeSimulator2D : MonoBehaviour
 
     public void StartSimulation(Vector2 newStartPos)
     {
+        segments.Clear();
+        
         headOrigin = newStartPos;
         segments.Add(new RopeSegment(headOrigin));
         segments.Add(new RopeSegment(headOrigin - Vector2.up * segmentLength));

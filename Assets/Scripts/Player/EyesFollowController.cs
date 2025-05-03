@@ -2,23 +2,11 @@ using UnityEngine;
 
 public class EyesFollowController : MonoBehaviour
 {
-    [System.Serializable]
-    public class Eye
-    {
-        public Transform eyeTransform;      // Eye GameObject
-        public Transform pupilTransform;    // Pupil inside the eye
-        [HideInInspector] public Vector3 eyeStartLocalPos;
-        [HideInInspector] public Vector3 pupilStartLocalPos;
-        public float eyeMoveAmount = 0.02f;   // How far the eye can move
-        public float pupilMoveAmount = 0.04f; // How far the pupil can move inside the eye
-        public float eyeSmoothSpeed = 10f;    // Eye smoothing speed
-        public float pupilSmoothSpeed = 15f;  // Pupil smoothing speed
-    }
-
     public Eye[] eyes;
-    public Transform target;
 
-    private void Awake()
+    public Transform Target { get; set; }
+
+    protected void Awake()
     {
         // Save original local positions
         foreach (var eye in eyes)
@@ -28,13 +16,13 @@ public class EyesFollowController : MonoBehaviour
         }
     }
 
-    void Update()
+    protected void Update()
     {
-        if (target == null) return;
+        if (Target == null) return;
 
         foreach (var eye in eyes)
         {
-            Vector3 worldTargetPos = target.position;
+            Vector3 worldTargetPos = Target.position;
             Vector3 eyeWorldPos = eye.eyeTransform.parent.TransformPoint(eye.eyeStartLocalPos); // from parent local to world
 
             Vector3 direction = (worldTargetPos - eyeWorldPos).normalized;
@@ -55,5 +43,18 @@ public class EyesFollowController : MonoBehaviour
                 Time.deltaTime * eye.pupilSmoothSpeed
             );
         }
+    }
+    
+    [System.Serializable]
+    public class Eye
+    {
+        public Transform eyeTransform;      // Eye GameObject
+        public Transform pupilTransform;    // Pupil inside the eye
+        [HideInInspector] public Vector3 eyeStartLocalPos;
+        [HideInInspector] public Vector3 pupilStartLocalPos;
+        public float eyeMoveAmount = 0.02f;   // How far the eye can move
+        public float pupilMoveAmount = 0.04f; // How far the pupil can move inside the eye
+        public float eyeSmoothSpeed = 10f;    // Eye smoothing speed
+        public float pupilSmoothSpeed = 15f;  // Pupil smoothing speed
     }
 }

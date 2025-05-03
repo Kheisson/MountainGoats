@@ -6,9 +6,20 @@ public class FishingRodController : BaseMonoBehaviour
 {
     [SerializeField] private FishingRodGameObject[] fishingRodViewStates;
     
-    private int currentIndex = -1;
+    private int currentIndex = 0;
+    public Transform CurrentActiveRodHolder => fishingRodViewStates[currentIndex].Holder.transform;
     public Transform CurrentActiveHookPivot => fishingRodViewStates[currentIndex].HookPivot;
-    
+    public Transform CurrentActiveRodPivot => fishingRodViewStates[currentIndex].RodPivot;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        foreach (var state in fishingRodViewStates)
+        {
+            state.Holder.SetActive(false);
+        }
+    }
+
     public bool TrySetFishingRodStateAccordingToAngle(float normalizedCurrentAngle)
     {
         var index = Mathf.FloorToInt(normalizedCurrentAngle * fishingRodViewStates.Length);
@@ -31,5 +42,6 @@ public class FishingRodController : BaseMonoBehaviour
     {
         public GameObject Holder;
         public Transform HookPivot;
+        public Transform RodPivot;
     }
 }

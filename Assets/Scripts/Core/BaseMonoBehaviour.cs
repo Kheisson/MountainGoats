@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
@@ -53,6 +54,20 @@ namespace Core
         {
             _cancellationTokenSource?.Cancel();
             _cancellationTokenSource?.Dispose();
+        }
+        
+        protected void WaitForFrame(Action action)
+        {
+            StartCoroutine(WaitForFrameCoroutine(() =>
+            {
+                action?.Invoke();
+            }));  
+        }
+    
+        private IEnumerator WaitForFrameCoroutine(Action action)
+        {
+            yield return null;
+            action?.Invoke();
         }
     }
 } 

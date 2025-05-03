@@ -45,5 +45,8 @@ TagManager:
   - name: FishingRod
     uniqueID: 349394837
     locked: 0
+  - name: HUD
+    uniqueID: 2748575565
+    locked: 0
   m_RenderingLayers:
   - Default
