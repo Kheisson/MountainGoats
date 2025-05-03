@@ -1,9 +1,8 @@
 using Core;
-using UnityEngine;
 
 namespace Services
 {
-    public abstract class MonoService : MonoBehaviour, IService
+    public abstract class MonoService : BaseMonoBehaviour, IService
     {
         public bool IsInitialized { get; protected set; }
         public abstract bool IsPersistent { get; }

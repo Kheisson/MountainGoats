@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
+using Core;
 using Data;
+using EventsSystem;
 using Services;
 using Unity.Mathematics;
 using UnityEngine;
@@ -19,8 +22,15 @@ namespace GarbageManagement
         private Transform garbageHolder;
 
         private Dictionary<int, List<Garbage>> _garbagePerLevel;
-        
+        private IEventsSystemService _eventSystemsService;
+        private IDisposable _garbageCollectionSubscription;
+
         public override bool IsPersistent => false;
+
+        protected override HashSet<Type> RequiredServices => new HashSet<Type>()
+        {
+            typeof(IEventsSystemService)
+        };
 
         public void SpawnInitialGarbage()
         {
@@ -72,16 +82,30 @@ namespace GarbageManagement
             garbageInLevel.Add(instantiatedGarbage);
         }
 
-        protected void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             ServiceLocator.Instance.RegisterService<ISpawnerService>(this);
             Initialize();
         }
         
-        protected void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
             Shutdown();
             ServiceLocator.Instance?.UnregisterService<ISpawnerService>();
+            _garbageCollectionSubscription?.Dispose();
+        }
+
+        protected override void OnServicesInitialized()
+        {
+            _eventSystemsService = ServiceLocator.Instance.GetService<IEventsSystemService>();
+            _garbageCollectionSubscription = _eventSystemsService.Subscribe<GarbageCollectedData>(ProjectConstants.Events.GARBAGE_COLLECTED, OnGarbageCollected);
+        }
+
+        private void OnGarbageCollected(GarbageCollectedData data)
+        {
+            _garbagePerLevel[data.LevelIndex]?.Remove(data.Garbage);
         }
     }
 }

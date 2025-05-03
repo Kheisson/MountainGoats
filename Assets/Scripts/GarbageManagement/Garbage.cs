@@ -33,7 +33,7 @@ namespace GarbageManagement
 
         private GarbageCollectedData GenerateGarbageCollectedData()
         {
-            return new GarbageCollectedData(_levelIndex, _weight, _value);
+            return new GarbageCollectedData(_levelIndex, _weight, _value, this);
         }
     }
 }
