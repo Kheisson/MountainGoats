@@ -22,8 +22,6 @@ namespace GarbageManagement
             _levelIndex = levelIndex;
             _weight = weight;
             _value = value;
-        
-            transform.localScale *= weight;
         }
 
         private void OnGarbageCollected()

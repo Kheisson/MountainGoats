@@ -15,7 +15,10 @@ EditorBuildSettings:
     path: Assets/Scenes/RopeDemo.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
+    path: Assets/Scenes/Game.unity
+    guid: 207e356d7d7124f74ab5945ddb8f63d7
+  - enabled: 1
     path: Assets/Scenes/GarbageDemo.unity
-    guid: 5fbd1dded34d14c83a52c1665e1132a3
+    guid: da644c9d6812b488db62682314cd7fd9
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
