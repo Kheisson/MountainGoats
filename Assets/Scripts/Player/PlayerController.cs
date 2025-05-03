@@ -23,11 +23,14 @@ public class PlayerController : BaseMonoBehaviour
     private Vector3 clampedAimDir;
     private bool isCast = false;
     private float currentHoldTime = 0;
-
+    private Transform hookOriginParent;
+    
     private float CurrentPowerNormalized => currentHoldTime / powerThrowMaxSeconds;
     
     protected void Start()
     {
+        hookOriginParent = hookController.transform.parent;
+
         ResetCasting();
     }
 
@@ -66,6 +69,9 @@ public class PlayerController : BaseMonoBehaviour
             isCast = true;
             var aimSideSign = Mathf.Sign(aimTransform.position.x - transform.position.x);
             var isAimingLeft = aimSideSign < 0;
+            
+            hookController.transform.parent = fishingRodController.CurrentActiveHookPivot;
+            
             playerAnimationsController.PlayHookCastAnimationSequence(
                 fishingRodController.CurrentActiveRodHolder,
                 fishingRodController.CurrentActiveRodPivot,
@@ -77,13 +83,15 @@ public class PlayerController : BaseMonoBehaviour
 
     private void CastHook()
     {
+        hookController.transform.parent = hookOriginParent;
         powerBarHolder.SetActive(false);
         
-        currentHoldTime = 0;
-        hookController.CastHook(clampedAimDir, powerBar.fillAmount);
+        hookController.CastHook(clampedAimDir * CurrentPowerNormalized * powerBarMaxMultiplier, powerBar.fillAmount);
         ropeSimulator2D.StartSimulation(fishingRodController.CurrentActiveHookPivot.position);
         ropeSimulator2D.head = fishingRodController.CurrentActiveHookPivot;
         eyesFollowController.Target = hookController.transform;
+        
+        currentHoldTime = 0;
     }
 
     private void UpdateAimThrowPosition()

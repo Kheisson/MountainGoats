@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using Core;
 using DG.Tweening;
 using UnityEngine;
@@ -17,6 +16,7 @@ public class PlayerAnimationsController : BaseMonoBehaviour
     [SerializeField] private float goRotationMultiplier;
     [SerializeField] private AnimationCurve rodCastGoAnimationCurve;
     [SerializeField] private float rodGoAnimationDuration;
+    [SerializeField, Range(0,1)] private float hookReleaseAtPercentage;
     [Header("Reset Rotation Parameters")]
     [SerializeField] private AnimationCurve rodCastReturnAnimationCurve ;
     [SerializeField] private float rodCastReturnAnimationDuration ;
@@ -47,7 +47,7 @@ public class PlayerAnimationsController : BaseMonoBehaviour
     //     hookCastSequence.Play();
     // }
     
-    public void PlayHookCastAnimationSequence(Transform rod, Transform rodPivot, bool castLeftSide, float normalizedThrowPower, Action onAnimationComplete)
+    public void PlayHookCastAnimationSequence(Transform rod, Transform rodPivot, bool castLeftSide, float normalizedThrowPower, Action hookReleaseAction)
     {
         lastTarget = rod;
         originPosition = lastTarget.position;
@@ -79,13 +79,20 @@ public class PlayerAnimationsController : BaseMonoBehaviour
 
         seq.AppendInterval(rodSetAnimationDuration);
 
+        var hookReleaseActionInvoked = false;
         seq.Append(DOTween.To(() => readyAngle, angle =>
         {
             Quaternion rot = Quaternion.Euler(0, 0, angle);
             Vector3 dir = startPos - pivot;
             target.position = pivot + rot * dir;
             target.rotation = startRot * Quaternion.Euler(0, 0, angle);
-            onAnimationComplete?.Invoke();
+            
+            var currentProgress = (angle - readyAngle) / (goAngle - readyAngle);
+            if (currentProgress >= hookReleaseAtPercentage && !hookReleaseActionInvoked)
+            {
+                hookReleaseAction?.Invoke();
+                hookReleaseActionInvoked = true; // Ensure it's only called once
+            }
         }, goAngle, rodCastReadyAnimationDuration).SetEase(rodCastReadyAnimationCurve));
         
         // // Return to original
