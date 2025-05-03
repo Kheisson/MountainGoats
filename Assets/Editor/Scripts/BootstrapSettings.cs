@@ -7,7 +7,7 @@ namespace Editor.Scripts
 {
     public abstract class BootstrapSettings
     {
-        private const string MENU_NAME = "MgGame/Always Start From Bootstrapper";
+        private const string MENU_NAME = ProjectConstants.Global.PROJECT_NAME + "/Always Start From Bootstrapper";
         private const string PREF_KEY = "AlwaysStartFromBootstrapper";
         private const string LAST_SCENE_SAVED_KEY = "LastSceneSaved";
         private const string BOOTSTRAPPER_SCENE_PATH = "Assets/Scenes/Bootstrapper.unity";

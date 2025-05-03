@@ -1,17 +1,20 @@
 using System;
+using UnityEngine.Serialization;
 
 namespace Storage
 {
     [Serializable]
     public class GameData
     {
-        public int DepthReached;
+        [FormerlySerializedAs("DepthReached")] public int depthReached;
+        [FormerlySerializedAs("Currency")] public int currency = 0;
 
         public GameData Copy()
         {
             return new GameData
             {
-                DepthReached = DepthReached
+                depthReached = depthReached,
+                currency = currency,
             };
         }
     }
