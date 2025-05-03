@@ -5,7 +5,13 @@ using UnityEngine;
 public class RopeSimulator2D_V2 : MonoBehaviour
 {
     [SerializeField] private bool startOnAwake = false;
-
+    
+    [Header("Water Settings")]
+    public Transform waterLevel;
+    public float gravityScaleAboveWater = 1f;
+    public float gravityScaleBelowWater = 0.3f;
+    public float underwaterDragMultiplier = 3f; // How much stronger drag is underwater
+    
     [Header("Rope Settings")]
     public Transform head;
     public Transform hook;
@@ -23,7 +29,6 @@ public class RopeSimulator2D_V2 : MonoBehaviour
 
     private bool simulationPlaying = false;
     private float totalRopeLength = 0f;
-    private int pinIndex = 0;
 
     void Awake()
     {
@@ -54,52 +59,49 @@ public class RopeSimulator2D_V2 : MonoBehaviour
 
         lineRenderer.positionCount = segments.Count;
         totalRopeLength = segments.Count * segmentLength;
-        pinIndex = 0;
 
         simulationPlaying = true;
     }
 
     void GrowRopeIfNeeded()
     {
-        float currentDistance = Vector2.Distance(head.position, hook.position);
-        float growThreshold = totalRopeLength + segmentLength * growThresholdFactor;
+        if (segments.Count >= maxPinnedSegments)
+            return;
 
-        if (currentDistance > growThreshold)
+        RopeSegment segA = segments[^2];
+        RopeSegment segB = segments[^1];
+        float dist = (segA.posNow - segB.posNow).magnitude;
+
+        float growThreshold = segmentLength + segmentLength * growThresholdFactor;
+
+        if (dist > growThreshold)
         {
-            RopeSegment last = segments[^1];
-            Vector2 dir = ((Vector2)hook.position - last.posNow).normalized;
-            Vector2 newPos = last.posNow + dir * segmentLength;
+            Vector2 dir = (segB.posNow - segA.posNow).normalized;
+            Vector2 newPos = segB.posNow + dir * segmentLength;
 
             RopeSegment newSeg = new RopeSegment(newPos);
-            Vector2 velocity = last.posNow - last.posOld;
+            Vector2 velocity = segB.posNow - segB.posOld;
             newSeg.posOld = newSeg.posNow - velocity * 0.9f;
 
             segments.Add(newSeg);
             lineRenderer.positionCount = segments.Count;
             totalRopeLength += segmentLength;
 
-            RopeSegment segA = segments[^2];
-            RopeSegment segB = segments[^1];
+            // Apply constraint immediately between the new last two segments
+            segA = segments[^2];
+            segB = segments[^1];
 
-            float dist = (segA.posNow - segB.posNow).magnitude;
-            float error = dist - segmentLength;
-            Vector2 changeDir = (segA.posNow - segB.posNow).normalized;
-            Vector2 change = changeDir * error;
+            float error = (segA.posNow - segB.posNow).magnitude - segmentLength;
+            Vector2 correction = (segA.posNow - segB.posNow).normalized * error;
 
-            segA.posNow -= change * 0.5f;
-            segB.posNow += change * 0.5f;
+            segA.posNow -= correction * 0.5f;
+            segB.posNow += correction * 0.5f;
 
             segments[^2] = segA;
             segments[^1] = segB;
-
-            if (segments.Count > maxPinnedSegments)
-            {
-                segments.RemoveAt(0);
-                lineRenderer.positionCount = segments.Count;
-            }
         }
     }
-
+    
     void Simulate()
     {
         for (int i = 1; i < segments.Count; i++)
@@ -107,12 +109,19 @@ public class RopeSimulator2D_V2 : MonoBehaviour
             RopeSegment seg = segments[i];
 
             Vector2 velocity = seg.posNow - seg.posOld;
-            float dragFactor = Mathf.Lerp(1f - baseDrag, 1f, (float)i / (segments.Count - 1));
+
+            // Apply stronger drag underwater
+            float dragScale = seg.posNow.y > waterLevel.position.y
+                ? baseDrag
+                : baseDrag * underwaterDragMultiplier; // or whatever multiplier you prefer
+
+            float dragFactor = Mathf.Lerp(1f - dragScale, 1f, (float)i / (segments.Count - 1));
             velocity *= dragFactor;
 
             seg.posOld = seg.posNow;
             seg.posNow += velocity;
-            seg.posNow += Vector2.up * gravity * Time.deltaTime * Time.deltaTime;
+            float gravityScale = seg.posNow.y > waterLevel.position.y ? gravityScaleAboveWater : gravityScaleBelowWater;
+            seg.posNow += Vector2.up * gravity * gravityScale * Time.deltaTime * Time.deltaTime;
 
             segments[i] = seg;
         }
@@ -163,7 +172,6 @@ public class RopeSimulator2D_V2 : MonoBehaviour
     public void ResetRope()
     {
         segments.Clear();
-        pinIndex = 0;
         totalRopeLength = 0f;
         lineRenderer.positionCount = 0;
         simulationPlaying = false;

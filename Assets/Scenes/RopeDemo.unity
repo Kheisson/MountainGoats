@@ -486,12 +486,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startOnAwake: 1
+  waterLevel: {fileID: 2076107695}
+  gravityScaleAboveWater: 1
+  gravityScaleBelowWater: 0.3
+  underwaterDragMultiplier: 3
   head: {fileID: 1762658871}
   hook: {fileID: 691096696}
   segmentLength: 0.15
   constraintIterations: 7
-  gravity: -2.25
-  baseDrag: 0.25
+  gravity: -9.81
+  baseDrag: 0.085
   growThresholdFactor: 0.05
   maxPinnedSegments: 200
 --- !u!1 &2026259123
