@@ -12,6 +12,7 @@ namespace Managers
         [SerializeField] private Canvas _hudCanvas;
         [SerializeField] private CanvasGroup _hudCanvasGroup;
         [SerializeField] private CurrencyView _viewPrefab;
+        [SerializeField] private ShopView _shopViewPrefab;
         
         private IDataStorageService _dataStorage;
         

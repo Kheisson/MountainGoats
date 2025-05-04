@@ -129,7 +129,7 @@ public class RopeSimulator2D_V2 : MonoBehaviour
             seg.posNow += velocity;
 
             // Apply scaled gravity
-            seg.posNow += Vector2.up * gravity * gravityScale * Time.deltaTime * Time.deltaTime;
+            seg.posNow += Vector2.up * (gravity * gravityScale * Time.deltaTime);
 
             segments[i] = seg;
         }
