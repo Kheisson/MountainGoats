@@ -1,6 +1,6 @@
-namespace Models
+namespace Stats
 {
-    public interface IFishingModel
+    public interface IPlayerStats
     {
         float RopeLength { get; }
         float HorizontalSpeed { get; }

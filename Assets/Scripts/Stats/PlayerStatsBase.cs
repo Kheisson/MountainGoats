@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace Models
+namespace Stats
 {
-    public class FishingModel : ScriptableObject, IFishingModel
+    public class PlayerStatsBase : ScriptableObject, IPlayerStats
     {
         [field: SerializeField]
         public float RopeLength { get; private set; }

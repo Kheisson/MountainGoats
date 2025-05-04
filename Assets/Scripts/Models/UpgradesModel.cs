@@ -7,10 +7,21 @@ namespace Models
     {
         private Dictionary<EUpgradeType, List<int>> _purchasedUpgrades = new ();
 
+        public bool TryGetUpgradesByType(EUpgradeType upgradeType, out List<int> upgrades)
+        {
+            return _purchasedUpgrades.TryGetValue(upgradeType, out upgrades);
+        }
+
         public void PurchaseUpgrade(EUpgradeType upgradeType, int upgradeIndex)
         {
-            _purchasedUpgrades[upgradeType].Add(upgradeIndex);
+            if (_purchasedUpgrades.ContainsKey(upgradeType))
+            {
+                _purchasedUpgrades[upgradeType].Add(upgradeIndex);
+            }
+            else
+            {
+                _purchasedUpgrades[upgradeType] = new List<int>(){ upgradeIndex };
+            }
         }
-        
     }
 }

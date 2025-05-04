@@ -5,7 +5,6 @@ namespace Core
         public class Global
         {
             public const string PROJECT_NAME = "MgGame";
-
         }
         
         public class Scenes
@@ -18,6 +17,7 @@ namespace Core
         
         public class Events
         {
+            public const string UPGRADE_PURCHASED = "upgrade_purchased";
             public const string PLAY_STARTED = "play_started";
             public const string PLAY_ENDED = "play_ended";
             public const string GARBAGE_COLLECTED = "garbage_collected";

@@ -2,7 +2,7 @@ namespace Upgrades
 {
     public enum EUpgradeType
     {
-        HookLength,
+        RopeLength,
         HookSpeed,
         EnergyCapacity,
         Flashlight
