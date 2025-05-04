@@ -19,19 +19,6 @@ namespace Scenes
         public event Action<string> SceneLoadedEvent;
         public event Action<string> SceneUnloadedEvent;
 
-        private void Awake()
-        {
-            ServiceLocator.Instance.RegisterService<ISceneLoader>(this);
-            SceneManager.sceneLoaded += OnSceneLoaded;
-            SceneManager.sceneUnloaded += OnSceneUnloaded;
-        }
-
-        private void OnDestroy()
-        {
-            SceneManager.sceneLoaded -= OnSceneLoaded;
-            SceneManager.sceneUnloaded -= OnSceneUnloaded;
-        }
-
         public async UniTask LoadSceneAsync(string sceneName, bool showLoadingScreen = true)
         {
             if (_isLoading)
@@ -192,6 +179,10 @@ namespace Scenes
 
         public override void Initialize()
         {
+            ServiceLocator.Instance.RegisterService<ISceneLoader>(this);
+            SceneManager.sceneLoaded += OnSceneLoaded;
+            SceneManager.sceneUnloaded += OnSceneUnloaded;
+            
             if (!SceneManager.GetSceneByName(ProjectConstants.Scenes.MAIN_MENU).IsValid())
             {
                 SceneManager.LoadScene(ProjectConstants.Scenes.MAIN_MENU, LoadSceneMode.Single);
@@ -200,6 +191,8 @@ namespace Scenes
 
         public override void Shutdown()
         {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+            SceneManager.sceneUnloaded -= OnSceneUnloaded;
         }
     }
 } 

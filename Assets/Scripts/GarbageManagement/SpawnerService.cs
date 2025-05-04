@@ -78,7 +78,7 @@ namespace GarbageManagement
             var (weight, value) = itemToSpawn.CalculateRandomValue();
                 
             Garbage instantiatedGarbage = Instantiate(itemToSpawn.ItemPrefab, new Vector2(spawnPositionX, spawnPositionY), quaternion.identity, garbageHolder);
-            instantiatedGarbage.Initialize(levelIndex, weight, value);
+            instantiatedGarbage.Initialize(levelIndex, weight, value, _eventSystemsService);
             garbageInLevel.Add(instantiatedGarbage);
         }
 
@@ -105,7 +105,14 @@ namespace GarbageManagement
 
         private void OnGarbageCollected(GarbageCollectedData data)
         {
-            _garbagePerLevel[data.LevelIndex]?.Remove(data.Garbage);
+            if (_garbagePerLevel[data.LevelIndex]?.Remove(data.Garbage) is true)
+            {
+                Destroy(data.Garbage.gameObject);
+            }
+            else
+            {
+                MgLogger.LogError($"Garbage with level index {data.LevelIndex} not found in the list.");
+            }
         }
     }
 }

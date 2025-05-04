@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Services;
 using Unity.Services.Core;
@@ -29,7 +30,14 @@ namespace Core
             }
 
             await InitializeFullscreen();
-            await InitializeServices();
+            await InitializeServices(); 
+            FinishInitialization();
+        }
+
+        private void FinishInitialization()
+        {
+            sceneLoaderService = Instantiate(sceneLoaderService, transform);
+            sceneLoaderService.Initialize();
         }
 
         private async UniTask InitializeFullscreen()
@@ -64,9 +72,6 @@ namespace Core
             analyticsService.Initialize();
             ServiceLocator.Instance.RegisterService<IGameAnalyticsService>(analyticsService);
             
-            sceneLoaderService = Instantiate(sceneLoaderService, transform);
-            sceneLoaderService.Initialize();
-
             var eventsSystemService = new EventsSystemService();
             eventsSystemService.Initialize();
             ServiceLocator.Instance.RegisterService<IEventsSystemService>(eventsSystemService);
