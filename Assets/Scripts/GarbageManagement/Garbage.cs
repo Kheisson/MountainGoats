@@ -1,7 +1,6 @@
-using System;
-using System.Collections.Generic;
 using Core;
 using EventsSystem;
+using UnityEngine;
 
 namespace GarbageManagement
 {
@@ -12,26 +11,37 @@ namespace GarbageManagement
         private int _levelIndex;
         private IEventsSystemService _eventsSystemService;
 
-        protected override HashSet<Type> RequiredServices => new HashSet<Type>()
-        {
-            typeof(IEventsSystemService)
-        };
-
-        public void Initialize(int levelIndex, float weight, float value)
+        public void Initialize(int levelIndex, float weight, float value, IEventsSystemService eventsSystemService)
         {
             _levelIndex = levelIndex;
             _weight = weight;
             _value = value;
+            _eventsSystemService = eventsSystemService;
         }
 
         private void OnGarbageCollected()
         {
             _eventsSystemService?.Publish(ProjectConstants.Events.GARBAGE_COLLECTED, GenerateGarbageCollectedData());
         }
+        
+        private void OnGarbageHooked()
+        {
+            _eventsSystemService?.Publish(ProjectConstants.Events.GARBAGE_HOOKED, GenerateGarbageHookedData());
+        }
 
         private GarbageCollectedData GenerateGarbageCollectedData()
         {
             return new GarbageCollectedData(_levelIndex, _weight, _value, this);
+        }
+        
+        private GarbageHookedData GenerateGarbageHookedData()
+        {
+            return new GarbageHookedData();
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            OnGarbageHooked();
         }
     }
 }

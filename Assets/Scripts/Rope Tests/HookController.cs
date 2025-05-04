@@ -5,13 +5,16 @@ using Cameras;
 using UnityEngine;
 using Services;
 using Core;
+using EventsSystem;
 using GameInput;
+using GarbageManagement;
 
 [RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(Collider))]
 public class HookController : BaseMonoBehaviour
 {
     private IInputService _inputService;
     private ICameraService _cameraService;
+    private IEventsSystemService _eventsSystemService;
     private Rigidbody2D _rigidbody2D;
     private Collider2D _collider;
     
@@ -27,7 +30,7 @@ public class HookController : BaseMonoBehaviour
     private bool isInWater;
     private float _waterDepth;
     
-    protected override HashSet<Type> RequiredServices => new() { typeof(IInputService), typeof(ICameraService) };
+    protected override HashSet<Type> RequiredServices => new() { typeof(IInputService), typeof(ICameraService), typeof(IEventsSystemService) };
 
     protected override void Awake()
     {
@@ -40,6 +43,8 @@ public class HookController : BaseMonoBehaviour
     {
         _inputService = ServiceLocator.Instance.GetService<IInputService>();
         _cameraService = ServiceLocator.Instance.GetService<ICameraService>();
+        _eventsSystemService = ServiceLocator.Instance.GetService<IEventsSystemService>();
+        _eventsSystemService.Subscribe<GarbageHookedData>(ProjectConstants.Events.GARBAGE_HOOKED, HandleGarbageHooked);
         _inputService.OnMove += HandleInputMovement;
     }
 
@@ -51,6 +56,11 @@ public class HookController : BaseMonoBehaviour
         {
             HandleFall();
         }
+    }
+    
+    private void HandleGarbageHooked(GarbageHookedData data)
+    {
+        
     }
 
     private void OnTriggerEnter2D(Collider2D other)
