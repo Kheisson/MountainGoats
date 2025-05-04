@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Models
+namespace Upgrades
 {
     [Serializable]
     public class UpgradeData

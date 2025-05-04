@@ -1,4 +1,5 @@
 using System;
+using Models;
 using UnityEngine.Serialization;
 
 namespace Storage
@@ -8,6 +9,7 @@ namespace Storage
     {
         [FormerlySerializedAs("DepthReached")] public int depthReached;
         [FormerlySerializedAs("Currency")] public int currency = 0;
+        public UpgradesModel upgradesModel;
 
         public GameData Copy()
         {

@@ -1,4 +1,4 @@
-namespace Models
+namespace Upgrades
 {
     public enum EUpgradeType
     {
