@@ -7,5 +7,6 @@ namespace Managers
         void ShowNotebook();
         void HideNotebook();
         bool IsNotebookOpen { get; }
+        void UpdateNotebook();
     }
 } 

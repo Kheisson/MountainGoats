@@ -2,11 +2,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Core;
 using Data;
-using EventsSystem;
+using Managers;
 using Services;
 using Storage;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Editor.Scripts
 {
@@ -26,8 +27,15 @@ namespace Editor.Scripts
 
         private void OnEnable()
         {
-            RefreshItems();
-            LoadGameData();
+            if (SceneManager.GetActiveScene().name == ProjectConstants.Scenes.GAME)
+            {
+                RefreshItems();
+                LoadGameData();
+            }
+            else
+            {
+                EditorGUILayout.HelpBox($"Notebook Editor is only available in the {ProjectConstants.Scenes.GAME} scene.", MessageType.Warning);
+            }
         }
 
         private void LoadGameData()
@@ -151,6 +159,13 @@ namespace Editor.Scripts
                     gameData._unlockedItems = _gameData._unlockedItems;
                     return true;
                 });
+
+                var notebookManager = ServiceLocator.Instance.GetService<INotebookManager>();
+                
+                if (notebookManager != null)
+                {
+                    notebookManager.UpdateNotebook();
+                }
             }
         }
     }

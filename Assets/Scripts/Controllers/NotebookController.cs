@@ -131,25 +131,26 @@ namespace Controllers
             _dataStorage.ModifyGameDataSync(gameData =>
             {
                 if (!gameData._unlockedItems.Add(itemName)) return false;
-                
-                var itemView = _itemViews.FirstOrDefault(view => view.ItemData.name == itemName);
-
-                if (itemView == null) return true;
-                
-                itemView.Initialize(itemView.ItemData, true, OnItemSelected);
-                
-                if (_currentSelectedIndex == _itemViews.IndexOf(itemView))
-                {
-                    _pageView.UpdateContent(itemView.ItemData, true);
-                }
-
                 return true;
             });
+            
+            UpdateNotebook();
         }
 
         public void UpdateNotebook()
         {
-            
+            foreach (var itemView in _itemViews)
+            {
+                var isUnlocked = _dataStorage.GetGameData()._unlockedItems.Contains(itemView.ItemData.name);
+                itemView.Initialize(itemView.ItemData, isUnlocked, OnItemSelected);
+            }
+
+            if (_currentSelectedIndex < 0 || _currentSelectedIndex >= _itemViews.Count) return;
+            {
+                var selectedView = _itemViews[_currentSelectedIndex];
+                var isUnlocked = _dataStorage.GetGameData()._unlockedItems.Contains(selectedView.ItemData.name);
+                _pageView.UpdateContent(selectedView.ItemData, isUnlocked);
+            }
         }
     }
 } 
