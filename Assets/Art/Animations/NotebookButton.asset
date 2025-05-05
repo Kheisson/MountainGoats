@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a4dcf1ce1664f8faaed402a3d85148b, type: 3}
+  m_Name: NotebookButton
+  m_EditorClassIdentifier: 
+  hoverAnimation:
+    enabled: 1
+    animateScale: 1
+    targetScale: {x: 1.1, y: 1.1, z: 1}
+    animateColor: 0
+    targetColor: {r: 1, g: 1, b: 1, a: 1}
+    animatePosition: 0
+    positionOffset: {x: 0.5, y: 0.5, z: 0}
+    duration: 0.2
+    easeType: 27
+  pressAnimation:
+    enabled: 1
+    animateScale: 1
+    targetScale: {x: 0.8, y: 0.8, z: 1}
+    animateColor: 0
+    targetColor: {r: 1, g: 1, b: 1, a: 1}
+    animatePosition: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    duration: 0.1
+    easeType: 9
+  exitAnimation:
+    enabled: 1
+    animateScale: 1
+    targetScale: {x: 1.2, y: 1.2, z: 1}
+    animateColor: 0
+    targetColor: {r: 1, g: 1, b: 1, a: 1}
+    animatePosition: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    duration: 0.2
+    easeType: 27
+  normalAnimation:
+    enabled: 1
+    animateScale: 1
+    targetScale: {x: 1, y: 1, z: 1}
+    animateColor: 0
+    targetColor: {r: 1, g: 1, b: 1, a: 1}
+    animatePosition: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    duration: 0.2
+    easeType: 27
