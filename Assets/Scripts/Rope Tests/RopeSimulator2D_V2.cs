@@ -16,14 +16,17 @@ public class RopeSimulator2D_V2 : MonoBehaviour
     public float baseDrag = 0.25f;
     public float growThresholdFactor = 0.05f;
     public int maxPinnedSegments = 200;
+    [Range(1, 100)] public int maxConstraintIterations = 14;
 
     [Header("Water Settings")]
     public Transform waterLevel;
     public float underwaterDragMultiplier = 3f;
     public float gravityScaleBelowWater = 0.3f;
 
+    // Simulation optimizations
     private float accumulatedTime = 0f;
-    
+    private float referenceDeltaTime = 1f / 60f;
+
     private LineRenderer lineRenderer;
     private List<RopeSegment> segments;
 
@@ -152,7 +155,13 @@ public class RopeSimulator2D_V2 : MonoBehaviour
         pin.posNow = head.position;
         segments[0] = pin;
 
-        for (int k = 0; k < constraintIterations; k++)
+        var dynamicIterations = Mathf.Clamp(
+            Mathf.RoundToInt(constraintIterations * (referenceDeltaTime / Mathf.Max(Time.deltaTime, 0.001f))),
+            constraintIterations,
+            maxConstraintIterations
+        );
+
+        for (int k = 0; k < dynamicIterations; k++)
         {
             for (int i = 0; i < segments.Count - 1; i++)
             {
