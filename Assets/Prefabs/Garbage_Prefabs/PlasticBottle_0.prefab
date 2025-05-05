@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7154688074406909761}
   - component: {fileID: 4745141917478066206}
   - component: {fileID: 7562276194259523722}
-  - component: {fileID: -6316943382973152513}
+  - component: {fileID: 810931681046856320}
   m_Layer: 8
   m_Name: PlasticBottle_0
   m_TagString: Untagged
@@ -101,8 +101,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71e9e1f6d2bb14df2ac15e1697bf45a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!61 &-6316943382973152513
-BoxCollider2D:
+--- !u!60 &810931681046856320
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -145,5 +145,12 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.68, y: 2.23}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.9591691, y: -0.34334096}
+      - {x: -0.7805686, y: -1.0104697}
+      - {x: 0.024358891, y: -1.3283187}
+      - {x: 1.0076742, y: 0.0674739}
+      - {x: 0.91879183, y: 1.2036474}
+      - {x: 0.07337876, y: 1.1935778}
+  m_UseDelaunayMesh: 0
