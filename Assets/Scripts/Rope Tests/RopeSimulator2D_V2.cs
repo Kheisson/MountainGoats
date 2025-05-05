@@ -4,6 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(LineRenderer))]
 public class RopeSimulator2D_V2 : MonoBehaviour
 {
+    [SerializeField] private float fixedDeltaTime = 1f / 60f;
     [SerializeField] private bool startOnAwake = false;
 
     [Header("Rope Settings")]
@@ -21,6 +22,8 @@ public class RopeSimulator2D_V2 : MonoBehaviour
     public float underwaterDragMultiplier = 3f;
     public float gravityScaleBelowWater = 0.3f;
 
+    private float accumulatedTime = 0f;
+    
     private LineRenderer lineRenderer;
     private List<RopeSegment> segments;
 
@@ -43,8 +46,18 @@ public class RopeSimulator2D_V2 : MonoBehaviour
         if (!simulationPlaying) return;
 
         GrowRopeIfNeeded();
-        Simulate();
-        ApplyConstraints();
+
+        accumulatedTime += Time.deltaTime;
+        
+        var maxSteps = 5;
+        var stepCount = 0;
+        while (accumulatedTime >= fixedDeltaTime && stepCount++ < maxSteps)
+        {
+            Simulate();
+            ApplyConstraints();
+            accumulatedTime -= fixedDeltaTime;
+        }
+
         DrawRope();
     }
 
@@ -105,8 +118,6 @@ public class RopeSimulator2D_V2 : MonoBehaviour
             }
         }
     }
-
-
 
     void Simulate()
     {
