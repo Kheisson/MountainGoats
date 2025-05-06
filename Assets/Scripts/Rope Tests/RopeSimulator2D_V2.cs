@@ -47,7 +47,7 @@ public class RopeSimulator2D_V2 : MonoBehaviour
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (!simulationPlaying) return;
 
@@ -133,13 +133,15 @@ public class RopeSimulator2D_V2 : MonoBehaviour
 
     void Simulate()
     {
+        float dt = Mathf.Min(Time.deltaTime, 1f / 30f); // clamp to max 33ms per frame
+
         for (int i = 1; i < segments.Count; i++)
         {
             RopeSegment seg = segments[i];
 
             Vector2 velocity = seg.posNow - seg.posOld;
 
-            // Determine water-based drag and gravity scale
+            // Adjust drag and gravity based on water level
             bool isAboveWater = seg.posNow.y > waterLevel.position.y;
             float dragScale = isAboveWater ? baseDrag : baseDrag * underwaterDragMultiplier;
             float gravityScale = isAboveWater ? 1f : gravityScaleBelowWater;
@@ -151,8 +153,8 @@ public class RopeSimulator2D_V2 : MonoBehaviour
             seg.posOld = seg.posNow;
             seg.posNow += velocity;
 
-            // Apply scaled gravity
-            seg.posNow += Vector2.up * gravity * gravityScale * Time.deltaTime * Time.deltaTime;
+            // Apply gravity with clamped timestep
+            seg.posNow += Vector2.up * gravity * gravityScale * dt * dt;
 
             segments[i] = seg;
         }
