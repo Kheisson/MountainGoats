@@ -154,6 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fixedDeltaTime: 0.016666668
   startOnAwake: 0
+  maxTotalBendAngle: 35
   head: {fileID: 4517183409600655231}
   hook: {fileID: 0}
   segmentLength: 0.05
