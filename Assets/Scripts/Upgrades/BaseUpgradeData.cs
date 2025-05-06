@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Upgrades
 {
     [Serializable]
-    public class UpgradeData : IUpgradeData
+    public class UpgradeData
     {
         [field: SerializeReference, SubclassSelector] public IPlayerStatsModifier Modifier { get; private set; }
         [field: SerializeField] public int Cost { get; private set; }

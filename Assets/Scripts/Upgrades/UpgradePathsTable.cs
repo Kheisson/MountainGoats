@@ -12,22 +12,11 @@ namespace Upgrades
         [field: SerializeField] 
         public SerializedDictionary<EUpgradeType, UpgradePath> UpgradePaths { get; private set; }
 
-        public IPlayerStats ApplyUpgrade(IPlayerStats basePlayerStats, EUpgradeType upgradeType, List<int> upgradeIndices)
+        public IPlayerStats ApplyUpgrade(IPlayerStats basePlayerStats, EUpgradeType upgradeType, int maxUpgradeIndex)
         {
             var upgradePath = UpgradePaths[upgradeType];
-
-            if (upgradePath.isLinearUpgrade)
-            {
-                var maxUpgradeIndex = upgradeIndices.Max();
-                basePlayerStats = upgradePath.AvailableUpgrades[maxUpgradeIndex].Modifier.ApplyModifier(basePlayerStats);
-            }
-            else
-            {
-                foreach (int upgradeIndex in upgradeIndices)
-                {
-                    basePlayerStats = upgradePath.AvailableUpgrades[upgradeIndex].Modifier.ApplyModifier(basePlayerStats);
-                }
-            }
+            
+            basePlayerStats = upgradePath.AvailableUpgrades[maxUpgradeIndex].Modifier.ApplyModifier(basePlayerStats);
 
             return basePlayerStats;
         }

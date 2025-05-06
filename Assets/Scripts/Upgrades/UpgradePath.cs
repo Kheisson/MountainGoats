@@ -8,6 +8,5 @@ namespace Upgrades
     public class UpgradePath
     {
         [field: SerializeField] public List<UpgradeData> AvailableUpgrades { get; private set; }
-        [field: SerializeField] public bool isLinearUpgrade { get; private set; } = true;
     }
 }

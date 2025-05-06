@@ -17,6 +17,7 @@ namespace Core
         
         public class Events
         {
+            public const string PURCHASE_BUTTON_CLICKED = "upgrade_purchase_clicked";
             public const string UPGRADE_PURCHASED = "upgrade_purchased";
             public const string PLAY_STARTED = "play_started";
             public const string PLAY_ENDED = "play_ended";

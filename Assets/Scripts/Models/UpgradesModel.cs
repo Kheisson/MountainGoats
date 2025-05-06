@@ -5,23 +5,16 @@ namespace Models
 {
     public class UpgradesModel
     {
-        private Dictionary<EUpgradeType, List<int>> _purchasedUpgrades = new ();
+        private Dictionary<EUpgradeType, int> _purchasedUpgrades = new ();
 
-        public bool TryGetUpgradesByType(EUpgradeType upgradeType, out List<int> upgrades)
+        public bool TryGetUpgradesByType(EUpgradeType upgradeType, out int maxPurchasedIndex)
         {
-            return _purchasedUpgrades.TryGetValue(upgradeType, out upgrades);
+            return _purchasedUpgrades.TryGetValue(upgradeType, out maxPurchasedIndex);
         }
 
         public void PurchaseUpgrade(EUpgradeType upgradeType, int upgradeIndex)
         {
-            if (_purchasedUpgrades.ContainsKey(upgradeType))
-            {
-                _purchasedUpgrades[upgradeType].Add(upgradeIndex);
-            }
-            else
-            {
-                _purchasedUpgrades[upgradeType] = new List<int>(){ upgradeIndex };
-            }
+            _purchasedUpgrades[upgradeType] = upgradeIndex;
         }
     }
 }

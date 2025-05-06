@@ -4,6 +4,7 @@ using Services;
 using Storage;
 using UnityEngine;
 using Views;
+using Views.Shop;
 
 namespace Managers
 {
