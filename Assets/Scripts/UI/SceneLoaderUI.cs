@@ -84,7 +84,6 @@ namespace UI
             _currentSequence = DOTween.Sequence();
             _waveImage.rectTransform.anchoredPosition = _originalWavePosition;
             _currentSequence.Append(_canvasGroup.DOFade(1f, _fadeDuration).SetEase(_fadeEase));
-            
             _currentSequence.Join(_waveImage.rectTransform
                 .DOAnchorPosY(0f, _waveRiseDuration)
                 .SetEase(_waveEase));
@@ -104,6 +103,7 @@ namespace UI
             _currentSequence.AppendInterval(_endPauseDuration);
             
             var fallY = -_waveImage.rectTransform.rect.height * (1f - _waveFallPosition);
+            
             _currentSequence.Append(_waveImage.rectTransform
                 .DOAnchorPosY(fallY, _waveFallDuration)
                 .SetEase(_waveEase));
