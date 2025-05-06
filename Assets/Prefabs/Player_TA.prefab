@@ -186,6 +186,7 @@ GameObject:
   - component: {fileID: 8552831880361962019}
   - component: {fileID: 7608021396388370812}
   - component: {fileID: 1465779485831642028}
+  - component: {fileID: 2595807548109779663}
   m_Layer: 0
   m_Name: Player_TA
   m_TagString: Untagged
@@ -229,8 +230,8 @@ MonoBehaviour:
     pupilTransform: {fileID: 228637394270323761}
     eyeStartLocalPos: {x: -0.225, y: 0.4, z: 0}
     pupilStartLocalPos: {x: 0, y: 0, z: 0}
-    eyeMoveAmount: 0.25
-    pupilMoveAmount: 0.25
+    eyeMoveAmount: 0.05
+    pupilMoveAmount: 0.05
     eyeSmoothSpeed: 8
     pupilSmoothSpeed: 2.75
   - eyeTransform: {fileID: 3282832001069138018}
@@ -245,8 +246,8 @@ MonoBehaviour:
     pupilTransform: {fileID: 1093909152076097143}
     eyeStartLocalPos: {x: 0.225, y: 0.4, z: 0}
     pupilStartLocalPos: {x: 0, y: 0, z: 0}
-    eyeMoveAmount: 0.25
-    pupilMoveAmount: 0.25
+    eyeMoveAmount: 0.05
+    pupilMoveAmount: 0.05
     eyeSmoothSpeed: 8
     pupilSmoothSpeed: 2.75
 --- !u!114 &7608021396388370812
@@ -267,7 +268,7 @@ MonoBehaviour:
   powerBarHolder: {fileID: 5834851316341236824}
   powerBar: {fileID: 7967844529778785376}
   powerThrowMaxSeconds: 0.9
-  powerBarBasePower: 1.35
+  powerBarBasePower: 0.85
   powerBarMaxMultiplier: 1.5
   playerAnimationsController: {fileID: 1465779485831642028}
   hookController: {fileID: 0}
@@ -366,6 +367,28 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   rodCastReturnAnimationDuration: 0.25
+--- !u!95 &2595807548109779663
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1694944127991086813}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 636ddc76e3014ed4f90a814f9f6c9307, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1953927919508715773
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,13 +414,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1953927919508715773}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.21243352, w: 0.97717553}
-  m_LocalPosition: {x: -0.4, y: 1.64, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0.3067752, w: 0.95178205}
+  m_LocalPosition: {x: -0.05, y: 1.27, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7447437212257645339}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 24.53}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 35.73}
 --- !u!212 &4635933541547528846
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -671,6 +694,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7447437212257645339}
+  - component: {fileID: 2567745004176113822}
   m_Layer: 0
   m_Name: Sprout
   m_TagString: Untagged
@@ -687,7 +711,7 @@ Transform:
   m_GameObject: {fileID: 4553494643177677749}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.17, z: 0}
+  m_LocalPosition: {x: -0.09, y: -0.39, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -695,6 +719,23 @@ Transform:
   - {fileID: 6984032824743787813}
   m_Father: {fileID: 217783060681328175}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!111 &2567745004176113822
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4553494643177677749}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Animation: {fileID: 7400000, guid: d775ce4ce76aea44e9bd297bc9732508, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: d775ce4ce76aea44e9bd297bc9732508, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_UpdateMode: 0
+  m_CullingType: 0
 --- !u!1 &4997877536382748137
 GameObject:
   m_ObjectHideFlags: 0
@@ -1266,7 +1307,7 @@ Transform:
   m_GameObject: {fileID: 6826913960416836766}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.38, y: 1.38, z: 0}
+  m_LocalPosition: {x: 0, y: 1.331, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

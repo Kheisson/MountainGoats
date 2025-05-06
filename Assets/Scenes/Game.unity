@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 474507190}
   - component: {fileID: 474507189}
   - component: {fileID: 474507188}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Reset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -382,6 +382,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94da56c40808840b592a23f3e22331a8, type: 3}
+--- !u!1001 &606202495
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 795739145465183111, guid: eb7a0a0f6cb7340d9aeebbd97f24f0c3, type: 3}
+      propertyPath: m_Name
+      value: UiManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3215411410581368773, guid: eb7a0a0f6cb7340d9aeebbd97f24f0c3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3215411410581368773, guid: eb7a0a0f6cb7340d9aeebbd97f24f0c3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3215411410581368773, guid: eb7a0a0f6cb7340d9aeebbd97f24f0c3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3215411410581368773, guid: eb7a0a0f6cb7340d9aeebbd97f24f0c3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3215411410581368773, guid: eb7a0a0f6cb7340d9aeebbd97f24f0c3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3215411410581368773, guid: eb7a0a0f6cb7340d9aeebbd97f24f0c3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3215411410581368773, guid: eb7a0a0f6cb7340d9aeebbd97f24f0c3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3215411410581368773, guid: eb7a0a0f6cb7340d9aeebbd97f24f0c3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3215411410581368773, guid: eb7a0a0f6cb7340d9aeebbd97f24f0c3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3215411410581368773, guid: eb7a0a0f6cb7340d9aeebbd97f24f0c3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: eb7a0a0f6cb7340d9aeebbd97f24f0c3, type: 3}
 --- !u!1 &689693982
 GameObject:
   m_ObjectHideFlags: 0
@@ -394,7 +451,7 @@ GameObject:
   - component: {fileID: 689693986}
   - component: {fileID: 689693985}
   - component: {fileID: 689693984}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: OnScreenButtonsCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -620,8 +677,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 831704389}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.008332467, y: 0.00000047276922, z: -0.00000000393947, w: 0.9999653}
-  m_LocalPosition: {x: -0.00001512704, y: 1.7666297, z: -15.997778}
+  m_LocalRotation: {x: 0.008332467, y: 0.000020755026, z: -0.00000017294654, w: 0.9999653}
+  m_LocalPosition: {x: -0.00010022844, y: 1.7666297, z: -15.997778}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -698,7 +755,7 @@ GameObject:
   - component: {fileID: 837274184}
   - component: {fileID: 837274186}
   - component: {fileID: 837274185}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -832,7 +889,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 953423160}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MobileOnly
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -967,7 +1024,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1252013876}
   - component: {fileID: 1252013877}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: OnScreenButtons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1016,7 +1073,7 @@ GameObject:
   - component: {fileID: 1433205331}
   - component: {fileID: 1433205330}
   - component: {fileID: 1433205332}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1211,7 +1268,7 @@ GameObject:
   - component: {fileID: 1982735921}
   - component: {fileID: 1982735920}
   - component: {fileID: 1982735922}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1651,6 +1708,7 @@ SceneRoots:
   - {fileID: 2026259126}
   - {fileID: 831704393}
   - {fileID: 3831516193790054827}
+  - {fileID: 606202495}
   - {fileID: 1252013876}
   - {fileID: 1899298707}
   - {fileID: 515272032}

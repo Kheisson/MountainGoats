@@ -12,38 +12,168 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55d3869b4c21453092279077ae981e07, type: 3}
   m_Name: LevelConfig
   m_EditorClassIdentifier: 
-  <DepthPerLevel>k__BackingField: 10
+  <DepthPerLevel>k__BackingField: 20
   <Levels>k__BackingField:
   - <SpawnableItems>k__BackingField:
     - {fileID: 11400000, guid: 1967058fd4a0449769a494130b5399b0, type: 2}
-    <MinItemsForLevel>k__BackingField: 1
-    <MaxItemsForLevel>k__BackingField: 5
+    - {fileID: 11400000, guid: 25e5311f5c0bb4e8cbc46c6cbb2828df, type: 2}
+    - {fileID: 11400000, guid: 86e2b55a396e3479187e36e0ea2dc1cd, type: 2}
+    - {fileID: 11400000, guid: ed6e134e1fbd0460e98f5e72bb293bb1, type: 2}
+    <MinItemsForLevel>k__BackingField: 5
+    <MaxItemsForLevel>k__BackingField: 10
     <HorizontalRange>k__BackingField: 25
   - <SpawnableItems>k__BackingField:
-    - {fileID: 11400000, guid: 1967058fd4a0449769a494130b5399b0, type: 2}
-    - {fileID: 11400000, guid: 0dcd404cc27dd475e9f4bb8fab6f21a9, type: 2}
     - {fileID: 11400000, guid: ec512b95f984f4d838a60a24a82f7b98, type: 2}
-    - {fileID: 11400000, guid: ccee2ee6bcffb4bdb808e70ca1bd04ca, type: 2}
-    <MinItemsForLevel>k__BackingField: 1
-    <MaxItemsForLevel>k__BackingField: 5
-    <HorizontalRange>k__BackingField: 25
-  - <SpawnableItems>k__BackingField:
-    - {fileID: 11400000, guid: 1967058fd4a0449769a494130b5399b0, type: 2}
-    - {fileID: 11400000, guid: 59271e51fd2dd464f90a6d4895676303, type: 2}
-    - {fileID: 11400000, guid: e8f4a02433a6d43bb9c41f6dc8443f77, type: 2}
     - {fileID: 11400000, guid: 028b079f03ab445bea96de261525e3fa, type: 2}
+    - {fileID: 11400000, guid: 19658f1b2f8fb492bad5a7d9f675d71f, type: 2}
+    - {fileID: 11400000, guid: cd52284fdcdd549acbb7ae24c86f5978, type: 2}
+    - {fileID: 11400000, guid: ec512b95f984f4d838a60a24a82f7b98, type: 2}
+    - {fileID: 11400000, guid: 70690910eef4249ec82e739ae1765c1c, type: 2}
+    - {fileID: 11400000, guid: 3fc302352d25842faac83f12e797acc8, type: 2}
+    - {fileID: 11400000, guid: be37139cb54f94e8b8a8cc0873628803, type: 2}
+    <MinItemsForLevel>k__BackingField: 5
+    <MaxItemsForLevel>k__BackingField: 10
+    <HorizontalRange>k__BackingField: 25
+  - <SpawnableItems>k__BackingField:
+    - {fileID: 11400000, guid: ec512b95f984f4d838a60a24a82f7b98, type: 2}
+    - {fileID: 11400000, guid: 028b079f03ab445bea96de261525e3fa, type: 2}
+    - {fileID: 11400000, guid: 19658f1b2f8fb492bad5a7d9f675d71f, type: 2}
+    - {fileID: 11400000, guid: cd52284fdcdd549acbb7ae24c86f5978, type: 2}
+    - {fileID: 11400000, guid: ec512b95f984f4d838a60a24a82f7b98, type: 2}
+    - {fileID: 11400000, guid: 70690910eef4249ec82e739ae1765c1c, type: 2}
+    - {fileID: 11400000, guid: 3fc302352d25842faac83f12e797acc8, type: 2}
+    - {fileID: 11400000, guid: be37139cb54f94e8b8a8cc0873628803, type: 2}
+    - {fileID: 11400000, guid: 0dcd404cc27dd475e9f4bb8fab6f21a9, type: 2}
+    - {fileID: 11400000, guid: 1967058fd4a0449769a494130b5399b0, type: 2}
+    - {fileID: 11400000, guid: 04a6579f0bcdf41ab94119e4b885bc83, type: 2}
+    <MinItemsForLevel>k__BackingField: 5
+    <MaxItemsForLevel>k__BackingField: 10
+    <HorizontalRange>k__BackingField: 25
+  - <SpawnableItems>k__BackingField:
+    - {fileID: 11400000, guid: ec512b95f984f4d838a60a24a82f7b98, type: 2}
+    - {fileID: 11400000, guid: 028b079f03ab445bea96de261525e3fa, type: 2}
+    - {fileID: 11400000, guid: 19658f1b2f8fb492bad5a7d9f675d71f, type: 2}
+    - {fileID: 11400000, guid: cd52284fdcdd549acbb7ae24c86f5978, type: 2}
+    - {fileID: 11400000, guid: ec512b95f984f4d838a60a24a82f7b98, type: 2}
+    - {fileID: 11400000, guid: 70690910eef4249ec82e739ae1765c1c, type: 2}
+    - {fileID: 11400000, guid: 3fc302352d25842faac83f12e797acc8, type: 2}
+    - {fileID: 11400000, guid: be37139cb54f94e8b8a8cc0873628803, type: 2}
+    - {fileID: 11400000, guid: 0dcd404cc27dd475e9f4bb8fab6f21a9, type: 2}
+    - {fileID: 11400000, guid: 1967058fd4a0449769a494130b5399b0, type: 2}
+    - {fileID: 11400000, guid: 04a6579f0bcdf41ab94119e4b885bc83, type: 2}
+    - {fileID: 11400000, guid: 42954e852b1714210965d0616d9141cb, type: 2}
+    - {fileID: 11400000, guid: 9aaee1f6705794886a618e2589eae0ec, type: 2}
+    <MinItemsForLevel>k__BackingField: 5
+    <MaxItemsForLevel>k__BackingField: 10
+    <HorizontalRange>k__BackingField: 25
+  - <SpawnableItems>k__BackingField:
+    - {fileID: 11400000, guid: ec512b95f984f4d838a60a24a82f7b98, type: 2}
+    - {fileID: 11400000, guid: 79416c36a59c24bceb85b1aef69dad45, type: 2}
+    - {fileID: 11400000, guid: 19658f1b2f8fb492bad5a7d9f675d71f, type: 2}
+    - {fileID: 11400000, guid: cd52284fdcdd549acbb7ae24c86f5978, type: 2}
+    - {fileID: 11400000, guid: ec512b95f984f4d838a60a24a82f7b98, type: 2}
+    - {fileID: 11400000, guid: 42954e852b1714210965d0616d9141cb, type: 2}
+    - {fileID: 11400000, guid: 495db2476f5fe4a38a449a3f02a0d313, type: 2}
+    - {fileID: 11400000, guid: 8d190da7e3ba4410185abeb1c907c397, type: 2}
+    - {fileID: 11400000, guid: 4e3d0c6ab74a44f7c92406cd5b470e0e, type: 2}
+    <MinItemsForLevel>k__BackingField: 5
+    <MaxItemsForLevel>k__BackingField: 10
+    <HorizontalRange>k__BackingField: 25
+  - <SpawnableItems>k__BackingField:
+    - {fileID: 11400000, guid: 9aaee1f6705794886a618e2589eae0ec, type: 2}
+    - {fileID: 11400000, guid: 79416c36a59c24bceb85b1aef69dad45, type: 2}
+    - {fileID: 11400000, guid: 19658f1b2f8fb492bad5a7d9f675d71f, type: 2}
+    - {fileID: 11400000, guid: 0615b8a5de38e424c9f6cd31821624fe, type: 2}
+    - {fileID: 11400000, guid: 4d8b766da8a944f7ca3b8b296d205a67, type: 2}
+    - {fileID: 11400000, guid: 42954e852b1714210965d0616d9141cb, type: 2}
+    - {fileID: 11400000, guid: 495db2476f5fe4a38a449a3f02a0d313, type: 2}
+    - {fileID: 11400000, guid: 8d190da7e3ba4410185abeb1c907c397, type: 2}
+    - {fileID: 11400000, guid: 4e3d0c6ab74a44f7c92406cd5b470e0e, type: 2}
+    <MinItemsForLevel>k__BackingField: 5
+    <MaxItemsForLevel>k__BackingField: 10
+    <HorizontalRange>k__BackingField: 25
+  - <SpawnableItems>k__BackingField:
+    - {fileID: 11400000, guid: 9aaee1f6705794886a618e2589eae0ec, type: 2}
+    - {fileID: 11400000, guid: 79416c36a59c24bceb85b1aef69dad45, type: 2}
+    - {fileID: 11400000, guid: 19658f1b2f8fb492bad5a7d9f675d71f, type: 2}
+    - {fileID: 11400000, guid: 0615b8a5de38e424c9f6cd31821624fe, type: 2}
+    - {fileID: 11400000, guid: 4d8b766da8a944f7ca3b8b296d205a67, type: 2}
+    - {fileID: 11400000, guid: 42954e852b1714210965d0616d9141cb, type: 2}
     - {fileID: 11400000, guid: d9fe3654fac5541e9b82cbaf08b8a3b3, type: 2}
-    - {fileID: 11400000, guid: b78735767af7f4b67b9fe12ffa5e4b92, type: 2}
+    - {fileID: 11400000, guid: 8d190da7e3ba4410185abeb1c907c397, type: 2}
+    - {fileID: 11400000, guid: 4e3d0c6ab74a44f7c92406cd5b470e0e, type: 2}
     <MinItemsForLevel>k__BackingField: 1
     <MaxItemsForLevel>k__BackingField: 5
     <HorizontalRange>k__BackingField: 25
   - <SpawnableItems>k__BackingField:
-    - {fileID: 11400000, guid: 1967058fd4a0449769a494130b5399b0, type: 2}
+    - {fileID: 11400000, guid: 9aaee1f6705794886a618e2589eae0ec, type: 2}
+    - {fileID: 11400000, guid: 79416c36a59c24bceb85b1aef69dad45, type: 2}
+    - {fileID: 11400000, guid: 19658f1b2f8fb492bad5a7d9f675d71f, type: 2}
+    - {fileID: 11400000, guid: 0615b8a5de38e424c9f6cd31821624fe, type: 2}
+    - {fileID: 11400000, guid: 4d8b766da8a944f7ca3b8b296d205a67, type: 2}
+    - {fileID: 11400000, guid: 42954e852b1714210965d0616d9141cb, type: 2}
+    - {fileID: 11400000, guid: d9fe3654fac5541e9b82cbaf08b8a3b3, type: 2}
+    - {fileID: 11400000, guid: 8d190da7e3ba4410185abeb1c907c397, type: 2}
+    - {fileID: 11400000, guid: 4e3d0c6ab74a44f7c92406cd5b470e0e, type: 2}
     <MinItemsForLevel>k__BackingField: 1
     <MaxItemsForLevel>k__BackingField: 5
     <HorizontalRange>k__BackingField: 25
   - <SpawnableItems>k__BackingField:
-    - {fileID: 11400000, guid: 1967058fd4a0449769a494130b5399b0, type: 2}
+    - {fileID: 11400000, guid: 9aaee1f6705794886a618e2589eae0ec, type: 2}
+    - {fileID: 11400000, guid: 79416c36a59c24bceb85b1aef69dad45, type: 2}
+    - {fileID: 11400000, guid: 19658f1b2f8fb492bad5a7d9f675d71f, type: 2}
+    - {fileID: 11400000, guid: 0615b8a5de38e424c9f6cd31821624fe, type: 2}
+    - {fileID: 11400000, guid: 4d8b766da8a944f7ca3b8b296d205a67, type: 2}
+    - {fileID: 11400000, guid: 42954e852b1714210965d0616d9141cb, type: 2}
+    - {fileID: 11400000, guid: d9fe3654fac5541e9b82cbaf08b8a3b3, type: 2}
+    - {fileID: 11400000, guid: 8d190da7e3ba4410185abeb1c907c397, type: 2}
+    - {fileID: 11400000, guid: 4e3d0c6ab74a44f7c92406cd5b470e0e, type: 2}
+    <MinItemsForLevel>k__BackingField: 1
+    <MaxItemsForLevel>k__BackingField: 5
+    <HorizontalRange>k__BackingField: 25
+  - <SpawnableItems>k__BackingField:
+    - {fileID: 11400000, guid: 9aaee1f6705794886a618e2589eae0ec, type: 2}
+    - {fileID: 11400000, guid: 79416c36a59c24bceb85b1aef69dad45, type: 2}
+    - {fileID: 11400000, guid: 19658f1b2f8fb492bad5a7d9f675d71f, type: 2}
+    - {fileID: 11400000, guid: 0615b8a5de38e424c9f6cd31821624fe, type: 2}
+    - {fileID: 11400000, guid: 4d8b766da8a944f7ca3b8b296d205a67, type: 2}
+    - {fileID: 11400000, guid: 42954e852b1714210965d0616d9141cb, type: 2}
+    - {fileID: 11400000, guid: d9fe3654fac5541e9b82cbaf08b8a3b3, type: 2}
+    - {fileID: 11400000, guid: 8d190da7e3ba4410185abeb1c907c397, type: 2}
+    - {fileID: 11400000, guid: 4e3d0c6ab74a44f7c92406cd5b470e0e, type: 2}
+    <MinItemsForLevel>k__BackingField: 1
+    <MaxItemsForLevel>k__BackingField: 5
+    <HorizontalRange>k__BackingField: 25
+  - <SpawnableItems>k__BackingField:
+    - {fileID: 11400000, guid: 0615b8a5de38e424c9f6cd31821624fe, type: 2}
+    - {fileID: 11400000, guid: 79416c36a59c24bceb85b1aef69dad45, type: 2}
+    - {fileID: 11400000, guid: 19658f1b2f8fb492bad5a7d9f675d71f, type: 2}
+    - {fileID: 11400000, guid: 0615b8a5de38e424c9f6cd31821624fe, type: 2}
+    - {fileID: 11400000, guid: 4d8b766da8a944f7ca3b8b296d205a67, type: 2}
+    - {fileID: 11400000, guid: d9fe3654fac5541e9b82cbaf08b8a3b3, type: 2}
+    - {fileID: 11400000, guid: e8f4a02433a6d43bb9c41f6dc8443f77, type: 2}
+    <MinItemsForLevel>k__BackingField: 1
+    <MaxItemsForLevel>k__BackingField: 5
+    <HorizontalRange>k__BackingField: 25
+  - <SpawnableItems>k__BackingField:
+    - {fileID: 11400000, guid: 0615b8a5de38e424c9f6cd31821624fe, type: 2}
+    - {fileID: 11400000, guid: 79416c36a59c24bceb85b1aef69dad45, type: 2}
+    - {fileID: 11400000, guid: 19658f1b2f8fb492bad5a7d9f675d71f, type: 2}
+    - {fileID: 11400000, guid: 0615b8a5de38e424c9f6cd31821624fe, type: 2}
+    - {fileID: 11400000, guid: 4d8b766da8a944f7ca3b8b296d205a67, type: 2}
+    - {fileID: 11400000, guid: d9fe3654fac5541e9b82cbaf08b8a3b3, type: 2}
+    - {fileID: 11400000, guid: e8f4a02433a6d43bb9c41f6dc8443f77, type: 2}
+    <MinItemsForLevel>k__BackingField: 1
+    <MaxItemsForLevel>k__BackingField: 5
+    <HorizontalRange>k__BackingField: 25
+  - <SpawnableItems>k__BackingField:
+    - {fileID: 11400000, guid: 0615b8a5de38e424c9f6cd31821624fe, type: 2}
+    - {fileID: 11400000, guid: 79416c36a59c24bceb85b1aef69dad45, type: 2}
+    - {fileID: 11400000, guid: 19658f1b2f8fb492bad5a7d9f675d71f, type: 2}
+    - {fileID: 11400000, guid: 0615b8a5de38e424c9f6cd31821624fe, type: 2}
+    - {fileID: 11400000, guid: 4d8b766da8a944f7ca3b8b296d205a67, type: 2}
+    - {fileID: 11400000, guid: d9fe3654fac5541e9b82cbaf08b8a3b3, type: 2}
+    - {fileID: 11400000, guid: e8f4a02433a6d43bb9c41f6dc8443f77, type: 2}
     <MinItemsForLevel>k__BackingField: 1
     <MaxItemsForLevel>k__BackingField: 5
     <HorizontalRange>k__BackingField: 25

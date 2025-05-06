@@ -4,7 +4,10 @@ using UnityEngine;
 [RequireComponent(typeof(LineRenderer))]
 public class RopeSimulator2D_V2 : MonoBehaviour
 {
+    [SerializeField] private float fixedDeltaTime = 1f / 60f;
     [SerializeField] private bool startOnAwake = false;
+    [SerializeField] private float maxTotalBendAngle = 15f; // degrees
+
 
     [Header("Rope Settings")]
     public Transform head;
@@ -15,11 +18,17 @@ public class RopeSimulator2D_V2 : MonoBehaviour
     public float baseDrag = 0.25f;
     public float growThresholdFactor = 0.05f;
     public int maxPinnedSegments = 200;
+    [Range(1, 100)] public int maxConstraintIterations = 14;
 
     [Header("Water Settings")]
     public Transform waterLevel;
     public float underwaterDragMultiplier = 3f;
     public float gravityScaleBelowWater = 0.3f;
+
+    // Simulation optimizations
+    private float accumulatedTime = 0f;
+    private float referenceDeltaTime = 1f / 60f;
+    private float lastGrowTime = 0f;
 
     private LineRenderer lineRenderer;
     private List<RopeSegment> segments;
@@ -38,13 +47,14 @@ public class RopeSimulator2D_V2 : MonoBehaviour
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (!simulationPlaying) return;
 
         GrowRopeIfNeeded();
         Simulate();
         ApplyConstraints();
+
         DrawRope();
     }
 
@@ -62,16 +72,30 @@ public class RopeSimulator2D_V2 : MonoBehaviour
 
     void GrowRopeIfNeeded()
     {
-        if (segments.Count >= maxPinnedSegments + 1) // allow space for new segment before trimming
+        // Step 1: Don't grow if tail is hanging under the hook
+        if (segments[^1].posNow.y < hook.position.y)
             return;
 
+        // Step 2: Only grow if rope can't reach the hook
+        float ropeToHookDistance = Vector2.Distance(segments[0].posNow, hook.position);
+        float growThreshold = totalRopeLength + segmentLength * growThresholdFactor;
+        if (ropeToHookDistance < growThreshold)
+            return;
+
+        // Step 3: Prevent growth if rope is visibly curved
+        if (CalculateTotalRopeBend() > maxTotalBendAngle)
+            return;
+
+        // Step 4: Prevent overgrowth
+        if (segments.Count >= maxPinnedSegments + 1)
+            return;
+
+        // Step 5: Add new segment smoothly
         RopeSegment segA = segments[^2];
         RopeSegment segB = segments[^1];
         float dist = (segA.posNow - segB.posNow).magnitude;
 
-        float growThreshold = segmentLength + segmentLength * growThresholdFactor;
-
-        if (dist > growThreshold)
+        if (dist > segmentLength + segmentLength * growThresholdFactor)
         {
             Vector2 dir = (segB.posNow - segA.posNow).normalized;
             Vector2 midPoint = segB.posNow + dir * (segmentLength * 0.9f);
@@ -96,7 +120,7 @@ public class RopeSimulator2D_V2 : MonoBehaviour
             segments[^2] = segA;
             segments[^1] = segB;
 
-            // Trim top if over limit
+            // Step 6: Trim from top if limit reached
             if (segments.Count > maxPinnedSegments)
             {
                 head.position = segments[1].posNow;
@@ -107,16 +131,17 @@ public class RopeSimulator2D_V2 : MonoBehaviour
     }
 
 
-
     void Simulate()
     {
+        float dt = Mathf.Min(Time.deltaTime, 1f / 30f); // clamp to max 33ms per frame
+
         for (int i = 1; i < segments.Count; i++)
         {
             RopeSegment seg = segments[i];
 
             Vector2 velocity = seg.posNow - seg.posOld;
 
-            // Determine water-based drag and gravity scale
+            // Adjust drag and gravity based on water level
             bool isAboveWater = seg.posNow.y > waterLevel.position.y;
             float dragScale = isAboveWater ? baseDrag : baseDrag * underwaterDragMultiplier;
             float gravityScale = isAboveWater ? 1f : gravityScaleBelowWater;
@@ -128,8 +153,8 @@ public class RopeSimulator2D_V2 : MonoBehaviour
             seg.posOld = seg.posNow;
             seg.posNow += velocity;
 
-            // Apply scaled gravity
-            seg.posNow += Vector2.up * (gravity * gravityScale * Time.deltaTime);
+            // Apply gravity with clamped timestep
+            seg.posNow += Vector2.up * gravity * gravityScale * dt * dt;
 
             segments[i] = seg;
         }
@@ -141,7 +166,13 @@ public class RopeSimulator2D_V2 : MonoBehaviour
         pin.posNow = head.position;
         segments[0] = pin;
 
-        for (int k = 0; k < constraintIterations; k++)
+        var dynamicIterations = Mathf.Clamp(
+            Mathf.RoundToInt(constraintIterations * (referenceDeltaTime / Mathf.Max(Time.deltaTime, 0.001f))),
+            constraintIterations,
+            maxConstraintIterations
+        );
+
+        for (int k = 0; k < dynamicIterations; k++)
         {
             for (int i = 0; i < segments.Count - 1; i++)
             {
@@ -184,6 +215,27 @@ public class RopeSimulator2D_V2 : MonoBehaviour
         lineRenderer.positionCount = 0;
         simulationPlaying = false;
     }
+    
+    private float CalculateTotalRopeBend()
+    {
+        float totalAngle = 0f;
+
+        for (int i = 1; i < segments.Count - 1; i++)
+        {
+            Vector2 prev = segments[i - 1].posNow;
+            Vector2 curr = segments[i].posNow;
+            Vector2 next = segments[i + 1].posNow;
+
+            Vector2 dirA = (curr - prev).normalized;
+            Vector2 dirB = (next - curr).normalized;
+
+            float angle = Vector2.Angle(dirA, dirB);
+            totalAngle += angle;
+        }
+
+        return totalAngle;
+    }
+
 
     private struct RopeSegment
     {

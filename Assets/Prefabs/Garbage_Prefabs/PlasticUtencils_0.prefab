@@ -8,6 +8,82 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -6316943382973152513, guid: dc4ce6dc7653f2b4cba97507f6325638, type: 3}
+      propertyPath: m_Size.x
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: -6316943382973152513, guid: dc4ce6dc7653f2b4cba97507f6325638, type: 3}
+      propertyPath: m_Size.y
+      value: 0.81
+      objectReference: {fileID: 0}
+    - target: {fileID: -6316943382973152513, guid: dc4ce6dc7653f2b4cba97507f6325638, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.91
+      objectReference: {fileID: 0}
+    - target: {fileID: -6316943382973152513, guid: dc4ce6dc7653f2b4cba97507f6325638, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 810931681046856320, guid: dc4ce6dc7653f2b4cba97507f6325638, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.91
+      objectReference: {fileID: 0}
+    - target: {fileID: 810931681046856320, guid: dc4ce6dc7653f2b4cba97507f6325638, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 810931681046856320, guid: dc4ce6dc7653f2b4cba97507f6325638, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 810931681046856320, guid: dc4ce6dc7653f2b4cba97507f6325638, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].x
+      value: -0.49933425
+      objectReference: {fileID: 0}
+    - target: {fileID: 810931681046856320, guid: dc4ce6dc7653f2b4cba97507f6325638, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].y
+      value: 0.34641144
+      objectReference: {fileID: 0}
+    - target: {fileID: 810931681046856320, guid: dc4ce6dc7653f2b4cba97507f6325638, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[1].x
+      value: -0.5314914
+      objectReference: {fileID: 0}
+    - target: {fileID: 810931681046856320, guid: dc4ce6dc7653f2b4cba97507f6325638, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[1].y
+      value: -0.231305
+      objectReference: {fileID: 0}
+    - target: {fileID: 810931681046856320, guid: dc4ce6dc7653f2b4cba97507f6325638, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[2].x
+      value: 0.19041038
+      objectReference: {fileID: 0}
+    - target: {fileID: 810931681046856320, guid: dc4ce6dc7653f2b4cba97507f6325638, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[2].y
+      value: -0.5236077
+      objectReference: {fileID: 0}
+    - target: {fileID: 810931681046856320, guid: dc4ce6dc7653f2b4cba97507f6325638, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[3].x
+      value: 0.5483693
+      objectReference: {fileID: 0}
+    - target: {fileID: 810931681046856320, guid: dc4ce6dc7653f2b4cba97507f6325638, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[3].y
+      value: -0.32274917
+      objectReference: {fileID: 0}
+    - target: {fileID: 810931681046856320, guid: dc4ce6dc7653f2b4cba97507f6325638, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[4].x
+      value: 0.26497662
+      objectReference: {fileID: 0}
+    - target: {fileID: 810931681046856320, guid: dc4ce6dc7653f2b4cba97507f6325638, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[4].y
+      value: 0.5357584
+      objectReference: {fileID: 0}
+    - target: {fileID: 810931681046856320, guid: dc4ce6dc7653f2b4cba97507f6325638, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[5].x
+      value: 0.26497662
+      objectReference: {fileID: 0}
+    - target: {fileID: 810931681046856320, guid: dc4ce6dc7653f2b4cba97507f6325638, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[5].y
+      value: 0.5357584
+      objectReference: {fileID: 0}
     - target: {fileID: 1764034306888899225, guid: dc4ce6dc7653f2b4cba97507f6325638, type: 3}
       propertyPath: m_Name
       value: PlasticUtencils_0

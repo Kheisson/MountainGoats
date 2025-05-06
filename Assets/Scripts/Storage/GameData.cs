@@ -1,6 +1,6 @@
 using System;
+using System.Collections.Generic;
 using Models;
-using UnityEngine.Serialization;
 
 namespace Storage
 {
@@ -10,6 +10,8 @@ namespace Storage
         public int depthReached; 
         public int currency = 0;
         public UpgradesModel upgradesModel;
+        public HashSet<string> _unlockedItems = new();
+        public string lastSelectedItemId;
 
         public GameData Copy()
         {
@@ -17,6 +19,8 @@ namespace Storage
             {
                 depthReached = depthReached,
                 currency = currency,
+                _unlockedItems = new HashSet<string>(_unlockedItems),
+                lastSelectedItemId = lastSelectedItemId,
             };
         }
     }
