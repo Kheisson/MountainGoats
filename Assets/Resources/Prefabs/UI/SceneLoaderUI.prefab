@@ -224,8 +224,11 @@ MonoBehaviour:
   _fadeDuration: 0.5
   _waveRiseDuration: 2
   _waveFallDuration: 0.5
-  _pauseDuration: 1.5
+  _pauseDuration: 1
+  _endPauseDuration: 1
+  _bottomPauseDuration: 1
   _pauseProgressThreshold: 0.6
+  _waveFallPosition: 0.3
   _fadeEase: 7
   _waveEase: 7
   _waveSpeed: 1

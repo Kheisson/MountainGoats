@@ -8,6 +8,10 @@ namespace UI
 {
     public class SceneLoaderUI : MonoBehaviour
     {
+        private static readonly int WaveSpeed = Shader.PropertyToID("_WaveSpeed");
+        private static readonly int WaveAmplitude = Shader.PropertyToID("_WaveAmplitude");
+        private static readonly int WaveFrequency = Shader.PropertyToID("_WaveFrequency");
+
         [Header("References")]
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private Image _waveImage;
@@ -19,7 +23,10 @@ namespace UI
         [SerializeField] private float _waveRiseDuration = 2f;
         [SerializeField] private float _waveFallDuration = 0.5f;
         [SerializeField] private float _pauseDuration = 1f;
+        [SerializeField] private float _endPauseDuration = 1f;
+        [SerializeField] private float _bottomPauseDuration = 1f;
         [SerializeField] private float _pauseProgressThreshold = 0.6f;
+        [SerializeField] private float _waveFallPosition = 0.3f; // 0 = top, 1 = bottom
         [SerializeField] private Ease _fadeEase = Ease.InOutQuad;
         [SerializeField] private Ease _waveEase = Ease.InOutQuad;
         
@@ -37,8 +44,6 @@ namespace UI
             _originalWavePosition = _waveImage.rectTransform.anchoredPosition;
             _canvasGroup.alpha = 0f;
             gameObject.SetActive(false);
-
-            // Create and setup wave material
             _waveMaterial = new Material(Shader.Find("Custom/WaveShader"));
             _waveImage.material = _waveMaterial;
             UpdateWaveShaderProperties();
@@ -48,9 +53,9 @@ namespace UI
         {
             if (_waveMaterial != null)
             {
-                _waveMaterial.SetFloat("_WaveSpeed", _waveSpeed);
-                _waveMaterial.SetFloat("_WaveAmplitude", _waveAmplitude);
-                _waveMaterial.SetFloat("_WaveFrequency", _waveFrequency);
+                _waveMaterial.SetFloat(WaveSpeed, _waveSpeed);
+                _waveMaterial.SetFloat(WaveAmplitude, _waveAmplitude);
+                _waveMaterial.SetFloat(WaveFrequency, _waveFrequency);
             }
         }
 
@@ -79,6 +84,7 @@ namespace UI
             _currentSequence = DOTween.Sequence();
             _waveImage.rectTransform.anchoredPosition = _originalWavePosition;
             _currentSequence.Append(_canvasGroup.DOFade(1f, _fadeDuration).SetEase(_fadeEase));
+            
             _currentSequence.Join(_waveImage.rectTransform
                 .DOAnchorPosY(0f, _waveRiseDuration)
                 .SetEase(_waveEase));
@@ -95,9 +101,14 @@ namespace UI
 
             _currentSequence = DOTween.Sequence();
             
+            _currentSequence.AppendInterval(_endPauseDuration);
+            
+            var fallY = -_waveImage.rectTransform.rect.height * (1f - _waveFallPosition);
             _currentSequence.Append(_waveImage.rectTransform
-                .DOAnchorPosY(-_waveImage.rectTransform.rect.height, _waveFallDuration)
+                .DOAnchorPosY(fallY, _waveFallDuration)
                 .SetEase(_waveEase));
+            
+            _currentSequence.AppendInterval(_bottomPauseDuration);
             
             _currentSequence.Join(_canvasGroup.DOFade(0f, _fadeDuration).SetEase(_fadeEase));
             
@@ -120,6 +131,7 @@ namespace UI
         private void OnValidate()
         {
             UpdateWaveShaderProperties();
+            _waveFallPosition = Mathf.Clamp01(_waveFallPosition);
         }
     }
 } 
