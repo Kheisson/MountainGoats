@@ -17,6 +17,7 @@ public class HookController : BaseMonoBehaviour
     private IEventsSystemService _eventsSystemService;
     private Rigidbody2D _rigidbody2D;
     private Collider2D _collider;
+    private AutoSizeCollider _autoSizeCollider;
     
     [SerializeField] private Transform waterStartTransform;
     [SerializeField] private float hookCastPower = 4.5f;
@@ -37,6 +38,11 @@ public class HookController : BaseMonoBehaviour
         base.Awake();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _collider = GetComponent<Collider2D>();
+    }
+
+    private void Start()
+    {
+        _autoSizeCollider = FindFirstObjectByType<AutoSizeCollider>();
     }
 
     protected override void OnServicesInitialized()
@@ -126,6 +132,18 @@ public class HookController : BaseMonoBehaviour
         if (!isInWater) return;
         
         var newX = _rigidbody2D.position.x + direction.x * horizontalSpeed * Time.deltaTime;
+        var minX = _autoSizeCollider.ColliderMinMax().Item1;
+        var maxX = _autoSizeCollider.ColliderMinMax().Item2;
+        
+        if (newX < minX)
+        {
+            newX = minX;
+        }
+        else if (newX > maxX)
+        {
+            newX = maxX;
+        }
+        
         _rigidbody2D.position = new Vector2(newX, _rigidbody2D.position.y);
     }
     
