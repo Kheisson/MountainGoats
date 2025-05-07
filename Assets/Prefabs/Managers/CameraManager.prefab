@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1011507984920904065}
   - component: {fileID: 7140080275115262067}
   - component: {fileID: 8108352575836816045}
+  - component: {fileID: 7348523803809898813}
   m_Layer: 0
   m_Name: PlayerCamera
   m_TagString: Untagged
@@ -121,6 +122,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LookAtOffset: {x: 0, y: 0, z: 90}
+--- !u!114 &7348523803809898813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503510753372715239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f453f694addf4275988fac205bc91968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BoundingShape2D: {fileID: 0}
+  Damping: 0.5
+  SlowingDistance: 5
+  OversizeWindow:
+    Enabled: 0
+    MaxWindowSize: 0
+    Padding: 0
+  m_LegacyMaxWindowSize: -2
 --- !u!1 &2598883504258324543
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,6 +204,7 @@ GameObject:
   - component: {fileID: 2996230683410013373}
   - component: {fileID: 1804135868782818098}
   - component: {fileID: 8745955624065008375}
+  - component: {fileID: 3981139524576756267}
   m_Layer: 0
   m_Name: HookCamera
   m_TagString: Untagged
@@ -229,7 +251,7 @@ MonoBehaviour:
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
-    FieldOfView: 60.000004
+    FieldOfView: 45
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
@@ -284,3 +306,23 @@ MonoBehaviour:
   FocusTarget: {fileID: 0}
   FocusOffset: 0
   Profile: {fileID: 11400000, guid: 17c01748c631640a5b3800491554ce90, type: 2}
+--- !u!114 &3981139524576756267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7091202208405541296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f453f694addf4275988fac205bc91968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BoundingShape2D: {fileID: 0}
+  Damping: 0.5
+  SlowingDistance: 5
+  OversizeWindow:
+    Enabled: 0
+    MaxWindowSize: 0
+    Padding: 0
+  m_LegacyMaxWindowSize: -2
