@@ -8,12 +8,11 @@ namespace Views.Shop
 {
     public class ShopView : MonoBehaviour
     {
-        [SerializeField] private Transform upgradeHolders;
+        [SerializeField] private Transform upgradesHolder;
         [SerializeField] private UpgradePathView upgradePathPrefab;
-        [SerializeField] private GameObject upgradeButton;
         [SerializeField] private UpgradePathsTable upgradePathsTable;
 
-        private Dictionary<EUpgradeType, UpgradePathView> _upgradePathViews;
+        private readonly Dictionary<EUpgradeType, UpgradePathView> _upgradePathViews = new ();
 
         private UpgradesModel _upgradesModel;
 
@@ -41,7 +40,7 @@ namespace Views.Shop
                 maxIndex = -1;
             }
             
-            var instantiatedUpgradePath = Instantiate(upgradePathPrefab, upgradeHolders);
+            var instantiatedUpgradePath = Instantiate(upgradePathPrefab, upgradesHolder);
             instantiatedUpgradePath.UpdateView(availableUpgrades, maxIndex, upgradePath, upgradeType);
             _upgradePathViews[upgradeType] = instantiatedUpgradePath;
         }

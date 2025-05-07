@@ -7,8 +7,6 @@ namespace Views.Shop
 {
     public class UpgradePathView : MonoBehaviour
     {
-        [SerializeField] private Transform buttonsHolder;
-
         [SerializeField] private GameObject noUpgradesPrefab;
         [SerializeField] private GameObject maxUpgradesPrefab;
         [SerializeField] private UpgradeIconView upgradeIconViewPrefab;
@@ -51,11 +49,6 @@ namespace Views.Shop
                 
                 upgradeButton.SetupButton(maxPurchasedIndex + 1, upgradePath, upgradeType);
             }
-        }
-
-        private void SetupUpgradeButton(UpgradeData availableUpgrade, EButtonDisplayState displayState)
-        {
-            var button = Instantiate(upgradeIconViewPrefab, buttonsHolder);
         }
 
         private TObject InstantiateInHolder<TObject>(TObject prefab, Transform parent) where TObject : Object

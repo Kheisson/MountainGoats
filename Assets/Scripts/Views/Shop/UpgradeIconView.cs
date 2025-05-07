@@ -4,6 +4,7 @@ using Core;
 using EventsSystem;
 using Services;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Upgrades;
 
@@ -11,11 +12,11 @@ namespace Views.Shop
 {
     public class UpgradeIconView : BaseMonoBehaviour
     { 
-        [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField] private Image image;
 
         public void SetupIcon(UpgradePath upgradePath, int purchasedIndex)
         {
-            spriteRenderer.sprite = upgradePath.AvailableUpgrades[purchasedIndex].Icon;
+            image.sprite = upgradePath.AvailableUpgrades[purchasedIndex].Icon;
         }
     }
 }

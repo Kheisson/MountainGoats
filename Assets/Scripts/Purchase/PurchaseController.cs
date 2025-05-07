@@ -35,11 +35,13 @@ namespace Purchase
 
         private void TryPurchase(PurchaseButtonClickedEvent eventData)
         {
-            if (_currencyController.HasSufficientFunds(eventData.UpgradePath.AvailableUpgrades[eventData.UpgradeIndex]
-                    .Cost))
+            var upgradeToPurchase = eventData.UpgradePath.AvailableUpgrades[eventData.UpgradeIndex];
+            
+            if (_currencyController.HasSufficientFunds(upgradeToPurchase.Cost))
             {
                 _dataStorageService.ModifyGameDataSync(data => UpdateUpgradeDataOnModel(data, eventData.UpgradeType, eventData.UpgradeIndex));
                 _eventsSystemService.Publish(ProjectConstants.Events.UPGRADE_PURCHASED, _dataStorageService.GetGameData().upgradesModel);
+                _currencyController.SubtractCurrency(upgradeToPurchase.Cost);
             }
             else
             {
