@@ -8,6 +8,7 @@ public class FishingRodController : BaseMonoBehaviour
     
     private int currentIndex = 0;
     public Transform CurrentActiveRodHolder => fishingRodViewStates[currentIndex].Holder.transform;
+    public Vector2 CurrentActiveHookPivotPosition => fishingRodViewStates[currentIndex].HookPivot.position;
     public Transform CurrentActiveHookPivot => fishingRodViewStates[currentIndex].HookPivot;
     public Transform CurrentActiveRodPivot => fishingRodViewStates[currentIndex].RodPivot;
 

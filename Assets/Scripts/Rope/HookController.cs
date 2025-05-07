@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Analytics;
 using Cameras;
@@ -29,7 +30,9 @@ public class HookController : BaseMonoBehaviour
     private bool isCast = false;
     private bool isInWater;
     private float _waterDepth;
-    
+    // private H
+
+    public bool IsReeling { get; set; } = false;
     protected override HashSet<Type> RequiredServices => new() { typeof(IInputService), typeof(ICameraService), typeof(IEventsSystemService) };
 
     protected override void Awake()
@@ -52,7 +55,7 @@ public class HookController : BaseMonoBehaviour
     {
         if (!_isInitialized) return;
         
-        if (isInWater)
+        if (isInWater && !IsReeling)
         {
             HandleFall();
         }
@@ -149,4 +152,14 @@ public class HookController : BaseMonoBehaviour
     {
         art.SetActive(value);
     }
+
+    private void PlayHookGarbageCoroutine(Garbage garbage) => StartCoroutine(HookGarbageCoroutine(garbage));
+
+    private IEnumerator HookGarbageCoroutine(Garbage garbage)
+    {
+        var garbageTransform = garbage.transform;
+        var garbageDistance = Vector3.Distance(garbage.transform.position, transform.position);
+        // while ()
+        return null;
+    }  
 }
