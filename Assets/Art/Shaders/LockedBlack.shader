@@ -15,6 +15,12 @@ Shader "Unlit/LockedBlack"
 
         Pass
         {
+            Stencil
+            {
+                Ref 1
+                Comp Equal
+                Pass Keep
+            }
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag

@@ -11,6 +11,7 @@ namespace Views
         [SerializeField] private TextMeshProUGUI itemNameText;
         [SerializeField] private Button button;
         [SerializeField] private Material lockedMaterial;
+        [SerializeField] private GameObject selectorIcon;
         
         private GarbageItemData _itemData;
         private bool _isUnlocked;
@@ -32,6 +33,7 @@ namespace Views
         public void SetSelected(bool isSelected)
         {
             button.interactable = !isSelected;
+            selectorIcon.SetActive(isSelected);
         }
         
         private void UpdateVisuals()

@@ -2,6 +2,7 @@ Shader "Unlit/SimpleGradient"
 {
     Properties
     {
+        _MainTex ("Texture", 2D) = "white" {}
         _TopColor("Top Gradient Color: ", Color) = (1, 1, 1,1)
         _BottomColor("Bottom Gradient Color: ", Color) = (0, 0, 0, 0)
         _GradientOffset("Gradient Offset: ", Range(-1, 1)) = 0
@@ -31,6 +32,7 @@ Shader "Unlit/SimpleGradient"
                 float4 vertex : SV_POSITION;
             };
 
+            sampler2D _MainTex;
             fixed4 _TopColor;
             fixed4 _BottomColor;
             float _GradientOffset;
