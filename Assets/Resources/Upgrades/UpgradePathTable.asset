@@ -32,26 +32,60 @@ MonoBehaviour:
           <Cost>k__BackingField: 0
           <Icon>k__BackingField: {fileID: 0}
           <Description>k__BackingField: 
-        <isLinearUpgrade>k__BackingField: 1
+    - Key: 2
+      Value:
+        <AvailableUpgrades>k__BackingField:
+        - <Modifier>k__BackingField:
+            rid: 1808015017101754766
+          <Cost>k__BackingField: 0
+          <Icon>k__BackingField: {fileID: 0}
+          <Description>k__BackingField: 
+        - <Modifier>k__BackingField:
+            rid: 1808015017101754767
+          <Cost>k__BackingField: 0
+          <Icon>k__BackingField: {fileID: 0}
+          <Description>k__BackingField: 
+        - <Modifier>k__BackingField:
+            rid: 1808015017101754768
+          <Cost>k__BackingField: 0
+          <Icon>k__BackingField: {fileID: 0}
+          <Description>k__BackingField: 
     - Key: 1
       Value:
         <AvailableUpgrades>k__BackingField:
         - <Modifier>k__BackingField:
-            rid: 1808015017101754716
+            rid: 1808015017101754769
           <Cost>k__BackingField: 0
           <Icon>k__BackingField: {fileID: 0}
           <Description>k__BackingField: 
         - <Modifier>k__BackingField:
-            rid: 1808015017101754717
+            rid: 1808015017101754770
           <Cost>k__BackingField: 0
           <Icon>k__BackingField: {fileID: 0}
           <Description>k__BackingField: 
         - <Modifier>k__BackingField:
-            rid: 1808015017101754718
+            rid: 1808015017101754771
           <Cost>k__BackingField: 0
           <Icon>k__BackingField: {fileID: 0}
           <Description>k__BackingField: 
-        <isLinearUpgrade>k__BackingField: 1
+    - Key: 3
+      Value:
+        <AvailableUpgrades>k__BackingField:
+        - <Modifier>k__BackingField:
+            rid: 1808015017101754772
+          <Cost>k__BackingField: 0
+          <Icon>k__BackingField: {fileID: 0}
+          <Description>k__BackingField: 
+        - <Modifier>k__BackingField:
+            rid: 1808015017101754773
+          <Cost>k__BackingField: 0
+          <Icon>k__BackingField: {fileID: 0}
+          <Description>k__BackingField: 
+        - <Modifier>k__BackingField:
+            rid: 1808015017101754774
+          <Cost>k__BackingField: 0
+          <Icon>k__BackingField: {fileID: 0}
+          <Description>k__BackingField: 
   references:
     version: 2
     RefIds:
@@ -67,15 +101,39 @@ MonoBehaviour:
       type: {class: RopeLengthModifier, ns: Upgrades.Modifiers, asm: Assembly-CSharp}
       data:
         multiplier: 6
-    - rid: 1808015017101754716
-      type: {class: HorizontalSpeedModifier, ns: Upgrades.Modifiers, asm: Assembly-CSharp}
+    - rid: 1808015017101754766
+      type: {class: EnergyCapacityModifier, ns: Upgrades.Modifiers, asm: Assembly-CSharp}
       data:
-        multiplier: 1.5
-    - rid: 1808015017101754717
+        multiplier: 2
+    - rid: 1808015017101754767
+      type: {class: EnergyCapacityModifier, ns: Upgrades.Modifiers, asm: Assembly-CSharp}
+      data:
+        multiplier: 4
+    - rid: 1808015017101754768
+      type: {class: EnergyCapacityModifier, ns: Upgrades.Modifiers, asm: Assembly-CSharp}
+      data:
+        multiplier: 6
+    - rid: 1808015017101754769
       type: {class: HorizontalSpeedModifier, ns: Upgrades.Modifiers, asm: Assembly-CSharp}
       data:
         multiplier: 2
-    - rid: 1808015017101754718
+    - rid: 1808015017101754770
       type: {class: HorizontalSpeedModifier, ns: Upgrades.Modifiers, asm: Assembly-CSharp}
+      data:
+        multiplier: 4
+    - rid: 1808015017101754771
+      type: {class: HorizontalSpeedModifier, ns: Upgrades.Modifiers, asm: Assembly-CSharp}
+      data:
+        multiplier: 6
+    - rid: 1808015017101754772
+      type: {class: LightIntensityModifier, ns: Upgrades.Modifiers, asm: Assembly-CSharp}
+      data:
+        multiplier: 1.5
+    - rid: 1808015017101754773
+      type: {class: LightIntensityModifier, ns: Upgrades.Modifiers, asm: Assembly-CSharp}
+      data:
+        multiplier: 2
+    - rid: 1808015017101754774
+      type: {class: LightIntensityModifier, ns: Upgrades.Modifiers, asm: Assembly-CSharp}
       data:
         multiplier: 3

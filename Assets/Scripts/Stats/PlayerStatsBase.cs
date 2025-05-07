@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Stats
 {
+    [CreateAssetMenu(menuName = "Data/Player base stats")]
     public class PlayerStatsBase : ScriptableObject, IPlayerStats
     {
         [field: SerializeField]
