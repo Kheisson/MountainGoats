@@ -1,3 +1,4 @@
+using Controllers;
 using Services;
 
 namespace Managers
@@ -6,5 +7,7 @@ namespace Managers
     {
         public void ShowHudCanvas();
         public void HideHudCanvas();
+
+        CurrencyController CurrencyController { get; }
     }
 }
