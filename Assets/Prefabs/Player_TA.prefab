@@ -268,7 +268,7 @@ MonoBehaviour:
   powerBarHolder: {fileID: 5834851316341236824}
   powerBar: {fileID: 7967844529778785376}
   powerThrowMaxSeconds: 0.9
-  powerBarBasePower: 0.5
+  powerBarBasePower: 0.65
   powerBarMaxMultiplier: 1.5
   playerAnimationsController: {fileID: 1465779485831642028}
   hookController: {fileID: 0}
