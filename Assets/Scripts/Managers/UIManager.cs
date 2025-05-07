@@ -13,7 +13,6 @@ namespace Managers
         [SerializeField] private Canvas _hudCanvas;
         [SerializeField] private CanvasGroup _hudCanvasGroup;
         [SerializeField] private CurrencyView _viewPrefab;
-        //[SerializeField] private ShopView _shopViewPrefab;
 
         private CurrencyView _currencyView;
         private ShopView _showView;
@@ -28,7 +27,6 @@ namespace Managers
             _currencyView = Instantiate(_viewPrefab, _hudCanvas.transform);
             _dataStorage = ServiceLocator.Instance.GetService<IDataStorageService>();
             CurrencyController = new CurrencyController(_dataStorage, _currencyView);
-            //_showView = Instantiate(_shopViewPrefab, _hudCanvas.transform);
             
             ServiceLocator.Instance.RegisterService<IUiManager>(this);
         }

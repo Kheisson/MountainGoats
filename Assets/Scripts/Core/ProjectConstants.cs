@@ -11,7 +11,7 @@ namespace Core
         {
             public const string BOOTSTRAPPER = "Bootstrapper";
             public const string MAIN_MENU = "MainMenu";
-            public const string GAME = "GameNir";
+            public const string GAME = "Game";
             public const string GARBAGE_DEMO = "GarbageDemo";
         }
         
