@@ -20,7 +20,6 @@ public class HookController : BaseMonoBehaviour
     private AutoSizeCollider _autoSizeCollider;
     
     [SerializeField] private Transform waterStartTransform;
-    [SerializeField] private float hookCastPower = 4.5f;
     [SerializeField] private float airGravityScale = 5f;
     [SerializeField] private float waterFallSpeed = 2f;
     [SerializeField] private float horizontalSpeed = 5f;
@@ -90,7 +89,7 @@ public class HookController : BaseMonoBehaviour
         }
     }
     
-    public void CastHook(Vector2 direction, float powerMultiplier)
+    public void CastHook(Vector2 direction, float power)
     {
         if (isCast) return;
 
@@ -106,7 +105,7 @@ public class HookController : BaseMonoBehaviour
             _rigidbody2D.gravityScale = airGravityScale;
         
             // _rigidbody2D.AddForce(direction * hookCastPower * powerMultiplier, ForceMode2D.Impulse);
-            _rigidbody2D.linearVelocity = direction * hookCastPower * powerMultiplier;
+            _rigidbody2D.linearVelocity = direction * power;
             isCast = true;
         });
     }
