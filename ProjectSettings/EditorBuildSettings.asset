@@ -18,7 +18,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Game.unity
     guid: 207e356d7d7124f74ab5945ddb8f63d7
   - enabled: 1
-    path: Assets/Scenes/GameNir.unity
+    path: Assets/Scenes/ShopScene.unity
     guid: 87127675f962b44debfc120881fdcdc1
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

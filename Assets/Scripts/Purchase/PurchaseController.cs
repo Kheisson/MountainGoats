@@ -39,12 +39,15 @@ namespace Purchase
             
             if (_currencyController.HasSufficientFunds(upgradeToPurchase.Cost))
             {
+                MgLogger.Log($"Purchasing upgrade: {eventData.UpgradeType} with index {eventData.UpgradeIndex}");
                 _dataStorageService.ModifyGameDataSync(data => UpdateUpgradeDataOnModel(data, eventData.UpgradeType, eventData.UpgradeIndex));
                 _eventsSystemService.Publish(ProjectConstants.Events.UPGRADE_PURCHASED, _dataStorageService.GetGameData().upgradesModel);
                 _currencyController.SubtractCurrency(upgradeToPurchase.Cost);
             }
             else
             {
+                MgLogger.Log($"Cannot purchase: {eventData.UpgradeType} with index {eventData.UpgradeIndex}" +
+                             $"Cost is: {upgradeToPurchase.Cost} but player has {_currencyController.GetCurrency()}");
                 _currencyController.DisplayNotEnoughFunds();
             }
         }

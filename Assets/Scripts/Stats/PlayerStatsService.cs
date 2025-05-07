@@ -76,5 +76,11 @@ namespace Stats
             base.OnDestroy();
             ServiceLocator.Instance.UnregisterService<IPlayerStatsService>();
         }
+
+        public override void Shutdown()
+        {
+            base.Shutdown();
+            Dispose();
+        }
     }
 }
