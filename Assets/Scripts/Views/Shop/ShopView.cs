@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core;
+using EventsSystem;
 using Models;
 using Services;
 using Storage;
@@ -17,15 +17,27 @@ namespace Views.Shop
         [SerializeField] private UpgradePathsTable upgradePathsTable;
 
         private readonly Dictionary<EUpgradeType, UpgradePathView> _upgradePathViews = new ();
+        private UpgradesModel _upgradesModel;
+        private IDisposable _refreshViewSubscription;
 
         protected override HashSet<Type> RequiredServices => new HashSet<Type>()
         {
-            typeof(IDataStorageService)
+            typeof(IDataStorageService),
+            typeof(IEventsSystemService)
         };
         
         protected override void OnServicesInitialized()
         {
-            _upgradesModel = ServiceLocator.Instance.GetService<IDataStorageService>().GetGameData().upgradesModel;
+            var upgradesModel = ServiceLocator.Instance.GetService<IDataStorageService>().GetGameData().upgradesModel;
+            _refreshViewSubscription = ServiceLocator.Instance.GetService<IEventsSystemService>()
+                .Subscribe<UpgradesModel>(ProjectConstants.Events.UPGRADE_PURCHASED, RefreshView);
+            
+            RefreshView(upgradesModel);
+        }
+
+        private void RefreshView(UpgradesModel upgradesModel)
+        {
+            _upgradesModel = upgradesModel;
             
             foreach (var upgradeType in upgradePathsTable.UpgradePaths.Keys)
             {
@@ -33,8 +45,6 @@ namespace Views.Shop
             }
         }
 
-        private UpgradesModel _upgradesModel;
-        
         private void SetupUpgradeView(EUpgradeType upgradeType)
         {
             var upgradePath = upgradePathsTable.UpgradePaths[upgradeType];
@@ -50,10 +60,20 @@ namespace Views.Shop
             {
                 maxIndex = -1;
             }
+
+            if (!_upgradePathViews.ContainsKey(upgradeType))
+            {
+                var instantiatedUpgradePath = Instantiate(upgradePathPrefab, upgradesHolder);
+                _upgradePathViews[upgradeType] = instantiatedUpgradePath;
+            }
             
-            var instantiatedUpgradePath = Instantiate(upgradePathPrefab, upgradesHolder);
-            instantiatedUpgradePath.UpdateView(availableUpgrades, maxIndex, upgradePath, upgradeType);
-            _upgradePathViews[upgradeType] = instantiatedUpgradePath;
+            _upgradePathViews[upgradeType].UpdateView(availableUpgrades, maxIndex, upgradePath, upgradeType);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            _refreshViewSubscription?.Dispose();
         }
     }
 }

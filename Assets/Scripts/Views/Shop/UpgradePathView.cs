@@ -55,7 +55,7 @@ namespace Views.Shop
         {
             for (int i = 0; i < parent.childCount; i++)
             {
-                Destroy(parent.GetChild(i));
+                Destroy(parent.GetChild(i).gameObject);
             }
 
             return Instantiate(prefab, parent);

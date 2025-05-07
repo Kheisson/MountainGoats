@@ -564,6 +564,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4165141370178469744}
   - component: {fileID: 1687735251490973692}
+  - component: {fileID: 9109574810216892162}
   m_Layer: 5
   m_Name: ShopView
   m_TagString: Untagged
@@ -607,6 +608,18 @@ MonoBehaviour:
   upgradesHolder: {fileID: 425348234586601401}
   upgradePathPrefab: {fileID: 711637394810427815, guid: 31be418e555c4421692ee79721eb418e, type: 3}
   upgradePathsTable: {fileID: 11400000, guid: 945eaeb9676ee4d67be6399c7b9f1ea2, type: 2}
+--- !u!114 &9109574810216892162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8845482775853336309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 421082a19a2542089b7255362d226bb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9076137868724873816
 GameObject:
   m_ObjectHideFlags: 0
