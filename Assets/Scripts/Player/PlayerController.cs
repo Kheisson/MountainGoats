@@ -28,11 +28,11 @@ public class PlayerController : BaseMonoBehaviour
     private Vector3 clampedAimDir;
     private bool isCast = false;
     private bool isResetting = false;
-    private float currentHoldTime = 0;
     private Transform hookOriginParent;
     private IEventsSystemService eventsSystemService;
+    private float _powerBarTimer;
     
-    private float CurrentPowerNormalized => currentHoldTime / powerThrowMaxSeconds;
+    private float CurrentPowerNormalized => Mathf.PingPong(_powerBarTimer, powerThrowMaxSeconds) / powerThrowMaxSeconds;
     
     protected void Start()
     {
@@ -65,12 +65,10 @@ public class PlayerController : BaseMonoBehaviour
     private void Init()
     {
         isCast = false;
-
-        currentHoldTime = 0;
+        _powerBarTimer = 0;
         eyesFollowController.Target = aimTransform;
         ropeSimulator2D.ResetRope();
         powerBarHolder.SetActive(false);
-        
         hookController.ResetHookCast();
     }
     
@@ -109,10 +107,7 @@ public class PlayerController : BaseMonoBehaviour
         if (Input.GetButton("Fire1"))
         {
             powerBarHolder.SetActive(true);
-            
-            currentHoldTime += Time.deltaTime;
-            currentHoldTime = Mathf.Min(currentHoldTime, powerThrowMaxSeconds);
-            
+            _powerBarTimer += Time.deltaTime;
             powerBar.fillAmount = CurrentPowerNormalized;
         }
         else if (Input.GetButtonUp("Fire1"))
@@ -135,7 +130,6 @@ public class PlayerController : BaseMonoBehaviour
     private void CastHook()
     {
         var castPower = CurrentPowerNormalized;
-        currentHoldTime = 0;
 
         var hookPosBefore = hookController.transform.position;
         WaitForFrame(() =>
