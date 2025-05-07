@@ -9,10 +9,11 @@ Shader "Custom/FishingLine"
     }
     SubShader
     {
-        Tags { "Queue" = "Transparent" "RenderType"="Transparent" }
+        Tags { "Queue" = "Transparent+1" "RenderType"="Transparent" }
         LOD 100
         Blend SrcAlpha OneMinusSrcAlpha
         ZWrite Off
+        ZTest Always
         Lighting Off
         Cull Off
 

@@ -9,9 +9,12 @@ Shader "Unlit/SimpleGradient"
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags { "RenderType"="Opaque" "Queue"="Geometry"}
         LOD 100
-
+        ZWrite On
+        ZTest LEqual
+        Cull Off
+        
         Pass
         {
             CGPROGRAM
