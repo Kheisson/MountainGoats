@@ -141,8 +141,11 @@ public class PlayerController : BaseMonoBehaviour
             powerBarHolder.SetActive(false);
         
             hookController.CastHook((hookMovementDelta + clampedAimDir) * castPower * powerBarBasePower * powerBarMaxMultiplier, powerBar.fillAmount);
+            
+            ropeSimulator2D.transform.parent = fishingRodController.CurrentActiveHookPivot;
+            ropeSimulator2D.transform.position = Vector3.zero;
             ropeSimulator2D.StartSimulation(fishingRodController.CurrentActiveHookPivotPosition);
-            ropeSimulator2D.headPosition = fishingRodController.CurrentActiveHookPivotPosition;
+            
             eyesFollowController.Target = hookController.transform;
             eventsSystemService?.Publish(ProjectConstants.Events.PLAY_STARTED);
         });

@@ -28,8 +28,6 @@ public class RopeSimulator2D_V2 : MonoBehaviour
 
     [Header("HUD")]
     [SerializeField] private TMP_Text ropeLengthText;
-
-    [HideInInspector] public Vector2 headPosition;
     
     private Transform hookTransform;
     private LineRenderer lineRenderer;
@@ -40,7 +38,8 @@ public class RopeSimulator2D_V2 : MonoBehaviour
     private bool isReeling = false;
     private float maxDistanceReached = 0f;
     private Vector2 renderedRopeTopPosition;
-
+    private float virtualSegmentOffset = 0;
+    
     void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -49,7 +48,9 @@ public class RopeSimulator2D_V2 : MonoBehaviour
         hookTransform = hookController.transform;
 
         if (startOnAwake)
-            StartSimulation(headPosition);
+        {
+            StartSimulation(transform.position);
+        }
     }
 
     void FixedUpdate()
@@ -109,7 +110,7 @@ public class RopeSimulator2D_V2 : MonoBehaviour
         lineRenderer.positionCount = segments.Count;
         simulationPlaying = true;
         maxDistanceReached = 0f;
-        renderedRopeTopPosition = headPosition;
+        renderedRopeTopPosition = startPos;
     }
 
     void GrowRopeIfNeeded()
@@ -152,6 +153,7 @@ public class RopeSimulator2D_V2 : MonoBehaviour
                 renderedRopeTopPosition = segments[1].posNow;
                 segments.RemoveAt(0);
                 lineRenderer.positionCount = segments.Count;
+                virtualSegmentOffset++;
             }
         }
     }
@@ -200,8 +202,12 @@ public class RopeSimulator2D_V2 : MonoBehaviour
     {
         if (isReeling) return;
 
+        Vector2 pinPos = virtualSegmentOffset > 0 
+            ? renderedRopeTopPosition 
+            : fishingRodController.CurrentActiveHookPivotPosition;
+
         RopeSegment pin = segments[0];
-        pin.posNow = renderedRopeTopPosition;
+        pin.posNow = pinPos;
         segments[0] = pin;
 
         int dynamicIterations = Mathf.Clamp(
@@ -251,6 +257,7 @@ public class RopeSimulator2D_V2 : MonoBehaviour
         lineRenderer.positionCount = 0;
         simulationPlaying = false;
         maxDistanceReached = 0f;
+        virtualSegmentOffset = 0;
     }
 
     private float CalculateTotalRopeBend()

@@ -253,22 +253,22 @@ PrefabInstance:
       propertyPath: waterLevel
       value: 
       objectReference: {fileID: 2076107695}
+    - target: {fileID: 4855430537217562918, guid: b79411bde9d722d4189f277cf8e9dcfc, type: 3}
+      propertyPath: hookController
+      value: 
+      objectReference: {fileID: 691096697}
+    - target: {fileID: 4855430537217562918, guid: b79411bde9d722d4189f277cf8e9dcfc, type: 3}
+      propertyPath: ropeLengthText
+      value: 
+      objectReference: {fileID: 606202496}
+    - target: {fileID: 4855430537217562918, guid: b79411bde9d722d4189f277cf8e9dcfc, type: 3}
+      propertyPath: fishingRodController
+      value: 
+      objectReference: {fileID: 123221579}
     - target: {fileID: 7608021396388370812, guid: b79411bde9d722d4189f277cf8e9dcfc, type: 3}
       propertyPath: hookController
       value: 
       objectReference: {fileID: 691096697}
-    - target: {fileID: 7608021396388370812, guid: b79411bde9d722d4189f277cf8e9dcfc, type: 3}
-      propertyPath: powerBarBasePower
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7608021396388370812, guid: b79411bde9d722d4189f277cf8e9dcfc, type: 3}
-      propertyPath: powerThrowMaxSeconds
-      value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 7608021396388370812, guid: b79411bde9d722d4189f277cf8e9dcfc, type: 3}
-      propertyPath: powerBarMaxMultiplier
-      value: 1.35
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -279,6 +279,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2139271348798962481, guid: b79411bde9d722d4189f277cf8e9dcfc, type: 3}
   m_PrefabInstance: {fileID: 123221577}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &123221579 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 234606682788764238, guid: b79411bde9d722d4189f277cf8e9dcfc, type: 3}
+  m_PrefabInstance: {fileID: 123221577}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 090f203637fe11d47942334f96296067, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &474507186
 GameObject:
   m_ObjectHideFlags: 0
@@ -526,6 +537,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb7a0a0f6cb7340d9aeebbd97f24f0c3, type: 3}
+--- !u!114 &606202496 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8907330311486356985, guid: eb7a0a0f6cb7340d9aeebbd97f24f0c3, type: 3}
+  m_PrefabInstance: {fileID: 606202495}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &689693982
 GameObject:
   m_ObjectHideFlags: 0
