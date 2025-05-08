@@ -44,7 +44,7 @@ namespace Views.Shop
                 var upgradedIcon = InstantiateInHolder(upgradeIconViewPrefab, leftHolder);
                 upgradedIcon.SetupIcon(upgradePath, maxPurchasedIndex);
                 
-                var upgradableIcon = InstantiateInHolder(upgradeIconViewPrefab, leftHolder);
+                var upgradableIcon = InstantiateInHolder(upgradeIconViewPrefab, rightHolder);
                 upgradableIcon.SetupIcon(upgradePath, maxPurchasedIndex + 1);
                 
                 upgradeButton.SetupButton(maxPurchasedIndex + 1, upgradePath, upgradeType);

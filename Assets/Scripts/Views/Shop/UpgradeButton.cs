@@ -3,21 +3,23 @@ using System.Collections.Generic;
 using Core;
 using EventsSystem;
 using Services;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.EventSystems;
 using Upgrades;
 using Button = UnityEngine.UI.Button;
 
 namespace Views.Shop
 {
-    public class UpgradeButton : BaseMonoBehaviour
+    public class UpgradeButton : BaseMonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
-        private IEventsSystemService _eventsSystemService;
         [SerializeField] private Button button;
+        [SerializeField] private TextMeshProUGUI costText;
         
         private int _buttonIndex;
         private UpgradePath _upgradePath;
         private EUpgradeType _upgradeType;
+        private IEventsSystemService _eventsSystemService;
 
         public UpgradeButton(IEventsSystemService eventsSystemService)
         {
@@ -50,11 +52,23 @@ namespace Views.Shop
                 new PurchaseButtonClickedEvent(_upgradePath, _buttonIndex, _upgradeType));
         }
         
-        public void SetupButton(int buttonIndex, UpgradePath upgradePath, EUpgradeType upgradeType)
+        public void SetupButton(int upgradeIndex, UpgradePath upgradePath, EUpgradeType upgradeType)
         {
-            _buttonIndex = buttonIndex;
+            _buttonIndex = upgradeIndex;
             _upgradePath = upgradePath;
             _upgradeType = upgradeType;
+
+            costText.text = $"{upgradePath.AvailableUpgrades[_buttonIndex].Cost}$";
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            _eventsSystemService?.Publish(ProjectConstants.Events.ICON_HOVER, _upgradePath.AvailableUpgrades[_buttonIndex]);
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            _eventsSystemService?.Publish(ProjectConstants.Events.ICON_HOVER_ENDED);
         }
     }
 }

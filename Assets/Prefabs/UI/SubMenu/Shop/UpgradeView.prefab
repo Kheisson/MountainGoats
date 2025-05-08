@@ -135,6 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 8762946313707755483}
+  costText: {fileID: 2192096448313287204}
 --- !u!1 &1471520857179813939
 GameObject:
   m_ObjectHideFlags: 0
@@ -439,7 +440,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59abd68107b84c098be79d0b3b796df3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonsHolder: {fileID: 0}
   noUpgradesPrefab: {fileID: 7008645626130830501, guid: 327dba53b2be1440bbedf2db60c35c4a, type: 3}
   maxUpgradesPrefab: {fileID: 688991885580337906, guid: c29c5a6db08324d478afd09c165650d0, type: 3}
   upgradeIconViewPrefab: {fileID: 2372528954204159577, guid: e74105eaaadba47138188cfae21f7c58, type: 3}

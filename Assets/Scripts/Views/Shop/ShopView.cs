@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using Core;
+using Cysharp.Threading.Tasks;
 using EventsSystem;
 using Services;
 using Storage;
+using UniRx;
 using UnityEngine;
 using Upgrades;
 
@@ -14,10 +16,12 @@ namespace Views.Shop
         [SerializeField] private Transform upgradesHolder;
         [SerializeField] private UpgradePathView upgradePathPrefab;
         [SerializeField] private UpgradePathsTable upgradePathsTable;
+        [SerializeField] private ShopDescriptionView descriptionView;
 
         private readonly Dictionary<EUpgradeType, UpgradePathView> _upgradePathViews = new ();
         private Dictionary<EUpgradeType, int> _purchasedUpgrades;
-        private IDisposable _refreshViewSubscription;
+
+        private readonly CompositeDisposable _disposables = new CompositeDisposable();
 
         protected override HashSet<Type> RequiredServices => new HashSet<Type>()
         {
@@ -28,10 +32,29 @@ namespace Views.Shop
         protected override void OnServicesInitialized()
         {
             var upgradesModel = ServiceLocator.Instance.GetService<IDataStorageService>().GetGameData().purchasedUpgrades;
-            _refreshViewSubscription = ServiceLocator.Instance.GetService<IEventsSystemService>()
-                .Subscribe<Dictionary<EUpgradeType, int>>(ProjectConstants.Events.UPGRADE_PURCHASED, RefreshView);
+            var eventsSystemService = ServiceLocator.Instance.GetService<IEventsSystemService>();
+            
+            eventsSystemService.Subscribe<Dictionary<EUpgradeType, int>>(
+                ProjectConstants.Events.UPGRADE_PURCHASED, RefreshView)
+                .AddTo(_disposables);
+
+            eventsSystemService.Subscribe<UpgradeData>(ProjectConstants.Events.ICON_HOVER, OnUpgradeHover)
+                .AddTo(_disposables);
+            
+            eventsSystemService.Subscribe(ProjectConstants.Events.ICON_HOVER_ENDED, OnUpgradeHoverEnded)
+                    .AddTo(_disposables);
             
             RefreshView(upgradesModel);
+        }
+
+        private void OnUpgradeHover(UpgradeData data)
+        {
+            descriptionView.Display(data);
+        }
+        
+        private void OnUpgradeHoverEnded()
+        {
+            descriptionView.Hide();
         }
 
         private void RefreshView(Dictionary<EUpgradeType, int> upgradesModel)
@@ -72,7 +95,7 @@ namespace Views.Shop
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            _refreshViewSubscription?.Dispose();
+            _disposables?.Dispose();
         }
     }
 }
