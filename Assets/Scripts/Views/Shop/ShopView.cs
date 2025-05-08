@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Core;
 using EventsSystem;
-using Models;
 using Services;
 using Storage;
 using UnityEngine;
@@ -17,7 +16,7 @@ namespace Views.Shop
         [SerializeField] private UpgradePathsTable upgradePathsTable;
 
         private readonly Dictionary<EUpgradeType, UpgradePathView> _upgradePathViews = new ();
-        private UpgradesModel _upgradesModel;
+        private Dictionary<EUpgradeType, int> _purchasedUpgrades;
         private IDisposable _refreshViewSubscription;
 
         protected override HashSet<Type> RequiredServices => new HashSet<Type>()
@@ -28,16 +27,16 @@ namespace Views.Shop
         
         protected override void OnServicesInitialized()
         {
-            var upgradesModel = ServiceLocator.Instance.GetService<IDataStorageService>().GetGameData().upgradesModel;
+            var upgradesModel = ServiceLocator.Instance.GetService<IDataStorageService>().GetGameData().purchasedUpgrades;
             _refreshViewSubscription = ServiceLocator.Instance.GetService<IEventsSystemService>()
-                .Subscribe<UpgradesModel>(ProjectConstants.Events.UPGRADE_PURCHASED, RefreshView);
+                .Subscribe<Dictionary<EUpgradeType, int>>(ProjectConstants.Events.UPGRADE_PURCHASED, RefreshView);
             
             RefreshView(upgradesModel);
         }
 
-        private void RefreshView(UpgradesModel upgradesModel)
+        private void RefreshView(Dictionary<EUpgradeType, int> upgradesModel)
         {
-            _upgradesModel = upgradesModel;
+            _purchasedUpgrades = upgradesModel;
             
             foreach (var upgradeType in upgradePathsTable.UpgradePaths.Keys)
             {
@@ -52,7 +51,7 @@ namespace Views.Shop
 
             int maxIndex;
             
-            if (_upgradesModel.TryGetUpgradesByType(upgradeType, out var purchasedIndex))
+            if (_purchasedUpgrades.TryGetValue(upgradeType, out var purchasedIndex))
             {
                 maxIndex = purchasedIndex;
             }

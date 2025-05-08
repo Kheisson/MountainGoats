@@ -41,7 +41,7 @@ namespace Purchase
             {
                 MgLogger.Log($"Purchasing upgrade: {eventData.UpgradeType} with index {eventData.UpgradeIndex}");
                 _dataStorageService.ModifyGameDataSync(data => UpdateUpgradeDataOnModel(data, eventData.UpgradeType, eventData.UpgradeIndex));
-                _eventsSystemService.Publish(ProjectConstants.Events.UPGRADE_PURCHASED, _dataStorageService.GetGameData().upgradesModel);
+                _eventsSystemService.Publish(ProjectConstants.Events.UPGRADE_PURCHASED, _dataStorageService.GetGameData().purchasedUpgrades);
                 _currencyController.SubtractCurrency(upgradeToPurchase.Cost);
             }
             else
@@ -54,7 +54,7 @@ namespace Purchase
 
         private bool UpdateUpgradeDataOnModel(GameData data, EUpgradeType upgradeType, int upgradeIndex)
         {
-            data.upgradesModel.PurchaseUpgrade(upgradeType, upgradeIndex);
+            data.purchasedUpgrades[upgradeType] = upgradeIndex;
             return true;
         }
 

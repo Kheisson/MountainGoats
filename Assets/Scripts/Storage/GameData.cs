@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Models;
+using Upgrades;
 
 namespace Storage
 {
@@ -9,7 +10,7 @@ namespace Storage
     {
         public int depthReached; 
         public int currency = 0;
-        public UpgradesModel upgradesModel = new();
+        public Dictionary<EUpgradeType, int> purchasedUpgrades = new();
         public string lastSelectedItemId;
         public List<string> unlockedItems = new();
 
@@ -21,7 +22,7 @@ namespace Storage
                 currency = currency,
                 unlockedItems = new List<string>(unlockedItems),        
                 lastSelectedItemId = lastSelectedItemId,
-                upgradesModel = new UpgradesModel(upgradesModel),
+                purchasedUpgrades = purchasedUpgrades
             };
         }
     }
