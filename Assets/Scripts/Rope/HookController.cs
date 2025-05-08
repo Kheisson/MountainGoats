@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Analytics;
 using Cameras;
@@ -9,6 +8,7 @@ using Core;
 using EventsSystem;
 using GameInput;
 using GarbageManagement;
+using DG.Tweening;
 
 [RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(Collider))]
 public class HookController : BaseMonoBehaviour
@@ -24,16 +24,22 @@ public class HookController : BaseMonoBehaviour
     [SerializeField] private float airGravityScale = 5f;
     [SerializeField] private float waterFallSpeed = 2f;
     [SerializeField] private float horizontalSpeed = 5f;
+    [SerializeField] private float retractDuration = 1f;
     [SerializeField] private ParticleSystem splashFX;
     [SerializeField] private GameObject art;
     
     private bool isCast = false;
     private bool isInWater;
     private float _waterDepth;
-    // private H
-
-    public bool IsReeling { get; set; } = false;
-    protected override HashSet<Type> RequiredServices => new() { typeof(IInputService), typeof(ICameraService), typeof(IEventsSystemService) };
+    private Garbage _hookedGarbage;
+    private Sequence _retractSequence;
+    
+    protected override HashSet<Type> RequiredServices => new() 
+    { 
+        typeof(IInputService), 
+        typeof(ICameraService), 
+        typeof(IEventsSystemService)
+    };
 
     protected override void Awake()
     {
@@ -60,7 +66,7 @@ public class HookController : BaseMonoBehaviour
     {
         if (!_isInitialized) return;
         
-        if (isInWater && !IsReeling)
+        if (isInWater && !_retractSequence.IsActive())
         {
             HandleFall();
         }
@@ -68,7 +74,15 @@ public class HookController : BaseMonoBehaviour
     
     private void HandleGarbageHooked(GarbageHookedData data)
     {
+        if (_hookedGarbage != null) return;
         
+        MgLogger.Log("Garbage hooked event received: " + data.Garbage.ItemData.ItemName);
+
+        _hookedGarbage = data.Garbage;
+        _hookedGarbage.transform.SetParent(transform);
+        _hookedGarbage.transform.localPosition = Vector3.zero;
+
+        StartRetract();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -170,13 +184,26 @@ public class HookController : BaseMonoBehaviour
         art.SetActive(value);
     }
 
-    private void PlayHookGarbageCoroutine(Garbage garbage) => StartCoroutine(HookGarbageCoroutine(garbage));
-
-    private IEnumerator HookGarbageCoroutine(Garbage garbage)
+    private void StartRetract()
     {
-        var garbageTransform = garbage.transform;
-        var garbageDistance = Vector3.Distance(garbage.transform.position, transform.position);
-        // while ()
-        return null;
-    }  
+        _retractSequence?.Kill();
+        
+        _rigidbody2D.linearVelocity = Vector2.zero;
+        _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
+        
+        _retractSequence = DOTween.Sequence();
+        _retractSequence.Append(transform.DOMove(waterStartTransform.position, retractDuration)
+            .SetEase(Ease.InOutQuad));
+        _retractSequence.OnComplete(OnRetractComplete);
+    }
+
+    private void OnRetractComplete()
+    {
+        if (_hookedGarbage == null) return;
+        
+        _hookedGarbage.Collect();
+        _hookedGarbage = null;
+        
+        _eventsSystemService.Publish(ProjectConstants.Events.HOOK_RETRACTED);
+    }
 }

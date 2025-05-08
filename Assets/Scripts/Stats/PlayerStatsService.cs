@@ -18,10 +18,10 @@ namespace Stats
         private IDisposable _upgradesUpdatedSubscription;
         private IPlayerStats _finalPlayerStats;
 
-        protected override HashSet<Type> RequiredServices => new HashSet<Type>()
+        protected override HashSet<Type> RequiredServices => new()
         {
             typeof(IDataStorageService),
-            typeof(IEventsSystemService)
+            typeof(IEventsSystemService),
         };
         
         protected override void OnServicesInitialized()
@@ -71,15 +71,10 @@ namespace Stats
             ServiceLocator.Instance.RegisterService<IPlayerStatsService>(this);
         }
 
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-            ServiceLocator.Instance.UnregisterService<IPlayerStatsService>();
-        }
-
         public override void Shutdown()
         {
             base.Shutdown();
+            ServiceLocator.Instance.UnregisterService<IPlayerStatsService>();
             Dispose();
         }
     }

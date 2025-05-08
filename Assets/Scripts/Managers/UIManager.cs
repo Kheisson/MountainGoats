@@ -1,5 +1,8 @@
+using System;
+using System.Collections.Generic;
 using Controllers;
 using Core;
+using EventsSystem;
 using Services;
 using Storage;
 using UnityEngine;
@@ -18,16 +21,24 @@ namespace Managers
         private ShopView _showView;
         
         private IDataStorageService _dataStorage;
+        private IEventsSystemService _eventsSystemService;
         
         public CurrencyController CurrencyController { get; private set; }
-        public override bool IsPersistent => false;
-
-        private void Start()
+        
+        protected override HashSet<Type> RequiredServices => new()
         {
-            _currencyView = Instantiate(_viewPrefab, _hudCanvas.transform);
+            typeof(IDataStorageService),
+            typeof(IEventsSystemService),
+        };
+        
+        public override bool IsPersistent => false;
+        
+        protected override void OnServicesInitialized()
+        {
+            _eventsSystemService = ServiceLocator.Instance.GetService<IEventsSystemService>();
             _dataStorage = ServiceLocator.Instance.GetService<IDataStorageService>();
-            CurrencyController = new CurrencyController(_dataStorage, _currencyView);
-            
+            _currencyView = Instantiate(_viewPrefab, _hudCanvas.transform);
+            CurrencyController = new CurrencyController(_dataStorage, _currencyView, _eventsSystemService);
             ServiceLocator.Instance.RegisterService<IUiManager>(this);
         }
         

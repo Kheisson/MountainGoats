@@ -42,11 +42,15 @@ public class PlayerController : BaseMonoBehaviour
         Init();
     }
 
-    protected override HashSet<Type> RequiredServices => new HashSet<Type>() {typeof(IEventsSystemService)};
+    protected override HashSet<Type> RequiredServices => new HashSet<Type>()
+    {
+        typeof(IEventsSystemService),
+    };
     
     protected override void OnServicesInitialized()
     {
         eventsSystemService = ServiceLocator.Instance.GetService<IEventsSystemService>();
+        eventsSystemService.Subscribe(ProjectConstants.Events.HOOK_RETRACTED, ResetCasting); 
     }
 
     protected void Update()

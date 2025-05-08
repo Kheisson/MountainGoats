@@ -24,12 +24,6 @@ namespace GameInput
             ServiceLocator.Instance.RegisterService<IInputService>(this);
             Initialize();
         }
-        
-        protected void OnDestroy()
-        {
-            Shutdown();
-            ServiceLocator.Instance?.UnregisterService<IInputService>();
-        }
 
         public override void Initialize()
         {
@@ -84,6 +78,7 @@ namespace GameInput
             
             base.Shutdown();
             
+            ServiceLocator.Instance.UnregisterService<IInputService>();
             MgLogger.Log("Input Service shutdown", this);
         }
 

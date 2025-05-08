@@ -40,7 +40,7 @@ namespace Editor.Scripts
 
         private void LoadGameData()
         {
-            _dataStorage = ServiceLocator.Instance.GetService<IDataStorageService>();
+            _dataStorage = ServiceLocator.Instance?.GetService<IDataStorageService>();
             
             if (_dataStorage != null)
             {
@@ -110,18 +110,18 @@ namespace Editor.Scripts
             
             EditorGUILayout.LabelField(item.ItemName, EditorStyles.boldLabel);
             
-            var isUnlocked = _gameData._unlockedItems.Contains(item.name);
+            var isUnlocked = _gameData.unlockedItems.Contains(item.name);
             var newUnlockState = EditorGUILayout.Toggle("Unlocked", isUnlocked);
             
             if (newUnlockState != isUnlocked)
             {
                 if (newUnlockState)
                 {
-                    _gameData._unlockedItems.Add(item.name);
+                    _gameData.unlockedItems.Add(item.name);
                 }
                 else
                 {
-                    _gameData._unlockedItems.Remove(item.name);
+                    _gameData.unlockedItems.Remove(item.name);
                 }
                 
                 SaveGameData();
@@ -156,7 +156,7 @@ namespace Editor.Scripts
             {
                 _dataStorage.ModifyGameDataSync(gameData =>
                 {
-                    gameData._unlockedItems = _gameData._unlockedItems;
+                    gameData.unlockedItems = _gameData.unlockedItems;
                     return true;
                 });
 
