@@ -71,6 +71,8 @@ namespace Managers
                 return;
             }
             
+            Time.timeScale = 0;
+            _eventsSystemService.Publish(ProjectConstants.Events.GAME_PAUSED);
             notebookGameObject.SetActive(true);
             IsNotebookOpen = true;
         }
@@ -83,6 +85,8 @@ namespace Managers
                 return;
             }
     
+            Time.timeScale = 1;
+            _eventsSystemService.Publish(ProjectConstants.Events.GAME_RESUMED);
             notebookGameObject.SetActive(false);
             IsNotebookOpen = false;
         }

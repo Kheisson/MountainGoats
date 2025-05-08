@@ -65,6 +65,8 @@ public class HookController : BaseMonoBehaviour
         _playerStatsService = ServiceLocator.Instance.GetService<IPlayerStatsService>();
         _ = ServiceLocator.Instance.GetService<IEventsSystemService>();
         _eventsSystemService.Subscribe<GarbageHookedData>(ProjectConstants.Events.GARBAGE_HOOKED, HandleGarbageHooked);
+        _eventsSystemService.Subscribe(ProjectConstants.Events.GAME_PAUSED, OnGamePause);
+        _eventsSystemService.Subscribe(ProjectConstants.Events.GAME_RESUMED, OnGameResume);
         _inputService.OnMove += HandleInputMovement;
     }
 
@@ -89,6 +91,16 @@ public class HookController : BaseMonoBehaviour
         _hookedGarbage.transform.localPosition = Vector3.zero;
 
         _ropeSimulator2D.StartReeling();
+    }
+    
+    private void OnGamePause()
+    {
+        _isInitialized = false;
+    }
+    
+    private void OnGameResume()
+    {
+        _isInitialized = true;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

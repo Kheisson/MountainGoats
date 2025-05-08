@@ -28,6 +28,7 @@ public class PlayerController : BaseMonoBehaviour
     private Vector3 clampedAimDir;
     private bool isCast = false;
     private bool isResetting = false;
+    private bool _isPaused = false;
     private Transform hookOriginParent;
     private IEventsSystemService eventsSystemService;
     private float _powerBarTimer;
@@ -51,10 +52,14 @@ public class PlayerController : BaseMonoBehaviour
     {
         eventsSystemService = ServiceLocator.Instance.GetService<IEventsSystemService>();
         eventsSystemService.Subscribe(ProjectConstants.Events.HOOK_RETRACTED, ResetCasting); 
+        eventsSystemService.Subscribe(ProjectConstants.Events.GAME_PAUSED, OnGamePause);
+        eventsSystemService.Subscribe(ProjectConstants.Events.GAME_RESUMED, OnGameResume);
     }
 
     protected void Update()
     {
+        if (_isPaused) return;
+        
         if (Input.GetKeyDown(KeyCode.R))
         {
             ropeSimulator2D.StartReeling();
@@ -63,6 +68,16 @@ public class PlayerController : BaseMonoBehaviour
         if (isCast) return;
         UpdateAimThrowPosition();
         UpdateCastHook();
+    }
+    
+    private void OnGamePause()
+    {
+        _isPaused = true;
+    }
+
+    private void OnGameResume()
+    {
+        _isPaused = false;
     }
     
     private void Init()

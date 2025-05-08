@@ -1,4 +1,7 @@
+using System;
+using System.Collections.Generic;
 using Core;
+using EventsSystem;
 using Services;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -14,15 +17,28 @@ namespace GameInput
         private InputActionMap _playerActionMap;
         private InputAction _moveAction;
         private bool _isMoving;
+        private IEventsSystemService _eventsSystemService;
         
         public override bool IsPersistent => false;
 
-        public event System.Action<Vector2> OnMove;
+        public event Action<Vector2> OnMove;
+        
+        protected override HashSet<Type> RequiredServices => new HashSet<Type>
+        {
+            typeof(IEventsSystemService),
+        };
 
         protected void Awake()
         {
             ServiceLocator.Instance.RegisterService<IInputService>(this);
             Initialize();
+        }
+
+        protected override void OnServicesInitialized()
+        {
+            _eventsSystemService = ServiceLocator.Instance.GetService<IEventsSystemService>();
+            _eventsSystemService.Subscribe(ProjectConstants.Events.GAME_PAUSED, OnGamePause);
+            _eventsSystemService.Subscribe(ProjectConstants.Events.GAME_RESUMED, OnGameResume);
         }
 
         public override void Initialize()
@@ -106,6 +122,16 @@ namespace GameInput
                     OnMove?.Invoke(Vector2.zero);
                     break;
             }
+        }
+        
+        private void OnGamePause()
+        {
+            _playerActionMap.Disable();
+        }
+        
+        private void OnGameResume()
+        {
+            _playerActionMap.Enable();
         }
     }
 } 
