@@ -23,6 +23,7 @@ namespace Core
             public const string PLAY_ENDED = "play_ended";
             public const string GARBAGE_COLLECTED = "garbage_collected";
             public const string GARBAGE_HOOKED = "garbage_hooked";
+            public const string HOOK_RETRACTED = "hook_retracted";
         }
     }
 }

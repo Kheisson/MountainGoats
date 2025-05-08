@@ -19,16 +19,17 @@ namespace Services
         {
             get
             {
-                if (_instance != null || ApplicationQuitting) return _instance;
-                
+                if (!Application.isPlaying || _instance != null || ApplicationQuitting) return _instance;
+        
                 var go = new GameObject(SERVICE_LOCATOR_NAME);
                 _instance = go.AddComponent<ServiceLocator>();
                 DontDestroyOnLoad(go);
                 MgLogger.Log("Created new instance", typeof(ServiceLocator));
-                
+        
                 return _instance;
             }
         }
+        
         private void Awake()
         {
             if (_instance != null && _instance != this)
@@ -143,8 +144,6 @@ namespace Services
             var localServices = new List<IService>(_services.Values);
             var instanceForLogging = _instance;
             
-            _instance = null;
-            
             foreach (var service in localServices)
             {
                 try 
@@ -156,9 +155,11 @@ namespace Services
                     MgLogger.LogError($"Error shutting down service {service.GetType().Name}: {e.Message}");
                 }
             }
-            
+    
             _services.Clear();
+            _instance = null;
             MgLogger.Log("Shutdown complete", instanceForLogging);
         }
+
     }
 }

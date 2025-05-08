@@ -64,7 +64,7 @@ namespace Controllers
             foreach (var itemData in _allItems)
             {
                 var itemView = Object.Instantiate(_itemViewPrefab, _contentParent);
-                var isUnlocked = _dataStorage.GetGameData()._unlockedItems.Contains(itemData.name);
+                var isUnlocked = _dataStorage.GetGameData().unlockedItems.Contains(itemData.name);
                 
                 itemView.Initialize(itemData, isUnlocked, OnItemSelected);
                 _itemViews.Add(itemView);
@@ -126,11 +126,14 @@ namespace Controllers
         
         private void OnGarbageCollected(GarbageCollectedData data)
         {
-            var itemName = data.Garbage.name;
+            var itemName = data.Garbage.ItemData.ItemName;
             
             _dataStorage.ModifyGameDataSync(gameData =>
             {
-                if (!gameData._unlockedItems.Add(itemName)) return false;
+                if (gameData.unlockedItems.Contains(itemName)) return false;
+                
+                gameData.unlockedItems.Add(data.Garbage.ItemData.ItemName);
+                
                 return true;
             });
             
@@ -141,14 +144,14 @@ namespace Controllers
         {
             foreach (var itemView in _itemViews)
             {
-                var isUnlocked = _dataStorage.GetGameData()._unlockedItems.Contains(itemView.ItemData.name);
+                var isUnlocked = _dataStorage.GetGameData().unlockedItems.Contains(itemView.ItemData.ItemName);
                 itemView.Initialize(itemView.ItemData, isUnlocked, OnItemSelected);
             }
 
             if (_currentSelectedIndex < 0 || _currentSelectedIndex >= _itemViews.Count) return;
             {
                 var selectedView = _itemViews[_currentSelectedIndex];
-                var isUnlocked = _dataStorage.GetGameData()._unlockedItems.Contains(selectedView.ItemData.name);
+                var isUnlocked = _dataStorage.GetGameData().unlockedItems.Contains(selectedView.ItemData.name);
                 _pageView.UpdateContent(selectedView.ItemData, isUnlocked);
             }
         }
