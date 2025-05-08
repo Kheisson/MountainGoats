@@ -4,6 +4,7 @@ using System.Reflection;
 using UnityEngine;
 using System;
 using Core;
+using Newtonsoft.Json;
 
 namespace Storage
 {
@@ -39,7 +40,7 @@ namespace Storage
         {
             try
             {
-                var jsonData = JsonUtility.ToJson(data);
+                var jsonData = JsonConvert.SerializeObject(data);
                 PlayerPrefs.SetString(key, jsonData);
             }
             catch (Exception e)
@@ -54,7 +55,7 @@ namespace Storage
             {
                 var jsonData = PlayerPrefs.GetString(key, string.Empty);
                 
-                return string.IsNullOrEmpty(jsonData) ? new T() : JsonUtility.FromJson<T>(jsonData);
+                return string.IsNullOrEmpty(jsonData) ? new T() : JsonConvert.DeserializeObject<T>(jsonData); // Changed to JsonConvert
             }
             catch (Exception e)
             {
@@ -68,7 +69,7 @@ namespace Storage
             try
             {
                 var jsonData = PlayerPrefs.GetString(PLAYER_PREFS_KEY, string.Empty);
-                _gameData = string.IsNullOrEmpty(jsonData) ? new GameData() : JsonUtility.FromJson<GameData>(jsonData);
+                _gameData = string.IsNullOrEmpty(jsonData) ? new GameData() : JsonConvert.DeserializeObject<GameData>(jsonData); // Changed to JsonConvert
             }
             catch (Exception e)
             {
@@ -97,7 +98,7 @@ namespace Storage
                 
                 try
                 {
-                    var jsonData = JsonUtility.ToJson(_gameData);
+                    var jsonData = JsonConvert.SerializeObject(_gameData);
                     PlayerPrefs.SetString(PLAYER_PREFS_KEY, jsonData);
                 }
                 catch (Exception e)

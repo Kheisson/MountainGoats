@@ -18,10 +18,10 @@ namespace Stats
         private IDisposable _upgradesUpdatedSubscription;
         private IPlayerStats _finalPlayerStats;
 
-        protected override HashSet<Type> RequiredServices => new HashSet<Type>()
+        protected override HashSet<Type> RequiredServices => new()
         {
             typeof(IDataStorageService),
-            typeof(IEventsSystemService)
+            typeof(IEventsSystemService),
         };
         
         protected override void OnServicesInitialized()
@@ -29,22 +29,22 @@ namespace Stats
             var eventsSystemService = ServiceLocator.Instance.GetService<IEventsSystemService>();
             var dataStorageService = ServiceLocator.Instance.GetService<IDataStorageService>();
             
-            _upgradesUpdatedSubscription = eventsSystemService.Subscribe<UpgradesModel>(ProjectConstants.Events.UPGRADE_PURCHASED, model =>
+            _upgradesUpdatedSubscription = eventsSystemService.Subscribe<Dictionary<EUpgradeType, int>>(ProjectConstants.Events.UPGRADE_PURCHASED, model =>
             {
                 _finalPlayerStats = ApplyUpgrades(model);
             });
             
-            var upgradesModel = dataStorageService.GetGameData().upgradesModel;
+            var upgradesModel = dataStorageService.GetGameData().purchasedUpgrades;
             _finalPlayerStats = ApplyUpgrades(upgradesModel);
         }
 
-        private IPlayerStats ApplyUpgrades(UpgradesModel upgradesModel)
+        private IPlayerStats ApplyUpgrades(Dictionary<EUpgradeType, int> upgradesModel)
         {
             IPlayerStats playerStats = basePlayerStats;
             
             foreach (var upgradeType in availableUpgrades.UpgradePaths.Keys)
             {
-                if (upgradesModel.TryGetUpgradesByType(upgradeType, out var maxUpgradeIndex))
+                if (upgradesModel.TryGetValue(upgradeType, out var maxUpgradeIndex))
                 {
                     playerStats = availableUpgrades.ApplyUpgrade(playerStats, upgradeType, maxUpgradeIndex);
                 }
@@ -71,15 +71,10 @@ namespace Stats
             ServiceLocator.Instance.RegisterService<IPlayerStatsService>(this);
         }
 
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-            ServiceLocator.Instance.UnregisterService<IPlayerStatsService>();
-        }
-
         public override void Shutdown()
         {
             base.Shutdown();
+            ServiceLocator.Instance.UnregisterService<IPlayerStatsService>();
             Dispose();
         }
     }
