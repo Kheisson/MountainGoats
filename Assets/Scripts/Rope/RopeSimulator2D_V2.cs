@@ -97,6 +97,7 @@ public class RopeSimulator2D_V2 : MonoBehaviour
         
         hookController.IsReeling = false;
         hookController.OnRetractComplete();
+        hookController.ResetHookCast();
     }
 
     public void SetUpgrades(RopeUpgradeData ropeUpgradeData)

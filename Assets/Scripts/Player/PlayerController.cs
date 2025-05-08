@@ -55,12 +55,10 @@ public class PlayerController : BaseMonoBehaviour
 
     protected void Update()
     {
-#if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.R))
         {
-            ResetCasting();
+            ropeSimulator2D.StartReeling();
         }
-#endif
 
         if (isCast) return;
         UpdateAimThrowPosition();
