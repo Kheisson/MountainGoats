@@ -67,11 +67,10 @@ public class RopeSimulator2D_V2 : MonoBehaviour
             hookController.IsReeling = true;
         }
 
-        if (isReeling && maxDistanceReached <= segmentLength * 2f)
+        var reelingDistance = Vector3.Distance(fishingRodController.CurrentActiveHookPivotPosition, hookController.transform.position);
+        if (isReeling && reelingDistance <= 0.1f)
         {
-            isReeling = false;
-            hookController.IsReeling = false;
-            ResetRope();
+            StopReeling();
         }
 
         GrowRopeIfNeeded();
@@ -94,7 +93,10 @@ public class RopeSimulator2D_V2 : MonoBehaviour
     public void StopReeling()
     {
         isReeling = false;
+        ResetRope();
+        
         hookController.IsReeling = false;
+        hookController.OnRetractComplete();
     }
 
     public void SetUpgrades(RopeUpgradeData ropeUpgradeData)
