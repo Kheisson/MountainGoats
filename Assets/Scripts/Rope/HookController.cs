@@ -20,6 +20,7 @@ public class HookController : BaseMonoBehaviour
     private Collider2D _collider;
     private AutoSizeCollider _autoSizeCollider;
     
+    [SerializeField] private RopeSimulator2D_V2 _ropeSimulator2D;
     [SerializeField] private Transform waterStartTransform;
     [SerializeField] private float airGravityScale = 5f;
     [SerializeField] private float waterFallSpeed = 2f;
@@ -32,7 +33,8 @@ public class HookController : BaseMonoBehaviour
     private bool isInWater;
     private float _waterDepth;
     private Garbage _hookedGarbage;
-    private Sequence _retractSequence;
+
+    public bool IsReeling = false;
     
     protected override HashSet<Type> RequiredServices => new() 
     { 
@@ -66,7 +68,7 @@ public class HookController : BaseMonoBehaviour
     {
         if (!_isInitialized) return;
         
-        if (isInWater && !_retractSequence.IsActive())
+        if (isInWater && !IsReeling)
         {
             HandleFall();
         }
@@ -82,7 +84,7 @@ public class HookController : BaseMonoBehaviour
         _hookedGarbage.transform.SetParent(transform);
         _hookedGarbage.transform.localPosition = Vector3.zero;
 
-        StartRetract();
+        _ropeSimulator2D.StartReeling();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -184,20 +186,7 @@ public class HookController : BaseMonoBehaviour
         art.SetActive(value);
     }
 
-    private void StartRetract()
-    {
-        _retractSequence?.Kill();
-        
-        _rigidbody2D.linearVelocity = Vector2.zero;
-        _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
-        
-        _retractSequence = DOTween.Sequence();
-        _retractSequence.Append(transform.DOMove(waterStartTransform.position, retractDuration)
-            .SetEase(Ease.InOutQuad));
-        _retractSequence.OnComplete(OnRetractComplete);
-    }
-
-    private void OnRetractComplete()
+    public void OnRetractComplete()
     {
         if (_hookedGarbage == null) return;
         

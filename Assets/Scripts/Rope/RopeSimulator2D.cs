@@ -16,15 +16,15 @@ public class RopeSimulator2D : MonoBehaviour
 
     [Header("Dynamic Pin Settings")]
     public int maxPinnedSegments = 25;
-    private int pinIndex = 0;
-    private float totalRopeLength = 0f;
 
     private LineRenderer lineRenderer;
     private List<RopeSegment> segments;
+    private int pinIndex = 0;
+    private float totalRopeLength = 0f;
     
     private bool simulationPlaying = false;
     private Vector2 headOrigin;
-
+    
     void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
