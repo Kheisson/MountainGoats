@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
 using Core;
-using EventsSystem;
-using Services;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Upgrades;
 
@@ -13,10 +8,13 @@ namespace Views.Shop
     public class UpgradeIconView : BaseMonoBehaviour
     { 
         [SerializeField] private Image image;
+        
+        private UpgradeData _upgradeData;
 
         public void SetupIcon(UpgradePath upgradePath, int purchasedIndex)
         {
-            image.sprite = upgradePath.AvailableUpgrades[purchasedIndex].Icon;
+            _upgradeData = upgradePath.AvailableUpgrades[purchasedIndex];
+            image.sprite = _upgradeData.Icon;
         }
     }
 }

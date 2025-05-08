@@ -37,7 +37,7 @@ public class PlayerController : BaseMonoBehaviour
     protected void Start()
     {
         hookOriginParent = hookController.transform.parent;
-        hookController.transform.position = fishingRodController.CurrentActiveHookPivot.position;
+        hookController.transform.position = fishingRodController.CurrentActiveHookPivotPosition;
         
         Init();
     }
@@ -89,7 +89,7 @@ public class PlayerController : BaseMonoBehaviour
         hookController.SetVisibility(false);
         playerAnimationsController.ResetFishingRod(() =>
         {
-            hookController.ResetHookPosition(fishingRodController.CurrentActiveHookPivot.position);
+            hookController.ResetHookPosition(fishingRodController.CurrentActiveHookPivotPosition);
             WaitForFrame(() =>
             {
                 hookController.SetVisibility(true);
@@ -145,8 +145,11 @@ public class PlayerController : BaseMonoBehaviour
             powerBarHolder.SetActive(false);
         
             hookController.CastHook((hookMovementDelta + clampedAimDir) * castPower * powerBarBasePower * powerBarMaxMultiplier, powerBar.fillAmount);
-            ropeSimulator2D.StartSimulation(fishingRodController.CurrentActiveHookPivot.position);
-            ropeSimulator2D.head = fishingRodController.CurrentActiveHookPivot;
+            
+            ropeSimulator2D.transform.parent = fishingRodController.CurrentActiveHookPivot;
+            ropeSimulator2D.transform.position = Vector3.zero;
+            ropeSimulator2D.StartSimulation(fishingRodController.CurrentActiveHookPivotPosition);
+            
             eyesFollowController.Target = hookController.transform;
             eventsSystemService?.Publish(ProjectConstants.Events.PLAY_STARTED);
         });
@@ -171,7 +174,7 @@ public class PlayerController : BaseMonoBehaviour
     
         if (fishingRodController.TrySetFishingRodStateAccordingToAngle(Mathf.InverseLerp(minAngle, maxAngle, clampedAngle)))
         {
-            var rodHookPosition = fishingRodController.CurrentActiveHookPivot.position;
+            var rodHookPosition = fishingRodController.CurrentActiveHookPivotPosition;
             hookController.transform.position = rodHookPosition;
             ropeSimulator2D.transform.position = rodHookPosition;
         }

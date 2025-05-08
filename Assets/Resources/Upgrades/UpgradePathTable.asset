@@ -19,9 +19,10 @@ MonoBehaviour:
         <AvailableUpgrades>k__BackingField:
         - <Modifier>k__BackingField:
             rid: 1808015017101754713
-          <Cost>k__BackingField: 0
-          <Icon>k__BackingField: {fileID: 0}
-          <Description>k__BackingField: 
+          <Cost>k__BackingField: 50
+          <Icon>k__BackingField: {fileID: 189405550, guid: a9560829faeacd848912809b01f72cb7, type: 3}
+          <Description>k__BackingField: Makes the rope longer, because size does
+            matter!
         - <Modifier>k__BackingField:
             rid: 1808015017101754712
           <Cost>k__BackingField: 0
