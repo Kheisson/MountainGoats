@@ -11,7 +11,7 @@ using Views;
 
 namespace Controllers
 {
-    public class NotebookController
+    public class IndexController
     {
         private readonly IDataStorageService _dataStorage;
         private readonly IEventsSystemService _eventsSystemService;
@@ -25,7 +25,7 @@ namespace Controllers
         private int _currentSelectedIndex = -1;
         private List<GarbageItemData> _allItems;
         
-        public NotebookController(
+        public IndexController(
             IDataStorageService dataStorage,
             IEventsSystemService eventsSystemService,
             NotebookItemView itemViewPrefab,
