@@ -100,6 +100,7 @@ public class HookController : BaseMonoBehaviour
         _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
         splashFX.gameObject.SetActive(true);
         _cameraService?.SwitchCamera(ECamera.Hook, transform);
+        transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
     protected override void OnDestroy()
@@ -167,6 +168,9 @@ public class HookController : BaseMonoBehaviour
         }
         
         _rigidbody2D.position = new Vector2(newX, _rigidbody2D.position.y);
+        
+        var angle = direction.x > 0 ? 45 : (direction.x < 0 ? -45 : 0);
+        transform.rotation = Quaternion.Euler(0, 0, angle);
     }
     
     public void ResetHookCast()
