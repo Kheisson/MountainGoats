@@ -48,6 +48,7 @@ namespace Managers
             );
             
             HideNotebook();
+            UpdateNotebook();
         }
         
         public void ShowNotebook()
@@ -85,9 +86,9 @@ namespace Managers
             _notebookController.UpdateNotebook();
         }
         
-        protected override void OnDestroy()
+        public override void Shutdown()
         {
-            base.OnDestroy();
+            base.Shutdown();
             ServiceLocator.Instance?.UnregisterService<INotebookManager>();
         }
     }

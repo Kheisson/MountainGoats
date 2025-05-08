@@ -78,7 +78,7 @@ namespace GarbageManagement
             var (weight, value) = itemToSpawn.CalculateRandomValue();
                 
             Garbage instantiatedGarbage = Instantiate(itemToSpawn.ItemPrefab, new Vector2(spawnPositionX, spawnPositionY), quaternion.identity, garbageHolder);
-            instantiatedGarbage.Initialize(levelIndex, weight, value, _eventSystemsService);
+            instantiatedGarbage.Initialize(levelIndex, weight, value, _eventSystemsService, itemToSpawn);
             garbageInLevel.Add(instantiatedGarbage);
         }
 
@@ -88,11 +88,10 @@ namespace GarbageManagement
             ServiceLocator.Instance.RegisterService<ISpawnerService>(this);
             Initialize();
         }
-        
-        protected override void OnDestroy()
+
+        public override void Shutdown()
         {
-            base.OnDestroy();
-            Shutdown();
+            base.Shutdown();
             ServiceLocator.Instance?.UnregisterService<ISpawnerService>();
             _garbageCollectionSubscription?.Dispose();
         }

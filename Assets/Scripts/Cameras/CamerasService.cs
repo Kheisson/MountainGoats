@@ -40,8 +40,10 @@ namespace Cameras
             ServiceLocator.Instance.RegisterService<ICameraService>(this);
         }
 
-        protected void OnDestroy()
+        public override void Shutdown()
         {
+            base.Shutdown();
+            
             if (ServiceLocator.Instance != null)
             {
                 ServiceLocator.Instance.UnregisterService<ICameraService>();

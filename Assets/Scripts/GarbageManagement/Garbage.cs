@@ -1,4 +1,5 @@
 using Core;
+using Data;
 using EventsSystem;
 using UnityEngine;
 
@@ -11,12 +12,15 @@ namespace GarbageManagement
         private int _levelIndex;
         private IEventsSystemService _eventsSystemService;
 
-        public void Initialize(int levelIndex, float weight, float value, IEventsSystemService eventsSystemService)
+        public GarbageItemData ItemData { get; private set; }
+
+        public void Initialize(int levelIndex, float weight, float value, IEventsSystemService eventsSystemService, GarbageItemData itemData)
         {
             _levelIndex = levelIndex;
             _weight = weight;
             _value = value;
             _eventsSystemService = eventsSystemService;
+            ItemData = itemData;
         }
 
         private void OnGarbageCollected()
@@ -36,12 +40,18 @@ namespace GarbageManagement
         
         private GarbageHookedData GenerateGarbageHookedData()
         {
-            return new GarbageHookedData();
+            return new GarbageHookedData(this);
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
             OnGarbageHooked();
+        }
+
+        public void Collect()
+        {
+            OnGarbageCollected();
+            Destroy(gameObject);
         }
     }
 }

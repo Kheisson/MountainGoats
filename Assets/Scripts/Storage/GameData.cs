@@ -10,8 +10,8 @@ namespace Storage
         public int depthReached; 
         public int currency = 0;
         public UpgradesModel upgradesModel = new();
-        public HashSet<string> _unlockedItems = new();
         public string lastSelectedItemId;
+        public List<string> unlockedItems = new();
 
         public GameData Copy()
         {
@@ -19,9 +19,9 @@ namespace Storage
             {
                 depthReached = depthReached,
                 currency = currency,
-                _unlockedItems = new HashSet<string>(_unlockedItems),
+                unlockedItems = new List<string>(unlockedItems),        
                 lastSelectedItemId = lastSelectedItemId,
-                upgradesModel = new UpgradesModel(upgradesModel)
+                upgradesModel = new UpgradesModel(upgradesModel),
             };
         }
     }
