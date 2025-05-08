@@ -9,6 +9,7 @@ using EventsSystem;
 using GameInput;
 using GarbageManagement;
 using DG.Tweening;
+using Stats;
 
 [RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(Collider))]
 public class HookController : BaseMonoBehaviour
@@ -16,6 +17,7 @@ public class HookController : BaseMonoBehaviour
     private IInputService _inputService;
     private ICameraService _cameraService;
     private IEventsSystemService _eventsSystemService;
+    private IPlayerStatsService _playerStatsService;
     private Rigidbody2D _rigidbody2D;
     private Collider2D _collider;
     private AutoSizeCollider _autoSizeCollider;
@@ -24,7 +26,6 @@ public class HookController : BaseMonoBehaviour
     [SerializeField] private Transform waterStartTransform;
     [SerializeField] private float airGravityScale = 5f;
     [SerializeField] private float waterFallSpeed = 2f;
-    [SerializeField] private float horizontalSpeed = 5f;
     [SerializeField] private float retractDuration = 1f;
     [SerializeField] private ParticleSystem splashFX;
     [SerializeField] private GameObject art;
@@ -40,7 +41,8 @@ public class HookController : BaseMonoBehaviour
     { 
         typeof(IInputService), 
         typeof(ICameraService), 
-        typeof(IEventsSystemService)
+        typeof(IEventsSystemService),
+        typeof(IPlayerStatsService)
     };
 
     protected override void Awake()
@@ -60,6 +62,8 @@ public class HookController : BaseMonoBehaviour
         _inputService = ServiceLocator.Instance.GetService<IInputService>();
         _cameraService = ServiceLocator.Instance.GetService<ICameraService>();
         _eventsSystemService = ServiceLocator.Instance.GetService<IEventsSystemService>();
+        _playerStatsService = ServiceLocator.Instance.GetService<IPlayerStatsService>();
+        _ = ServiceLocator.Instance.GetService<IEventsSystemService>();
         _eventsSystemService.Subscribe<GarbageHookedData>(ProjectConstants.Events.GARBAGE_HOOKED, HandleGarbageHooked);
         _inputService.OnMove += HandleInputMovement;
     }
@@ -149,7 +153,7 @@ public class HookController : BaseMonoBehaviour
     {
         if (!isInWater) return;
         
-        var newX = _rigidbody2D.position.x + direction.x * horizontalSpeed * Time.deltaTime;
+        var newX = _rigidbody2D.position.x + direction.x * _playerStatsService.HorizontalSpeed * Time.deltaTime;
         var minX = _autoSizeCollider.ColliderMinMax().Item1;
         var maxX = _autoSizeCollider.ColliderMinMax().Item2;
         

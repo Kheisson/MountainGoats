@@ -71,6 +71,7 @@ public class RopeSimulator2D_V2 : MonoBehaviour
         if (isReeling && reelingDistance <= 0.1f)
         {
             StopReeling();
+            return;
         }
 
         GrowRopeIfNeeded();
