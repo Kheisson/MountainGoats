@@ -37,7 +37,8 @@ public class PlayerController : BaseMonoBehaviour
     protected void Start()
     {
         hookOriginParent = hookController.transform.parent;
-
+        hookController.transform.position = fishingRodController.CurrentActiveHookPivotPosition;
+        
         Init();
     }
 
