@@ -15,10 +15,8 @@ public class FishingRodController : BaseMonoBehaviour
     protected override void Awake()
     {
         base.Awake();
-        foreach (var state in fishingRodViewStates)
-        {
-            state.Holder.SetActive(false);
-        }
+
+        TrySetFishingRodStateAccordingToAngle(0);
     }
 
     public bool TrySetFishingRodStateAccordingToAngle(float normalizedCurrentAngle)

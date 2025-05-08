@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8540159698164776585}
   - component: {fileID: 1011507984920904065}
-  - component: {fileID: 7140080275115262067}
-  - component: {fileID: 8108352575836816045}
+  - component: {fileID: 7348523803809898813}
+  - component: {fileID: 5758604485963064216}
   m_Layer: 0
   m_Name: PlayerCamera
   m_TagString: Untagged
@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 503510753372715239}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.008332467, y: 0.000020755026, z: -0.00000017294654, w: 0.9999653}
-  m_LocalPosition: {x: -0.00010022844, y: 1.7666297, z: -15.997778}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.099999905, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -58,7 +58,7 @@ MonoBehaviour:
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
-    FieldOfView: 60.000004
+    FieldOfView: 94
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
@@ -77,7 +77,7 @@ MonoBehaviour:
       BarrelClipping: 0.25
       Anamorphism: 0
   BlendHint: 0
---- !u!114 &7140080275115262067
+--- !u!114 &7348523803809898813
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -86,29 +86,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 503510753372715239}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 886251e9a18ece04ea8e61686c173e1b, type: 3}
+  m_Script: {fileID: 11500000, guid: f453f694addf4275988fac205bc91968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CameraDistance: 16
-  DeadZoneDepth: 0
-  Composition:
-    ScreenPosition: {x: 0, y: 0}
-    DeadZone:
-      Enabled: 1
-      Size: {x: 0.5, y: 0.65}
-    HardLimits:
-      Enabled: 0
-      Size: {x: 0.8, y: 0.9}
-      Offset: {x: 0, y: 0}
-  CenterOnActivate: 1
-  TargetOffset: {x: 0, y: 1.5, z: 0}
-  Damping: {x: 0, y: 0, z: 0}
-  Lookahead:
+  BoundingShape2D: {fileID: 0}
+  Damping: 0.5
+  SlowingDistance: 5
+  OversizeWindow:
     Enabled: 0
-    Time: 0
-    Smoothing: 0
-    IgnoreY: 0
---- !u!114 &8108352575836816045
+    MaxWindowSize: 0
+    Padding: 0
+  m_LegacyMaxWindowSize: -2
+--- !u!114 &5758604485963064216
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -117,10 +106,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 503510753372715239}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e8b78ac948f05a46a6d8339a503172b, type: 3}
+  m_Script: {fileID: 11500000, guid: b617507da6d07e749b7efdb34e1173e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LookAtOffset: {x: 0, y: 0, z: 90}
+  TrackerSettings:
+    BindingMode: 4
+    PositionDamping: {x: 1, y: 1, z: 1}
+    AngularDampingMode: 0
+    RotationDamping: {x: 1, y: 1, z: 1}
+    QuaternionDamping: 1
+  FollowOffset: {x: 0, y: -3.9, z: -10}
 --- !u!1 &2598883504258324543
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,6 +178,7 @@ GameObject:
   - component: {fileID: 2996230683410013373}
   - component: {fileID: 1804135868782818098}
   - component: {fileID: 8745955624065008375}
+  - component: {fileID: 3981139524576756267}
   m_Layer: 0
   m_Name: HookCamera
   m_TagString: Untagged
@@ -199,7 +195,7 @@ Transform:
   m_GameObject: {fileID: 7091202208405541296}
   serializedVersion: 2
   m_LocalRotation: {x: -0.00000000741712, y: 0.00000005519524, z: -0.0000000020368454, w: 1}
-  m_LocalPosition: {x: 0, y: 2.37, z: -10}
+  m_LocalPosition: {x: 0, y: 0.62, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -229,7 +225,7 @@ MonoBehaviour:
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
-    FieldOfView: 60.000004
+    FieldOfView: 45
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
@@ -284,3 +280,23 @@ MonoBehaviour:
   FocusTarget: {fileID: 0}
   FocusOffset: 0
   Profile: {fileID: 11400000, guid: 17c01748c631640a5b3800491554ce90, type: 2}
+--- !u!114 &3981139524576756267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7091202208405541296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f453f694addf4275988fac205bc91968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BoundingShape2D: {fileID: 0}
+  Damping: 0.5
+  SlowingDistance: 5
+  OversizeWindow:
+    Enabled: 0
+    MaxWindowSize: 0
+    Padding: 0
+  m_LegacyMaxWindowSize: -2

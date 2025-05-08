@@ -18,9 +18,9 @@ public class HookController : BaseMonoBehaviour
     private IEventsSystemService _eventsSystemService;
     private Rigidbody2D _rigidbody2D;
     private Collider2D _collider;
+    private AutoSizeCollider _autoSizeCollider;
     
     [SerializeField] private Transform waterStartTransform;
-    [SerializeField] private float hookCastPower = 4.5f;
     [SerializeField] private float airGravityScale = 5f;
     [SerializeField] private float waterFallSpeed = 2f;
     [SerializeField] private float horizontalSpeed = 5f;
@@ -40,6 +40,11 @@ public class HookController : BaseMonoBehaviour
         base.Awake();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _collider = GetComponent<Collider2D>();
+    }
+
+    private void Start()
+    {
+        _autoSizeCollider = FindFirstObjectByType<AutoSizeCollider>();
     }
 
     protected override void OnServicesInitialized()
@@ -87,7 +92,7 @@ public class HookController : BaseMonoBehaviour
         }
     }
     
-    public void CastHook(Vector2 direction, float powerMultiplier)
+    public void CastHook(Vector2 direction, float power)
     {
         if (isCast) return;
 
@@ -103,7 +108,7 @@ public class HookController : BaseMonoBehaviour
             _rigidbody2D.gravityScale = airGravityScale;
         
             // _rigidbody2D.AddForce(direction * hookCastPower * powerMultiplier, ForceMode2D.Impulse);
-            _rigidbody2D.linearVelocity = direction * hookCastPower * powerMultiplier;
+            _rigidbody2D.linearVelocity = direction * power;
             isCast = true;
         });
     }
@@ -129,6 +134,18 @@ public class HookController : BaseMonoBehaviour
         if (!isInWater) return;
         
         var newX = _rigidbody2D.position.x + direction.x * horizontalSpeed * Time.deltaTime;
+        var minX = _autoSizeCollider.ColliderMinMax().Item1;
+        var maxX = _autoSizeCollider.ColliderMinMax().Item2;
+        
+        if (newX < minX)
+        {
+            newX = minX;
+        }
+        else if (newX > maxX)
+        {
+            newX = maxX;
+        }
+        
         _rigidbody2D.position = new Vector2(newX, _rigidbody2D.position.y);
     }
     
