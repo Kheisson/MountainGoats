@@ -1,5 +1,6 @@
 using Core;
 using Data;
+using DG.Tweening;
 using EventsSystem;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ namespace GarbageManagement
         private float _value;
         private int _levelIndex;
         private IEventsSystemService _eventsSystemService;
+        private Sequence _floatingSequence;
 
         public GarbageItemData ItemData { get; private set; }
 
@@ -21,8 +23,29 @@ namespace GarbageManagement
             _value = value;
             _eventsSystemService = eventsSystemService;
             ItemData = itemData;
+            StartFloating();
         }
 
+        private void StartFloating()
+        {
+            _floatingSequence = DOTween.Sequence();
+
+            const float horizontalOffset = 0.05f;
+            var randomDuration = Random.Range(1.2f, 2.2f);
+
+            _floatingSequence.Append(transform.DOMoveX(transform.position.x + horizontalOffset, randomDuration)
+                    .SetEase(Ease.InOutSine))
+                .Append(transform.DOMoveX(transform.position.x - horizontalOffset, randomDuration)
+                    .SetEase(Ease.InOutSine));
+
+            _floatingSequence.Join(transform.DOMoveY(transform.position.y + horizontalOffset, randomDuration / 2)
+                    .SetEase(Ease.InOutSine))
+                .Append(transform.DOMoveY(transform.position.y - horizontalOffset, randomDuration / 2)
+                    .SetEase(Ease.InOutSine));
+
+            _floatingSequence.SetLoops(-1, LoopType.Yoyo);
+        }
+        
         private void OnGarbageCollected()
         {
             _eventsSystemService?.Publish(ProjectConstants.Events.GARBAGE_COLLECTED, GenerateGarbageCollectedData());
@@ -30,6 +53,7 @@ namespace GarbageManagement
         
         private void OnGarbageHooked()
         {
+            _floatingSequence?.Kill();
             _eventsSystemService?.Publish(ProjectConstants.Events.GARBAGE_HOOKED, GenerateGarbageHookedData());
         }
 
