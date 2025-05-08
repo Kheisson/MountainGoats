@@ -13,6 +13,7 @@ namespace Storage
         public Dictionary<EUpgradeType, int> purchasedUpgrades = new();
         public string lastSelectedItemId;
         public List<string> unlockedItems = new();
+        public int lastSelectedTabIndex = 0;
 
         public GameData Copy()
         {
@@ -22,7 +23,8 @@ namespace Storage
                 currency = currency,
                 unlockedItems = new List<string>(unlockedItems),        
                 lastSelectedItemId = lastSelectedItemId,
-                purchasedUpgrades = purchasedUpgrades
+                purchasedUpgrades = purchasedUpgrades,
+                lastSelectedTabIndex = lastSelectedTabIndex
             };
         }
     }

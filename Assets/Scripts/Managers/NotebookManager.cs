@@ -5,6 +5,7 @@ using Services;
 using Storage;
 using UnityEngine;
 using Views;
+using System.Collections.Generic;
 
 namespace Managers
 {
@@ -18,7 +19,12 @@ namespace Managers
         [SerializeField] private UnityEngine.UI.Button prevButton;
         [SerializeField] private UnityEngine.UI.Button nextButton;
         
-        private NotebookController _notebookController;
+        [Header("Tab Settings")]
+        [SerializeField] private List<GameObject> tabPages;
+        [SerializeField] private List<UnityEngine.UI.Button> tabButtons;
+        
+        private IndexController _indexController;
+        private NotebookTabController _tabController;
         private IDataStorageService _dataStorage;
         private IEventsSystemService _eventsSystemService;
         
@@ -37,7 +43,7 @@ namespace Managers
         
         private void InitializeNotebook()
         {
-            _notebookController = new NotebookController(
+            _indexController = new IndexController(
                 _dataStorage,
                 _eventsSystemService,
                 itemViewPrefab,
@@ -45,6 +51,12 @@ namespace Managers
                 pageView,
                 prevButton,
                 nextButton
+            );
+            
+            _tabController = new NotebookTabController(
+                _dataStorage,
+                tabPages,
+                tabButtons
             );
             
             HideNotebook();
@@ -77,13 +89,13 @@ namespace Managers
         
         public void UpdateNotebook()
         {
-            if (_notebookController == null)
+            if (_indexController == null)
             {
                 MgLogger.LogError("NotebookController is not initialized.");
                 return;
             }
             
-            _notebookController.UpdateNotebook();
+            _indexController.UpdateNotebook();
         }
         
         public override void Shutdown()
