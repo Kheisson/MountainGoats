@@ -7,6 +7,7 @@ namespace Views
     public class CurrencyView : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _currencyText;
+        [SerializeField] private CurrencyViewAnimator _animator;
 
         private CurrencyController _controller;
 
@@ -15,6 +16,7 @@ namespace Views
             _controller = controller;
             _controller.OnCurrencyChanged += UpdateCurrencyDisplay;
             UpdateCurrencyDisplay(_controller.GetCurrency());
+            _animator?.StartInfiniteAnimation();
         }
 
         private void OnDestroy()
@@ -23,6 +25,7 @@ namespace Views
             {
                 _controller.OnCurrencyChanged -= UpdateCurrencyDisplay;
             }
+            _animator?.StopAnimation();
         }
 
         private void UpdateCurrencyDisplay(int newAmount)
