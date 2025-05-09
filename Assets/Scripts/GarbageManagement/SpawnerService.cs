@@ -115,6 +115,7 @@ namespace GarbageManagement
             }
         }
 
+        #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
             if (!Application.isPlaying && seaLevel != null && levelsConfiguration != null)
@@ -144,5 +145,6 @@ namespace GarbageManagement
                 }
             }
         }
+        #endif
     }
 }
