@@ -73,8 +73,7 @@ public class RopeSimulator2D_V2 : BaseMonoBehaviour
         if (!_isInitialized || !simulationPlaying) return;
 
         var ropeLength = _playerStatsService.RopeLength;
-        
-        var verticalDistance = Mathf.Abs(hookTransform.position.y - renderedRopeTopPosition.y);
+        var verticalDistance = Mathf.Abs(hookTransform.position.y - fishingRodController.CurrentActiveHookPivotPosition.y);
         if (verticalDistance > maxDistanceReached)
         {
             maxDistanceReached = verticalDistance;
