@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using AYellowpaper.SerializedCollections;
+using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Upgrades;
 
 namespace Views.Shop
@@ -15,13 +16,12 @@ namespace Views.Shop
         [SerializeField] private Transform rightHolder;
 
         [SerializeField] private UpgradeButton upgradeButton;
+        [SerializeField] private TextMeshProUGUI header;
 
-        private EUpgradeType _upgradeType;
+        [SerializeField] private SerializedDictionary<EUpgradeType, string> headersByType;
             
         public void UpdateView(List<UpgradeData> availableUpgrades, int maxPurchasedIndex, UpgradePath upgradePath, EUpgradeType upgradeType)
         {
-            _upgradeType = upgradeType;
-
             bool hasPurchasedUpgrades = maxPurchasedIndex >= 0;
             bool purchasedMaxUpgrades = maxPurchasedIndex == availableUpgrades.Count - 1;
 
@@ -48,6 +48,7 @@ namespace Views.Shop
                 upgradableIcon.SetupIcon(upgradePath, maxPurchasedIndex + 1);
                 
                 upgradeButton.SetupButton(maxPurchasedIndex + 1, upgradePath, upgradeType);
+                header.text = headersByType[upgradeType];
             }
         }
 

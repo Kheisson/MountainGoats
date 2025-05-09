@@ -15,10 +15,18 @@ PrefabInstance:
     - target: {fileID: 108893416727307791, guid: c29c5a6db08324d478afd09c165650d0, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9674eb0fd80aeb944939305601b7c19b, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 688991885580337906, guid: c29c5a6db08324d478afd09c165650d0, type: 3}
       propertyPath: m_Name
       value: NoUpgradesView
+      objectReference: {fileID: 0}
+    - target: {fileID: 1965278438143055646, guid: c29c5a6db08324d478afd09c165650d0, type: 3}
+      propertyPath: m_text
+      value: No upgrades purchased
+      objectReference: {fileID: 0}
+    - target: {fileID: 1965278438143055646, guid: c29c5a6db08324d478afd09c165650d0, type: 3}
+      propertyPath: m_fontSize
+      value: 18.2
       objectReference: {fileID: 0}
     - target: {fileID: 4083667170968373582, guid: c29c5a6db08324d478afd09c165650d0, type: 3}
       propertyPath: m_Pivot.x
@@ -98,6 +106,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4083667170968373582, guid: c29c5a6db08324d478afd09c165650d0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6348997352451325272, guid: c29c5a6db08324d478afd09c165650d0, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6348997352451325272, guid: c29c5a6db08324d478afd09c165650d0, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6348997352451325272, guid: c29c5a6db08324d478afd09c165650d0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6348997352451325272, guid: c29c5a6db08324d478afd09c165650d0, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:

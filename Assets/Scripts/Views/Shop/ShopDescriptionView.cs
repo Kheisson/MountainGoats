@@ -13,6 +13,8 @@ namespace Views.Shop
         
         public void Display(UpgradeData upgradeData)
         {
+            SetComponentActive(true);
+            
             descriptionText.text = upgradeData.Description;
             costText.text = $"Cost: {upgradeData.Cost}$";
             iconImage.sprite = upgradeData.Icon;
@@ -20,9 +22,14 @@ namespace Views.Shop
 
         public void Hide()
         {
-            descriptionText.text = string.Empty;
-            costText.text = string.Empty;
-            iconImage.sprite = null;
+            SetComponentActive(false);
+        }
+
+        private void SetComponentActive(bool isEnabled)
+        {
+            descriptionText.enabled = isEnabled;
+            costText.enabled = isEnabled;
+            iconImage.enabled = isEnabled;
         }
     }
 }

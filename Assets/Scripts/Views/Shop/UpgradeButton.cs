@@ -58,7 +58,7 @@ namespace Views.Shop
             _upgradePath = upgradePath;
             _upgradeType = upgradeType;
 
-            costText.text = $"{upgradePath.AvailableUpgrades[_buttonIndex].Cost}$";
+            costText.text = $"UPGRADE'\n'{upgradePath.AvailableUpgrades[_buttonIndex].Cost}$";
         }
 
         public void OnPointerEnter(PointerEventData eventData)
