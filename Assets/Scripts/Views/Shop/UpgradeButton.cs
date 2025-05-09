@@ -60,6 +60,13 @@ namespace Views.Shop
             _upgradeType = upgradeType;
 
             costText.text = $"UPGRADE\n{upgradePath.AvailableUpgrades[_buttonIndex].Cost}$";
+            
+            // Check if should call the hover function immediately on creation
+            if (EventSystem.current != null && RectTransformUtility.RectangleContainsScreenPoint(
+                    (RectTransform)transform, Input.mousePosition, null))
+            {
+                OnPointerEnter(null);
+            }
         }
 
         public void OnPointerEnter(PointerEventData eventData)
