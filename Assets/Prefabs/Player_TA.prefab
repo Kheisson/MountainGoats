@@ -180,8 +180,8 @@ MonoBehaviour:
   powerBarHolder: {fileID: 5834851316341236824}
   powerBar: {fileID: 7967844529778785376}
   powerThrowMaxSeconds: 0.9
-  powerBarBasePower: 15
-  powerBarMaxMultiplier: 1.35
+  powerBarBasePower: 17.5
+  powerBarMaxMultiplier: 1.25
   playerAnimationsController: {fileID: 1465779485831642028}
   hookController: {fileID: 0}
   fishingRodController: {fileID: 234606682788764238}

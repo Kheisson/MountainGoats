@@ -86,7 +86,7 @@ public class RopeSimulator2D_V2 : BaseMonoBehaviour
         }
         
         var reelingDistance = Vector3.Distance(fishingRodController.CurrentActiveHookPivotPosition, hookController.transform.position);
-        if (isReeling && reelingDistance <= 0.1f)
+        if (isReeling && reelingDistance <= 0.06f)
         {
             StopReeling();
             return;
@@ -206,7 +206,7 @@ public class RopeSimulator2D_V2 : BaseMonoBehaviour
             for (int i = segments.Count - 1; i > 0; i--)
             {
                 float dist = Vector2.Distance(segments[i].posNow, segments[i - 1].posNow);
-                if (dist < segmentLength && segments.Count > 2)
+                if (dist < segmentLength + 0.01f && segments.Count > 2)
                 {
                     segments.RemoveAt(i);
                     lineRenderer.positionCount = segments.Count;
