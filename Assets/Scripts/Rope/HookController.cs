@@ -243,11 +243,11 @@ public class HookController : BaseMonoBehaviour
 
     public void OnRetractComplete()
     {
+        _eventsSystemService.Publish(ProjectConstants.Events.HOOK_RETRACTED);
+
         if (_hookedGarbage == null) return;
         
         _hookedGarbage.Collect();
         _hookedGarbage = null;
-        
-        _eventsSystemService.Publish(ProjectConstants.Events.HOOK_RETRACTED);
     }
 }
