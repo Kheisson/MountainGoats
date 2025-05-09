@@ -582,6 +582,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5432733961730158803}
     m_Modifications:
+    - target: {fileID: 651353388179239981, guid: a6424434a9f2b9849ba9fd5867060fa8, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 651353388179239981, guid: a6424434a9f2b9849ba9fd5867060fa8, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 651353388179239981, guid: a6424434a9f2b9849ba9fd5867060fa8, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1194304902278208772, guid: a6424434a9f2b9849ba9fd5867060fa8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1194304902278208772, guid: a6424434a9f2b9849ba9fd5867060fa8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1194304902278208772, guid: a6424434a9f2b9849ba9fd5867060fa8, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -420
+      objectReference: {fileID: 0}
     - target: {fileID: 1695169167512137532, guid: a6424434a9f2b9849ba9fd5867060fa8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -589,6 +613,10 @@ PrefabInstance:
     - target: {fileID: 2690563046910379497, guid: a6424434a9f2b9849ba9fd5867060fa8, type: 3}
       propertyPath: m_Name
       value: SubMenuHolder
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690563046910379497, guid: a6424434a9f2b9849ba9fd5867060fa8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5209464744273092709, guid: a6424434a9f2b9849ba9fd5867060fa8, type: 3}
       propertyPath: m_Pivot.x
