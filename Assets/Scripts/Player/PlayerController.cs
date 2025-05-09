@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Core;
 using EventsSystem;
 using Services;
+using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,6 +30,7 @@ public class PlayerController : BaseMonoBehaviour
     private bool isCast = false;
     private bool isResetting = false;
     private bool _isPaused = false;
+    private bool _clicksBlocked = false;
     private Transform hookOriginParent;
     private IEventsSystemService eventsSystemService;
     private float _powerBarTimer;
@@ -54,11 +56,12 @@ public class PlayerController : BaseMonoBehaviour
         eventsSystemService.Subscribe(ProjectConstants.Events.HOOK_RETRACTED, ResetCasting); 
         eventsSystemService.Subscribe(ProjectConstants.Events.GAME_PAUSED, OnGamePause);
         eventsSystemService.Subscribe(ProjectConstants.Events.GAME_RESUMED, OnGameResume);
+        eventsSystemService.Subscribe<ClicksBlockedData>(ProjectConstants.Events.CLICKS_BLOCKED, OnClicksBlocked);
     }
 
     protected void Update()
     {
-        if (_isPaused) return;
+        if (_isPaused || _clicksBlocked) return;
         
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -78,6 +81,13 @@ public class PlayerController : BaseMonoBehaviour
     private void OnGameResume()
     {
         _isPaused = false;
+        WaitForFrame( () => _clicksBlocked = false);
+    }
+    
+    private void OnClicksBlocked(ClicksBlockedData obj)
+    {
+        MgLogger.Log("Clicks Blocked: " + obj.IsBlocked);
+        _clicksBlocked = obj.IsBlocked;
     }
     
     private void Init()
@@ -128,7 +138,7 @@ public class PlayerController : BaseMonoBehaviour
             _powerBarTimer += Time.deltaTime;
             powerBar.fillAmount = CurrentPowerNormalized;
         }
-        else if (Input.GetButtonUp("Fire1"))
+        else if (Input.GetButtonUp("Fire1") && !_clicksBlocked)
         {
             isCast = true;
             var aimSideSign = Mathf.Sign(aimTransform.position.x - transform.position.x);

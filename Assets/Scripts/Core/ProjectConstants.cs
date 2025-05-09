@@ -28,6 +28,7 @@ namespace Core
             public const string GARBAGE_COLLECTED = "garbage_collected";
             public const string GARBAGE_HOOKED = "garbage_hooked";
             public const string HOOK_RETRACTED = "hook_retracted";
+            public const string CLICKS_BLOCKED = "clicks_blocked";
         }
     }
 }
