@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a850be22f9a48e8a05f19dc14a74746, type: 3}
   m_Name: Base Player Stats
   m_EditorClassIdentifier: 
-  <RopeLength>k__BackingField: 100
+  <RopeLength>k__BackingField: 20
   <HorizontalSpeed>k__BackingField: 2.5
   <LightIntensity>k__BackingField: 1
   <EnergyCapacity>k__BackingField: 1
