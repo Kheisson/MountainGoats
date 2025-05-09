@@ -30,23 +30,23 @@ namespace Views.Shop
             {
                 InstantiateInHolder(noUpgradesPrefab, leftHolder);
                 var upgradableIcon = InstantiateInHolder(upgradeIconViewPrefab, rightHolder);
-                upgradableIcon.SetupIcon(upgradePath, maxPurchasedIndex + 1);
+                upgradableIcon.SetupIcon(upgradePath, maxPurchasedIndex + 1, false);
                 upgradeButton.SetupButton(maxPurchasedIndex + 1, upgradePath, upgradeType);
             }
             else if (purchasedMaxUpgrades)
             {
                 InstantiateInHolder(maxUpgradesPrefab, rightHolder);
                 var upgradedIcon = InstantiateInHolder(upgradeIconViewPrefab, leftHolder);
-                upgradedIcon.SetupIcon(upgradePath, maxPurchasedIndex);
+                upgradedIcon.SetupIcon(upgradePath, maxPurchasedIndex, true);
                 upgradeButton.gameObject.SetActive(false);
             }
             else
             {
                 var upgradedIcon = InstantiateInHolder(upgradeIconViewPrefab, leftHolder);
-                upgradedIcon.SetupIcon(upgradePath, maxPurchasedIndex);
+                upgradedIcon.SetupIcon(upgradePath, maxPurchasedIndex, true);
                 
                 var upgradableIcon = InstantiateInHolder(upgradeIconViewPrefab, rightHolder);
-                upgradableIcon.SetupIcon(upgradePath, maxPurchasedIndex + 1);
+                upgradableIcon.SetupIcon(upgradePath, maxPurchasedIndex + 1, false);
                 
                 upgradeButton.SetupButton(maxPurchasedIndex + 1, upgradePath, upgradeType);
             }

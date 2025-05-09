@@ -20,19 +20,22 @@ MonoBehaviour:
         - <Modifier>k__BackingField:
             rid: 1808015017101754713
           <Cost>k__BackingField: 50
-          <Icon>k__BackingField: {fileID: 35034511, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
+          <PrePurchaseIcon>k__BackingField: {fileID: 35034511, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
+          <PostPurchaseIcon>k__BackingField: {fileID: -1290956283, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
           <Description>k__BackingField: Increases the rope length, Allowing you to
             reach greater depths!
         - <Modifier>k__BackingField:
             rid: 1808015017101754712
           <Cost>k__BackingField: 100
-          <Icon>k__BackingField: {fileID: 1478205137, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
+          <PrePurchaseIcon>k__BackingField: {fileID: 1478205137, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
+          <PostPurchaseIcon>k__BackingField: {fileID: 1241739442, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
           <Description>k__BackingField: Increases the rope length, Allowing you to
             reach greater depths!
         - <Modifier>k__BackingField:
             rid: 1808015017101754715
           <Cost>k__BackingField: 200
-          <Icon>k__BackingField: {fileID: 1494273743, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
+          <PrePurchaseIcon>k__BackingField: {fileID: 1494273743, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
+          <PostPurchaseIcon>k__BackingField: {fileID: 1851995742, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
           <Description>k__BackingField: Increases the rope length, Allowing you to
             reach greater depths!
     - Key: 2
@@ -41,19 +44,22 @@ MonoBehaviour:
         - <Modifier>k__BackingField:
             rid: 1808015017101754766
           <Cost>k__BackingField: 50
-          <Icon>k__BackingField: {fileID: -871716421, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
+          <PrePurchaseIcon>k__BackingField: {fileID: -871716421, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
+          <PostPurchaseIcon>k__BackingField: {fileID: -1554779858, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
           <Description>k__BackingField: Increases the energy capacity, Allowing you
             to move the hook more underwater!
         - <Modifier>k__BackingField:
             rid: 1808015017101754767
           <Cost>k__BackingField: 75
-          <Icon>k__BackingField: {fileID: 1484595567, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
+          <PrePurchaseIcon>k__BackingField: {fileID: 1484595567, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
+          <PostPurchaseIcon>k__BackingField: {fileID: -1322197357, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
           <Description>k__BackingField: Increases the energy capacity, Allowing you
             to move the hook more underwater!
         - <Modifier>k__BackingField:
             rid: 1808015017101754768
           <Cost>k__BackingField: 100
-          <Icon>k__BackingField: {fileID: -468114070, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
+          <PrePurchaseIcon>k__BackingField: {fileID: -468114070, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
+          <PostPurchaseIcon>k__BackingField: {fileID: 418890758, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
           <Description>k__BackingField: Increases the energy capacity, Allowing you
             to move the hook more underwater!
     - Key: 1
@@ -62,17 +68,20 @@ MonoBehaviour:
         - <Modifier>k__BackingField:
             rid: 1808015017101754769
           <Cost>k__BackingField: 200
-          <Icon>k__BackingField: {fileID: -2093443517, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
+          <PrePurchaseIcon>k__BackingField: {fileID: -2093443517, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
+          <PostPurchaseIcon>k__BackingField: {fileID: -2012109555, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
           <Description>k__BackingField: Increases the speed of the hook underwater
         - <Modifier>k__BackingField:
             rid: 1808015017101754770
           <Cost>k__BackingField: 250
-          <Icon>k__BackingField: {fileID: -1147245079, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
+          <PrePurchaseIcon>k__BackingField: {fileID: -1147245079, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
+          <PostPurchaseIcon>k__BackingField: {fileID: 43359535, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
           <Description>k__BackingField: Increases the speed of the hook underwater
         - <Modifier>k__BackingField:
             rid: 1808015017101754771
           <Cost>k__BackingField: 300
-          <Icon>k__BackingField: {fileID: -431730804, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
+          <PrePurchaseIcon>k__BackingField: {fileID: -431730804, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
+          <PostPurchaseIcon>k__BackingField: {fileID: 474805424, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
           <Description>k__BackingField: Increases the speed of the hook underwater
     - Key: 3
       Value:
@@ -80,19 +89,22 @@ MonoBehaviour:
         - <Modifier>k__BackingField:
             rid: 1808015017101754772
           <Cost>k__BackingField: 400
-          <Icon>k__BackingField: {fileID: -1352204672, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
+          <PrePurchaseIcon>k__BackingField: {fileID: -1352204672, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
+          <PostPurchaseIcon>k__BackingField: {fileID: -1814312437, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
           <Description>k__BackingField: Unlocks the flashlight, Which helps find
             garbage in the depper levels of the ocean
         - <Modifier>k__BackingField:
             rid: 1808015017101754773
           <Cost>k__BackingField: 500
-          <Icon>k__BackingField: {fileID: -168092974, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
+          <PrePurchaseIcon>k__BackingField: {fileID: -168092974, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
+          <PostPurchaseIcon>k__BackingField: {fileID: -519357923, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
           <Description>k__BackingField: Upgrades the flashlight, Making it easier
             to find garbage in the dark
         - <Modifier>k__BackingField:
             rid: 1808015017101754774
           <Cost>k__BackingField: 600
-          <Icon>k__BackingField: {fileID: 414451834, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
+          <PrePurchaseIcon>k__BackingField: {fileID: 414451834, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
+          <PostPurchaseIcon>k__BackingField: {fileID: -133684320, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
           <Description>k__BackingField: Upgrades the flashlight, Making it easier
             to find garbage in the dark
   references:

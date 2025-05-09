@@ -11,10 +11,10 @@ namespace Views.Shop
         
         private UpgradeData _upgradeData;
 
-        public void SetupIcon(UpgradePath upgradePath, int purchasedIndex)
+        public void SetupIcon(UpgradePath upgradePath, int purchasedIndex, bool isPurchased = false)
         {
             _upgradeData = upgradePath.AvailableUpgrades[purchasedIndex];
-            image.sprite = _upgradeData.Icon;
+            image.sprite = isPurchased ? _upgradeData.PostPurchaseIcon : _upgradeData.PrePurchaseIcon;
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Views.Shop
             
             descriptionText.text = upgradeData.Description;
             costText.text = $"Cost: {upgradeData.Cost}$";
-            iconImage.sprite = upgradeData.Icon;
+            iconImage.sprite = upgradeData.PrePurchaseIcon;
         }
 
         public void Hide()
