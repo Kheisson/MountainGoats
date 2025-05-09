@@ -38,30 +38,6 @@ MonoBehaviour:
           <PostPurchaseIcon>k__BackingField: {fileID: 1851995742, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
           <Description>k__BackingField: Increases the rope length, Allowing you to
             reach greater depths!
-    - Key: 2
-      Value:
-        <AvailableUpgrades>k__BackingField:
-        - <Modifier>k__BackingField:
-            rid: 1808015017101754766
-          <Cost>k__BackingField: 50
-          <PrePurchaseIcon>k__BackingField: {fileID: -871716421, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
-          <PostPurchaseIcon>k__BackingField: {fileID: -1554779858, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
-          <Description>k__BackingField: Increases the energy capacity, Allowing you
-            to move the hook more underwater!
-        - <Modifier>k__BackingField:
-            rid: 1808015017101754767
-          <Cost>k__BackingField: 75
-          <PrePurchaseIcon>k__BackingField: {fileID: 1484595567, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
-          <PostPurchaseIcon>k__BackingField: {fileID: -1322197357, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
-          <Description>k__BackingField: Increases the energy capacity, Allowing you
-            to move the hook more underwater!
-        - <Modifier>k__BackingField:
-            rid: 1808015017101754768
-          <Cost>k__BackingField: 100
-          <PrePurchaseIcon>k__BackingField: {fileID: -468114070, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
-          <PostPurchaseIcon>k__BackingField: {fileID: 418890758, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
-          <Description>k__BackingField: Increases the energy capacity, Allowing you
-            to move the hook more underwater!
     - Key: 1
       Value:
         <AvailableUpgrades>k__BackingField:
@@ -83,30 +59,6 @@ MonoBehaviour:
           <PrePurchaseIcon>k__BackingField: {fileID: -431730804, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
           <PostPurchaseIcon>k__BackingField: {fileID: 474805424, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
           <Description>k__BackingField: Increases the speed of the hook underwater
-    - Key: 3
-      Value:
-        <AvailableUpgrades>k__BackingField:
-        - <Modifier>k__BackingField:
-            rid: 1808015017101754772
-          <Cost>k__BackingField: 400
-          <PrePurchaseIcon>k__BackingField: {fileID: -1352204672, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
-          <PostPurchaseIcon>k__BackingField: {fileID: -1814312437, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
-          <Description>k__BackingField: Unlocks the flashlight, Which helps find
-            garbage in the depper levels of the ocean
-        - <Modifier>k__BackingField:
-            rid: 1808015017101754773
-          <Cost>k__BackingField: 500
-          <PrePurchaseIcon>k__BackingField: {fileID: -168092974, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
-          <PostPurchaseIcon>k__BackingField: {fileID: -519357923, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
-          <Description>k__BackingField: Upgrades the flashlight, Making it easier
-            to find garbage in the dark
-        - <Modifier>k__BackingField:
-            rid: 1808015017101754774
-          <Cost>k__BackingField: 600
-          <PrePurchaseIcon>k__BackingField: {fileID: 414451834, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
-          <PostPurchaseIcon>k__BackingField: {fileID: -133684320, guid: 850de0df7b78046228c75ad252188a4d, type: 3}
-          <Description>k__BackingField: Upgrades the flashlight, Making it easier
-            to find garbage in the dark
   references:
     version: 2
     RefIds:
@@ -122,18 +74,6 @@ MonoBehaviour:
       type: {class: RopeLengthModifier, ns: Upgrades.Modifiers, asm: Assembly-CSharp}
       data:
         multiplier: 3.75
-    - rid: 1808015017101754766
-      type: {class: EnergyCapacityModifier, ns: Upgrades.Modifiers, asm: Assembly-CSharp}
-      data:
-        multiplier: 1.25
-    - rid: 1808015017101754767
-      type: {class: EnergyCapacityModifier, ns: Upgrades.Modifiers, asm: Assembly-CSharp}
-      data:
-        multiplier: 1.5
-    - rid: 1808015017101754768
-      type: {class: EnergyCapacityModifier, ns: Upgrades.Modifiers, asm: Assembly-CSharp}
-      data:
-        multiplier: 2
     - rid: 1808015017101754769
       type: {class: HorizontalSpeedModifier, ns: Upgrades.Modifiers, asm: Assembly-CSharp}
       data:
@@ -144,17 +84,5 @@ MonoBehaviour:
         multiplier: 2
     - rid: 1808015017101754771
       type: {class: HorizontalSpeedModifier, ns: Upgrades.Modifiers, asm: Assembly-CSharp}
-      data:
-        multiplier: 3
-    - rid: 1808015017101754772
-      type: {class: LightIntensityModifier, ns: Upgrades.Modifiers, asm: Assembly-CSharp}
-      data:
-        multiplier: 1
-    - rid: 1808015017101754773
-      type: {class: LightIntensityModifier, ns: Upgrades.Modifiers, asm: Assembly-CSharp}
-      data:
-        multiplier: 2
-    - rid: 1808015017101754774
-      type: {class: LightIntensityModifier, ns: Upgrades.Modifiers, asm: Assembly-CSharp}
       data:
         multiplier: 3
