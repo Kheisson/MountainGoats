@@ -20,5 +20,5 @@ MonoBehaviour:
     the food web.
   minWeight: 0.02
   maxWeight: 0.06
-  baseValue: 0.9
+  baseValue: 10.9
   weightMultiplier: 14

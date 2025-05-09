@@ -19,5 +19,5 @@ MonoBehaviour:
     their negative impact across multiple marine ecosystems.
   minWeight: 0.22
   maxWeight: 0.55
-  baseValue: 1.05
+  baseValue: 11.05
   weightMultiplier: 2.4

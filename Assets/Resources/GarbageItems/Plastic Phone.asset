@@ -19,5 +19,5 @@ MonoBehaviour:
     fish, leading to malnutrition and starvation when consumed.
   minWeight: 0.03
   maxWeight: 0.08
-  baseValue: 0.9
+  baseValue: 10.9
   weightMultiplier: 10

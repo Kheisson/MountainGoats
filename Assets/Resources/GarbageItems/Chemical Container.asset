@@ -20,5 +20,5 @@ MonoBehaviour:
     issues, and death in marine species.
   minWeight: 3
   maxWeight: 7
-  baseValue: 5
+  baseValue: 15
   weightMultiplier: 3

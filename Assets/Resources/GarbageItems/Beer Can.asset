@@ -19,5 +19,5 @@ MonoBehaviour:
     end up in oceans and landfills each year, threatening marine ecosystems.
   minWeight: 0.03
   maxWeight: 0.06
-  baseValue: 1.1
+  baseValue: 11.1
   weightMultiplier: 9.5

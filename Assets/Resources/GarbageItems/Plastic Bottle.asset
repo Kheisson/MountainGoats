@@ -20,5 +20,5 @@ MonoBehaviour:
     450 years to decompose.
   minWeight: 0.01
   maxWeight: 0.05
-  baseValue: 0.8
+  baseValue: 10.8
   weightMultiplier: 15

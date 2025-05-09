@@ -19,5 +19,5 @@ MonoBehaviour:
     and are frequently found in the stomachs of seabirds and fish.
   minWeight: 0.002
   maxWeight: 0.01
-  baseValue: 0.4
+  baseValue: 10.4
   weightMultiplier: 30

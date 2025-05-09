@@ -19,5 +19,5 @@ MonoBehaviour:
     harmful chemicals like flame retardants into marine environments as they degrade.
   minWeight: 0.1
   maxWeight: 0.3
-  baseValue: 1
+  baseValue: 11
   weightMultiplier: 5

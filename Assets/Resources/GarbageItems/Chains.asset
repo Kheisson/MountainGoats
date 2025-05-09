@@ -19,5 +19,5 @@ MonoBehaviour:
     coral reef ecosystems as they drag along the ocean floor.
   minWeight: 0.5
   maxWeight: 3
-  baseValue: 2.5
+  baseValue: 12.5
   weightMultiplier: 1.5

@@ -20,5 +20,5 @@ MonoBehaviour:
     microplastics.
   minWeight: 0.04
   maxWeight: 0.1
-  baseValue: 0.7
+  baseValue: 10.7
   weightMultiplier: 10

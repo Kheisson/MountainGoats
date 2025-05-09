@@ -19,5 +19,5 @@ MonoBehaviour:
     ocean pollution, continuing to trap and kill marine life long after being abandoned.
   minWeight: 1
   maxWeight: 5
-  baseValue: 4
+  baseValue: 14
   weightMultiplier: 1.2

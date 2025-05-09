@@ -19,5 +19,5 @@ MonoBehaviour:
     toxic preservatives that can leach into the ocean and harm marine ecosystems.
   minWeight: 0.3
   maxWeight: 2
-  baseValue: 0.5
+  baseValue: 10.5
   weightMultiplier: 1

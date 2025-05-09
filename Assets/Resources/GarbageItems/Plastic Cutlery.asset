@@ -19,5 +19,5 @@ MonoBehaviour:
     are used and discarded annually in the US alone, with many ending up in our oceans.
   minWeight: 0.005
   maxWeight: 0.015
-  baseValue: 0.5
+  baseValue: 10.5
   weightMultiplier: 20

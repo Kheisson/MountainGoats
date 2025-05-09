@@ -19,5 +19,5 @@ MonoBehaviour:
     by sea turtles, causing intestinal blockages and death when consumed.
   minWeight: 0.005
   maxWeight: 0.015
-  baseValue: 1
+  baseValue: 11
   weightMultiplier: 50

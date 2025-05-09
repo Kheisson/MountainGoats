@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Soda Can
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 169209097, guid: 28b414f168aec014d9f67fbefa82c5bc, type: 3}
-  itemPrefab: {fileID: -392773019666044983, guid: 85a46f1baaf92894189fba1f67104a12, type: 3}
+  itemPrefab: {fileID: 7469655172645875823, guid: 85a46f1baaf92894189fba1f67104a12, type: 3}
   itemName: Aluminium Can
   description: A crushed aluminum beverage can. Sharp edges on damaged cans can physically
     harm marine animals and coral reefs.
   minWeight: 0.02
   maxWeight: 0.05
-  baseValue: 0.9
+  baseValue: 10.9
   weightMultiplier: 10

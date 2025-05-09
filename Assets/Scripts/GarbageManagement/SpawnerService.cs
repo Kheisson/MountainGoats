@@ -7,6 +7,7 @@ using Services;
 using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using UnityEditor;
 
 namespace GarbageManagement
 {
@@ -111,6 +112,36 @@ namespace GarbageManagement
             else
             {
                 MgLogger.LogError($"Garbage with level index {data.LevelIndex} not found in the list.");
+            }
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (!Application.isPlaying && seaLevel != null && levelsConfiguration != null)
+            {
+                Gizmos.color = Color.blue;
+                var horizontalExtent = 20f; 
+                
+                Gizmos.DrawLine(
+                    new Vector3(-horizontalExtent, seaLevel.position.y, 0),
+                    new Vector3(horizontalExtent, seaLevel.position.y, 0)
+                );
+                
+                Handles.Label(new Vector3(-horizontalExtent - 1f, seaLevel.position.y, 0), "Sea Level");
+
+                Gizmos.color = Color.gray;
+                var maxDepth = levelsConfiguration.DepthPerLevel * levelsConfiguration.Levels.Count;
+                
+                for (float depth = 0; depth <= maxDepth; depth += 10f)
+                {
+                    var y = seaLevel.position.y - depth;
+                    Gizmos.DrawLine(
+                        new Vector3(-horizontalExtent, y, 0),
+                        new Vector3(horizontalExtent, y, 0)
+                    );
+                    
+                    Handles.Label(new Vector3(-horizontalExtent - 1f, y, 0), $"{depth}m");
+                }
             }
         }
     }

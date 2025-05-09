@@ -19,5 +19,5 @@ MonoBehaviour:
     years and can cause injuries to marine life before fully decomposing.
   minWeight: 0.2
   maxWeight: 0.5
-  baseValue: 1
+  baseValue: 11
   weightMultiplier: 2.5

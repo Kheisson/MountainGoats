@@ -20,5 +20,5 @@ MonoBehaviour:
     and entering the food chain.
   minWeight: 0.05
   maxWeight: 0.2
-  baseValue: 3.5
+  baseValue: 13.5
   weightMultiplier: 12

@@ -109,7 +109,7 @@ MonoBehaviour:
     - rid: 1808015017101754715
       type: {class: RopeLengthModifier, ns: Upgrades.Modifiers, asm: Assembly-CSharp}
       data:
-        multiplier: 4
+        multiplier: 3.75
     - rid: 1808015017101754766
       type: {class: EnergyCapacityModifier, ns: Upgrades.Modifiers, asm: Assembly-CSharp}
       data:

@@ -19,5 +19,5 @@ MonoBehaviour:
     fish, turtles, and other marine creatures that mistake them for food.
   minWeight: 0.25
   maxWeight: 0.6
-  baseValue: 1.1
+  baseValue: 11.1
   weightMultiplier: 2.3

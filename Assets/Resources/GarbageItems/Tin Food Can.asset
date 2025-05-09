@@ -20,5 +20,5 @@ MonoBehaviour:
     into the water.
   minWeight: 0.1
   maxWeight: 0.25
-  baseValue: 1
+  baseValue: 11
   weightMultiplier: 5

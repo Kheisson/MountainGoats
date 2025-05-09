@@ -20,5 +20,5 @@ MonoBehaviour:
     marine hormonal systems.
   minWeight: 0.015
   maxWeight: 0.3
-  baseValue: 0.7
+  baseValue: 10.7
   weightMultiplier: 15

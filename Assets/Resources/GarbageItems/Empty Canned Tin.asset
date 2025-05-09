@@ -19,5 +19,5 @@ MonoBehaviour:
     harm marine life through ingestion or entanglement.
   minWeight: 0.02
   maxWeight: 0.05
-  baseValue: 1
+  baseValue: 11
   weightMultiplier: 10

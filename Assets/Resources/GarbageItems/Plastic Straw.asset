@@ -19,5 +19,5 @@ MonoBehaviour:
     or throats of sea turtles and other marine creatures, causing injury or death.
   minWeight: 0.001
   maxWeight: 0.003
-  baseValue: 0.3
+  baseValue: 10.3
   weightMultiplier: 100

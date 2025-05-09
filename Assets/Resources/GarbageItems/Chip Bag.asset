@@ -20,5 +20,5 @@ MonoBehaviour:
     them for prey.
   minWeight: 0.008
   maxWeight: 0.02
-  baseValue: 0.6
+  baseValue: 10.6
   weightMultiplier: 25

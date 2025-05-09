@@ -19,5 +19,5 @@ MonoBehaviour:
     ions that can be toxic to certain aquatic organisms when accumulated.
   minWeight: 0.025
   maxWeight: 0.055
-  baseValue: 1.2
+  baseValue: 11.2
   weightMultiplier: 10

@@ -19,5 +19,5 @@ MonoBehaviour:
     where they can entangle marine life or break down into microplastics.
   minWeight: 0.05
   maxWeight: 0.15
-  baseValue: 1
+  baseValue: 11
   weightMultiplier: 9

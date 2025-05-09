@@ -19,5 +19,5 @@ MonoBehaviour:
     causing hormone disruption in marine animals.
   minWeight: 0.03
   maxWeight: 0.08
-  baseValue: 1.2
+  baseValue: 11.2
   weightMultiplier: 13
