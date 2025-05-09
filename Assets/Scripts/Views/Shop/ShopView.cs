@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Core;
 using Cysharp.Threading.Tasks;
+using Events;
 using EventsSystem;
 using Services;
 using Storage;
@@ -38,7 +39,7 @@ namespace Views.Shop
                 ProjectConstants.Events.UPGRADE_PURCHASED, RefreshView)
                 .AddTo(_disposables);
 
-            eventsSystemService.Subscribe<UpgradeData>(ProjectConstants.Events.ICON_HOVER, OnUpgradeHover)
+            eventsSystemService.Subscribe<UpgradeHoverEvent>(ProjectConstants.Events.ICON_HOVER, OnUpgradeHover)
                 .AddTo(_disposables);
             
             eventsSystemService.Subscribe(ProjectConstants.Events.ICON_HOVER_ENDED, OnUpgradeHoverEnded)
@@ -48,9 +49,9 @@ namespace Views.Shop
             descriptionView.Hide();
         }
 
-        private void OnUpgradeHover(UpgradeData data)
+        private void OnUpgradeHover(UpgradeHoverEvent hoverEvent)
         {
-            descriptionView.Display(data);
+            descriptionView.Display(hoverEvent.UpgradeData, hoverEvent.IsPurchased);
         }
         
         private void OnUpgradeHoverEnded()
@@ -61,6 +62,7 @@ namespace Views.Shop
         private void RefreshView(Dictionary<EUpgradeType, int> upgradesModel)
         {
             _purchasedUpgrades = upgradesModel;
+            descriptionView.Hide();
             
             foreach (var upgradeType in upgradePathsTable.UpgradePaths.Keys)
             {

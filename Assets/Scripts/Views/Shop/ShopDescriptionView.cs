@@ -11,13 +11,13 @@ namespace Views.Shop
         [SerializeField] private TextMeshProUGUI costText;
         [SerializeField] private Image iconImage;
         
-        public void Display(UpgradeData upgradeData)
+        public void Display(UpgradeData upgradeData, bool isPurchased = false)
         {
             SetComponentActive(true);
             
             descriptionText.text = upgradeData.Description;
             costText.text = $"Cost: {upgradeData.Cost}$";
-            iconImage.sprite = upgradeData.PrePurchaseIcon;
+            iconImage.sprite = isPurchased ? upgradeData.PostPurchaseIcon : upgradeData.PrePurchaseIcon;
         }
 
         public void Hide()

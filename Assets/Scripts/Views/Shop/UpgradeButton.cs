@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Core;
+using Events;
 using EventsSystem;
 using Services;
 using TMPro;
@@ -63,7 +64,8 @@ namespace Views.Shop
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            _eventsSystemService?.Publish(ProjectConstants.Events.ICON_HOVER, _upgradePath.AvailableUpgrades[_buttonIndex]);
+            _eventsSystemService?.Publish(ProjectConstants.Events.ICON_HOVER, 
+                new UpgradeHoverEvent(_upgradePath.AvailableUpgrades[_buttonIndex], false));
         }
 
         public void OnPointerExit(PointerEventData eventData)
