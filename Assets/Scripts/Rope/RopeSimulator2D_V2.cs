@@ -82,7 +82,7 @@ public class RopeSimulator2D_V2 : BaseMonoBehaviour
 
         if (ropeLengthText != null)
         {
-            ropeLengthText.text = $"Rope left - {Mathf.Max(0, ropeLength - maxDistanceReached):F2} M";
+            ropeLengthText.text = $"Rope left - {Mathf.Max(0, ropeLength - verticalDistance):F2} M";
         }
         
         var reelingDistance = Vector3.Distance(fishingRodController.CurrentActiveHookPivotPosition, hookController.transform.position);
