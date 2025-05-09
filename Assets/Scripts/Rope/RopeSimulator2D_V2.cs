@@ -1,11 +1,17 @@
+using System;
 using System.Collections.Generic;
+using Core;
+using Services;
+using Stats;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 [RequireComponent(typeof(LineRenderer))]
-public class RopeSimulator2D_V2 : MonoBehaviour
+public class RopeSimulator2D_V2 : BaseMonoBehaviour
 {
+    private IPlayerStatsService _playerStatsService;
+    
     [Header("Rope Settings")]
     [SerializeField] private HookController hookController;
     [SerializeField] private FishingRodController fishingRodController;
@@ -16,7 +22,6 @@ public class RopeSimulator2D_V2 : MonoBehaviour
     [SerializeField] private float baseDrag = 0.25f;
     [SerializeField] private float growThresholdFactor = 0.05f;
     [SerializeField] private int maxPinnedSegments = 200;
-    [SerializeField] private float baseMaxRopeLength;
     [SerializeField] private float reelingSpeed = 4f;
     [SerializeField] private float maxTotalBendAngle = 15f;
     [SerializeField] private bool startOnAwake = false;
@@ -29,10 +34,14 @@ public class RopeSimulator2D_V2 : MonoBehaviour
     [Header("HUD")]
     [SerializeField] private TMP_Text ropeLengthText;
     
+    protected override HashSet<Type> RequiredServices => new() 
+    {
+        typeof(IPlayerStatsService)
+    };
+    
     private Transform hookTransform;
     private LineRenderer lineRenderer;
     private List<RopeSegment> segments;
-    private float maxRopeLength;
     private float referenceDeltaTime = 1f / 60f;
     private bool simulationPlaying = false;
     private bool isReeling = false;
@@ -40,11 +49,17 @@ public class RopeSimulator2D_V2 : MonoBehaviour
     private Vector2 renderedRopeTopPosition;
     private float virtualSegmentOffset = 0;
     
-    void Awake()
+    protected override void OnServicesInitialized()
     {
+        _playerStatsService = ServiceLocator.Instance.GetService<IPlayerStatsService>();
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+        
         lineRenderer = GetComponent<LineRenderer>();
         segments = new List<RopeSegment>();
-        maxRopeLength = baseMaxRopeLength;
         hookTransform = hookController.transform;
 
         if (startOnAwake)
@@ -55,18 +70,21 @@ public class RopeSimulator2D_V2 : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!simulationPlaying) return;
+        if (!_isInitialized || !simulationPlaying) return;
 
-        float verticalDistance = Mathf.Abs(hookTransform.position.y - renderedRopeTopPosition.y);
+        var ropeLength = _playerStatsService.RopeLength;
+        
+        var verticalDistance = Mathf.Abs(hookTransform.position.y - renderedRopeTopPosition.y);
         if (verticalDistance > maxDistanceReached)
-            maxDistanceReached = verticalDistance;
-
-        if (!isReeling && maxDistanceReached >= maxRopeLength)
         {
-            isReeling = true;
-            hookController.IsReeling = true;
+            maxDistanceReached = verticalDistance;
         }
 
+        if (ropeLengthText != null)
+        {
+            ropeLengthText.text = $"Rope left - {Mathf.Max(0, ropeLength - maxDistanceReached):F2} M";
+        }
+        
         var reelingDistance = Vector3.Distance(fishingRodController.CurrentActiveHookPivotPosition, hookController.transform.position);
         if (isReeling && reelingDistance <= 0.1f)
         {
@@ -74,13 +92,16 @@ public class RopeSimulator2D_V2 : MonoBehaviour
             return;
         }
 
+        if (!isReeling && verticalDistance >= ropeLength)
+        {
+            StartReeling();
+            return;
+        }
+
         GrowRopeIfNeeded();
         Simulate();
         ApplyConstraints();
         DrawRope();
-
-        if (ropeLengthText != null)
-            ropeLengthText.text = $"{maxDistanceReached:F2} M";
     }
 
     [ContextMenu("Start Reeling")]
@@ -93,17 +114,14 @@ public class RopeSimulator2D_V2 : MonoBehaviour
     [ContextMenu("Stop Reeling")]
     public void StopReeling()
     {
+        // TODO: add eventsSystemService.Subscribe(ProjectConstants.Events.HOOK_RETRACTED, ResetCasting); for the rope
+        
         isReeling = false;
         ResetRope();
         
         hookController.IsReeling = false;
         hookController.OnRetractComplete();
         hookController.ResetHookCast();
-    }
-
-    public void SetUpgrades(RopeUpgradeData ropeUpgradeData)
-    {
-        maxRopeLength = baseMaxRopeLength + ropeUpgradeData.RopeAdditive;
     }
 
     public void StartSimulation(Vector2 startPos)
@@ -115,6 +133,7 @@ public class RopeSimulator2D_V2 : MonoBehaviour
         simulationPlaying = true;
         maxDistanceReached = 0f;
         renderedRopeTopPosition = startPos;
+        ropeLengthText.gameObject.SetActive(true);
     }
 
     void GrowRopeIfNeeded()
@@ -262,6 +281,7 @@ public class RopeSimulator2D_V2 : MonoBehaviour
         simulationPlaying = false;
         maxDistanceReached = 0f;
         virtualSegmentOffset = 0;
+        ropeLengthText.gameObject.SetActive(false);
     }
 
     private float CalculateTotalRopeBend()
