@@ -70,5 +70,11 @@ namespace Views.Shop
         {
             _eventsSystemService?.Publish(ProjectConstants.Events.ICON_HOVER_ENDED);
         }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            _eventsSystemService?.Publish(ProjectConstants.Events.ICON_HOVER_ENDED);
+        }
     }
 }
