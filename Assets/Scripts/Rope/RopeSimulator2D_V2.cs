@@ -5,7 +5,6 @@ using Services;
 using Stats;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [RequireComponent(typeof(LineRenderer))]
 public class RopeSimulator2D_V2 : BaseMonoBehaviour
@@ -25,7 +24,7 @@ public class RopeSimulator2D_V2 : BaseMonoBehaviour
     [SerializeField] private float reelingSpeed = 4f;
     [SerializeField] private float maxTotalBendAngle = 15f;
     [SerializeField] private bool startOnAwake = false;
-
+    
     [Header("Water Settings")]
     [SerializeField] private Transform waterLevel;
     [SerializeField] private float underwaterDragMultiplier = 3f;
@@ -33,6 +32,8 @@ public class RopeSimulator2D_V2 : BaseMonoBehaviour
 
     [Header("HUD")]
     [SerializeField] private TMP_Text ropeLengthText;
+    [SerializeField] private GameObject reelBackButton;
+
     
     protected override HashSet<Type> RequiredServices => new() 
     {
@@ -106,6 +107,8 @@ public class RopeSimulator2D_V2 : BaseMonoBehaviour
     [ContextMenu("Start Reeling")]
     public void StartReeling()
     {
+        if (!hookController.IsInWater) return;
+        
         isReeling = true;
         hookController.IsReeling = true;
     }
@@ -133,6 +136,7 @@ public class RopeSimulator2D_V2 : BaseMonoBehaviour
         maxDistanceReached = 0f;
         renderedRopeTopPosition = startPos;
         ropeLengthText.gameObject.SetActive(true);
+        reelBackButton.SetActive(true);
     }
 
     void GrowRopeIfNeeded()
@@ -297,6 +301,7 @@ public class RopeSimulator2D_V2 : BaseMonoBehaviour
         maxDistanceReached = 0f;
         virtualSegmentOffset = 0;
         ropeLengthText.gameObject.SetActive(false);
+        reelBackButton.SetActive(false);
     }
 
     private float CalculateTotalRopeBend()

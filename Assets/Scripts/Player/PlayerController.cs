@@ -63,7 +63,7 @@ public class PlayerController : BaseMonoBehaviour
     {
         if (_isPaused || _clicksBlocked) return;
         
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R) && hookController.IsInWater)
         {
             ropeSimulator2D.StartReeling();
         }

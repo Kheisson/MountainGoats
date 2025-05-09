@@ -39,7 +39,8 @@ public class HookController : BaseMonoBehaviour
     private float _currentTargetAngle;
 
     public bool IsReeling = false;
-    
+
+    public bool IsInWater => isInWater;
     
     protected override HashSet<Type> RequiredServices => new() 
     { 
