@@ -8,8 +8,8 @@ using Core;
 using EventsSystem;
 using GameInput;
 using GarbageManagement;
-using DG.Tweening;
 using Stats;
+using DG.Tweening;
 
 [RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(Collider))]
 public class HookController : BaseMonoBehaviour
@@ -21,6 +21,7 @@ public class HookController : BaseMonoBehaviour
     private Rigidbody2D _rigidbody2D;
     private Collider2D _collider;
     private AutoSizeCollider _autoSizeCollider;
+    private Tweener _rotationTween;
     
     [SerializeField] private RopeSimulator2D_V2 _ropeSimulator2D;
     [SerializeField] private Transform waterStartTransform;
@@ -29,20 +30,23 @@ public class HookController : BaseMonoBehaviour
     [SerializeField] private float retractDuration = 1f;
     [SerializeField] private ParticleSystem splashFX;
     [SerializeField] private GameObject art;
+    [SerializeField] private float rotationDuration = 0.2f;
     
     private bool isCast = false;
     private bool isInWater;
     private float _waterDepth;
     private Garbage _hookedGarbage;
+    private float _currentTargetAngle;
 
     public bool IsReeling = false;
+    
     
     protected override HashSet<Type> RequiredServices => new() 
     { 
         typeof(IInputService), 
         typeof(ICameraService), 
         typeof(IEventsSystemService),
-        typeof(IPlayerStatsService)
+        typeof(IPlayerStatsService),
     };
 
     protected override void Awake()
@@ -55,6 +59,7 @@ public class HookController : BaseMonoBehaviour
     private void Start()
     {
         _autoSizeCollider = FindFirstObjectByType<AutoSizeCollider>();
+        DOTween.SetTweensCapacity(500, 125);
     }
 
     protected override void OnServicesInitialized()
@@ -123,6 +128,8 @@ public class HookController : BaseMonoBehaviour
         {
             _inputService.OnMove -= HandleInputMovement;
         }
+        
+        _rotationTween?.Kill();
     }
     
     public void CastHook(Vector2 direction, float power)
@@ -181,10 +188,38 @@ public class HookController : BaseMonoBehaviour
         
         _rigidbody2D.position = new Vector2(newX, _rigidbody2D.position.y);
         
-        var angle = direction.x > 0 ? 45 : (direction.x < 0 ? -45 : 0);
-        transform.rotation = Quaternion.Euler(0, 0, angle);
+        HandleRotation(direction);
     }
-    
+
+    private void HandleRotation(Vector2 direction)
+    {
+        float targetAngle;
+        
+        if (IsReeling)
+        {
+            var directionToHook = (Vector2)transform.position - Vector2.zero;
+            targetAngle = Mathf.Atan2(directionToHook.y, directionToHook.x) * Mathf.Rad2Deg + 90f;
+        }
+        else
+        {
+            if (Mathf.Abs(direction.x) < 0.1f)
+            {
+                targetAngle = 0f;
+            }
+            else
+            {
+                targetAngle = direction.x > 0 ? 45 : -45;
+            }
+        }
+
+        if (Mathf.Approximately(_currentTargetAngle, targetAngle)) return;
+        
+        _currentTargetAngle = targetAngle;
+        _rotationTween?.Kill();
+        _rotationTween = transform.DORotate(new Vector3(0, 0, targetAngle), rotationDuration)
+            .SetEase(Ease.OutQuad);
+    }
+
     public void ResetHookCast()
     {
         isCast = false;

@@ -28,10 +28,11 @@ namespace GameInput
             typeof(IEventsSystemService),
         };
 
-        protected void Awake()
+        protected override void Awake()
         {
             ServiceLocator.Instance.RegisterService<IInputService>(this);
             Initialize();
+            base.Awake();
         }
 
         protected override void OnServicesInitialized()

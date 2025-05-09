@@ -24,7 +24,7 @@ namespace Cameras
         
         public override bool IsPersistent => false;
 
-        protected void Awake()
+        protected override void Awake()
         {
             _vignetteVolume = GetComponentInChildren<CinemachinePostProcessing>();
             
@@ -38,6 +38,7 @@ namespace Cameras
             _currentCamera = ECamera.Player;
             
             ServiceLocator.Instance.RegisterService<ICameraService>(this);
+            base.Awake();
         }
 
         public override void Shutdown()
