@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using Controllers;
+using DG.Tweening;
 
 namespace Views
 {
@@ -34,6 +35,19 @@ namespace Views
             {
                 _currencyText.text = newAmount.ToString();
             }
+        }
+
+        public void PlayNotEnoughFundsAnimation()
+        {
+            if (_currencyText == null) return;
+
+            _currencyText.transform.DOKill();
+
+            var sequence = DOTween.Sequence();
+
+            sequence.Append(_currencyText.transform.DOPunchScale(Vector3.one * 0.2f, 0.5f))
+                    .OnKill(() => _currencyText.transform.localScale = Vector3.one)
+                    .SetUpdate(true);
         }
     }
 } 

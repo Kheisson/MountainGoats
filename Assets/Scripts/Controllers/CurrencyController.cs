@@ -6,6 +6,8 @@ using Models;
 using Storage;
 using UnityEngine;
 using Views;
+using TMPro;
+using DG.Tweening;
 
 namespace Controllers
 {
@@ -14,6 +16,7 @@ namespace Controllers
         private readonly CurrencyModel _model;
         private readonly IDataStorageService _dataStorage;
         private readonly IEventsSystemService _eventsSystemService;
+        private readonly CurrencyView _currencyView;
 
         public event Action<int> OnCurrencyChanged
         {
@@ -29,7 +32,8 @@ namespace Controllers
             _model.OnCurrencyChanged += PersistCurrency;
             _eventsSystemService = eventsSystemService;
             _eventsSystemService.Subscribe<GarbageCollectedData>(ProjectConstants.Events.GARBAGE_COLLECTED, OnGarbageCollected);
-            view.Initialize(this);
+            _currencyView = view;
+            _currencyView.Initialize(this);
         }
 
         public int GetCurrency()
@@ -84,7 +88,7 @@ namespace Controllers
 
         public void DisplayNotEnoughFunds()
         {
-            // TODO: implement this
+            _currencyView?.PlayNotEnoughFundsAnimation();
         }
     }
 } 
