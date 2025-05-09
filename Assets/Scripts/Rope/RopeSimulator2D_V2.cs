@@ -187,14 +187,30 @@ public class RopeSimulator2D_V2 : BaseMonoBehaviour
 
         if (isReeling)
         {
+            Vector2 virtualStart = hookTransform.position;
+            Vector2 virtualEnd = fishingRodController.CurrentActiveHookPivotPosition;
+            Vector2 virtualDir = (virtualStart - virtualEnd).normalized;
+            float virtualLength = segmentLength * (segments.Count - 1);
+
             for (int i = 0; i < segments.Count; i++)
             {
                 float t = (float)i / (segments.Count - 1);
-                Vector2 target = Vector2.Lerp(hookTransform.position, fishingRodController.CurrentActiveHookPivotPosition, t);
+                Vector2 target = virtualEnd + virtualDir * virtualLength * t;
+
                 RopeSegment seg = segments[i];
                 seg.posNow = Vector2.MoveTowards(seg.posNow, target, reelingSpeed * dt);
                 seg.posOld = seg.posNow;
                 segments[i] = seg;
+            }
+            
+            for (int i = segments.Count - 1; i > 0; i--)
+            {
+                float dist = Vector2.Distance(segments[i].posNow, segments[i - 1].posNow);
+                if (dist < segmentLength && segments.Count > 2)
+                {
+                    segments.RemoveAt(i);
+                    lineRenderer.positionCount = segments.Count;
+                }
             }
 
             hookTransform.position = segments[^1].posNow;
