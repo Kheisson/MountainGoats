@@ -1435,7 +1435,7 @@ PrefabInstance:
     - target: {fileID: 9040160671504756925, guid: 0caf7a7bd59fa470d9794614a6ed7b6a, type: 3}
       propertyPath: seaLevel
       value: 
-      objectReference: {fileID: 2076107695}
+      objectReference: {fileID: 1991389460}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1530,6 +1530,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ControlPath: <Keyboard>/rightArrow
+--- !u!1 &1991389459
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1991389460}
+  m_Layer: 0
+  m_Name: Sea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1991389460
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1991389459}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 200, y: 0.15, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2026259123
 GameObject:
   m_ObjectHideFlags: 0
@@ -1954,6 +1985,7 @@ SceneRoots:
   - {fileID: 1901052115564175082}
   - {fileID: 7172603844710475395}
   - {fileID: 2076107695}
+  - {fileID: 1991389460}
   - {fileID: 2026259126}
   - {fileID: 831704393}
   - {fileID: 3831516193790054827}

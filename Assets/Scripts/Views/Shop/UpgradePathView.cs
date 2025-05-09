@@ -24,6 +24,7 @@ namespace Views.Shop
         {
             bool hasPurchasedUpgrades = maxPurchasedIndex >= 0;
             bool purchasedMaxUpgrades = maxPurchasedIndex == availableUpgrades.Count - 1;
+            header.text = headersByType[upgradeType];
 
             if (!hasPurchasedUpgrades)
             {
@@ -48,7 +49,6 @@ namespace Views.Shop
                 upgradableIcon.SetupIcon(upgradePath, maxPurchasedIndex + 1);
                 
                 upgradeButton.SetupButton(maxPurchasedIndex + 1, upgradePath, upgradeType);
-                header.text = headersByType[upgradeType];
             }
         }
 

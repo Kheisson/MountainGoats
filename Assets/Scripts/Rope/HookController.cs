@@ -59,7 +59,7 @@ public class HookController : BaseMonoBehaviour
     private void Start()
     {
         _autoSizeCollider = FindFirstObjectByType<AutoSizeCollider>();
-        DOTween.SetTweensCapacity(500, 125);
+        DOTween.SetTweensCapacity(1250, 312);
     }
 
     protected override void OnServicesInitialized()

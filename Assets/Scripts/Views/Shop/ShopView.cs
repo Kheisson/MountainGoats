@@ -45,6 +45,7 @@ namespace Views.Shop
                     .AddTo(_disposables);
             
             RefreshView(upgradesModel);
+            descriptionView.Hide();
         }
 
         private void OnUpgradeHover(UpgradeData data)
