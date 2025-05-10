@@ -31,10 +31,14 @@ namespace Views
 
         private void UpdateCurrencyDisplay(int newAmount)
         {
+            _animator?.StopAnimation();
+
             if (_currencyText != null)
             {
                 _currencyText.text = newAmount.ToString();
             }
+            
+            _animator?.StartInfiniteAnimation();
         }
 
         public void PlayNotEnoughFundsAnimation()
