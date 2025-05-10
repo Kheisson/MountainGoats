@@ -33,11 +33,20 @@ namespace Editor.Scripts
 
             DrawSearchBar();
 
+            EditorGUILayout.BeginHorizontal();
+            
             if (!_showNewItemForm && GUILayout.Button("Add New Item"))
             {
                 _showNewItemForm = true;
                 _newItem = CreateInstance<GarbageItemData>();
             }
+
+            if (GUILayout.Button("Validate Level Items"))
+            {
+                ValidateLevelItems();
+            }
+            
+            EditorGUILayout.EndHorizontal();
 
             if (_showNewItemForm)
             {
@@ -211,6 +220,54 @@ namespace Editor.Scripts
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
             RefreshItems();
+        }
+
+        private void ValidateLevelItems()
+        {
+            var levelConfigGuids = AssetDatabase.FindAssets("t:LevelsConfigurationData");
+            
+            if (levelConfigGuids.Length == 0)
+            {
+                EditorUtility.DisplayDialog("Validation Error", 
+                    "No level configuration found. Please create a level configuration asset.", 
+                    "OK");
+                return;
+            }
+
+            var levelConfig = AssetDatabase.LoadAssetAtPath<LevelsConfigurationData>(
+                AssetDatabase.GUIDToAssetPath(levelConfigGuids[0]));
+
+            if (levelConfig == null || levelConfig.Levels == null || levelConfig.Levels.Count == 0)
+            {
+                EditorUtility.DisplayDialog("Validation Error", 
+                    "Level configuration is empty or invalid.", 
+                    "OK");
+                return;
+            }
+
+            var itemsInLevels = levelConfig.Levels
+                .SelectMany(level => level.SpawnableItems)
+                .Distinct()
+                .ToList();
+
+            var missingItems = _garbageItems
+                .Where(item => !itemsInLevels.Contains(item))
+                .ToList();
+
+            if (missingItems.Count > 0)
+            {
+                var message = "The following items are not assigned to any level:\n\n";
+                message += string.Join("\n", missingItems.Select(item => $"• {item.ItemName}"));
+                message += "\n\nPlease assign these items to at least one level.";
+                
+                EditorUtility.DisplayDialog("Validation Warning", message, "OK");
+            }
+            else
+            {
+                EditorUtility.DisplayDialog("Validation Success", 
+                    "All garbage items are assigned to at least one level.", 
+                    "OK");
+            }
         }
     }
 } 
