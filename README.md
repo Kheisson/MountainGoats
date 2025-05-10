@@ -2,7 +2,7 @@
 
 **A game about ocean conservation and cleaning our seas**
 
-[![Tidy Tide Game](https://img.shields.io/badge/Play-On%20itch.io-FA5C5C?style=for-the-badge&logo=itch.io)](https://mitzithegoat.itch.io/tidy-tide)
+[![Tidy Tide Game](https://img.shields.io/badge/Play-On%20itch.io-FA5C5C?style=for-the-badge&logo=itch.io)](https://mitzithegoat.itch.io/mountaingoats)
 
 ## About
 
@@ -36,8 +36,7 @@ Cast your hook into the ocean, reel in marine litter, and learn about the real-w
 
 You can play Tidy Tide on itch.io:
 
-If the embed doesn't work, [click here to play on itch.io](https://mitzithegoat.itch.io/tidy-tide)
-
+If the embed doesn't work, [click here to play on itch.io](https://mitzithegoat.itch.io/mountaingoats)
 ## Goal
 
 Clean the ocean. Learn the facts. Upgrade your gear. Make a difference—one hook at a time.
