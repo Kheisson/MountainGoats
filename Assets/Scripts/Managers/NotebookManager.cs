@@ -6,7 +6,6 @@ using Storage;
 using UnityEngine;
 using Views;
 using System.Collections.Generic;
-using UI;
 
 namespace Managers
 {

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Analytics;
 using Core;
 using Data;
 using EventsSystem;
@@ -24,6 +25,8 @@ namespace Controllers
         
         private int _currentSelectedIndex = -1;
         private List<GarbageItemData> _allItems;
+
+        private int AmountOfItems => _itemViews.Count;
         
         public IndexController(
             IDataStorageService dataStorage,
@@ -134,10 +137,21 @@ namespace Controllers
                 
                 gameData.unlockedItems.Add(data.Garbage.ItemData.ItemName);
                 
+                SendCodexEvent(gameData, itemName);
+
                 return true;
             });
             
             UpdateNotebook();
+        }
+
+        private void SendCodexEvent(GameData gameData, string itemName)
+        {
+            var totalItems = gameData.unlockedItems.Count;
+            var completionPercentage = (float)totalItems / AmountOfItems;
+            completionPercentage *= 100;
+            var codexUnlockedEvent = new CodexItemUnlockedEvent(itemName, completionPercentage);
+            codexUnlockedEvent.TrySendEvent();
         }
 
         public void UpdateNotebook()

@@ -92,6 +92,8 @@ public class HookController : BaseMonoBehaviour
         
         MgLogger.Log("Garbage hooked event received: " + data.Garbage.ItemData.ItemName);
 
+        TrySendingDepthReachedEvent(transform.position.y);
+        
         _hookedGarbage = data.Garbage;
         _hookedGarbage.transform.SetParent(transform);
         _hookedGarbage.transform.localPosition = Vector3.zero;

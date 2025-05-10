@@ -8,6 +8,7 @@ using Services;
 using Storage;
 using Upgrades;
 using Views.Shop;
+using Analytics;
 
 namespace Purchase
 {
@@ -43,6 +44,8 @@ namespace Purchase
                 _dataStorageService.ModifyGameDataSync(data => UpdateUpgradeDataOnModel(data, eventData.UpgradeType, eventData.UpgradeIndex));
                 _eventsSystemService.Publish(ProjectConstants.Events.UPGRADE_PURCHASED, _dataStorageService.GetGameData().purchasedUpgrades);
                 _currencyController.SubtractCurrency(upgradeToPurchase.Cost);
+                
+                SendPurchaseEvent(eventData);
             }
             else
             {
@@ -50,6 +53,12 @@ namespace Purchase
                              $"Cost is: {upgradeToPurchase.Cost} but player has {_currencyController.GetCurrency()}");
                 _currencyController.DisplayNotEnoughFunds();
             }
+        }
+
+        private static void SendPurchaseEvent(PurchaseButtonClickedEvent eventData)
+        {
+            var upgradePurchaseEvent = new UpgradePurchaseEvent(eventData.UpgradeIndex, eventData.UpgradeType.ToString());
+            upgradePurchaseEvent.TrySendEvent();
         }
 
         private bool UpdateUpgradeDataOnModel(GameData data, EUpgradeType upgradeType, int upgradeIndex)
