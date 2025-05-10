@@ -48,6 +48,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: ccee2ee6bcffb4bdb808e70ca1bd04ca, type: 2}
     - {fileID: 11400000, guid: 028b079f03ab445bea96de261525e3fa, type: 2}
     - {fileID: 11400000, guid: b78735767af7f4b67b9fe12ffa5e4b92, type: 2}
+    - {fileID: 11400000, guid: 3f32185f0788d4bfb8a312ecc792f593, type: 2}
     <MinItemsForLevel>k__BackingField: 10
     <MaxItemsForLevel>k__BackingField: 20
     <HorizontalRange>k__BackingField: 15
@@ -66,6 +67,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: ec512b95f984f4d838a60a24a82f7b98, type: 2}
     - {fileID: 11400000, guid: 495db2476f5fe4a38a449a3f02a0d313, type: 2}
     - {fileID: 11400000, guid: b78735767af7f4b67b9fe12ffa5e4b92, type: 2}
+    - {fileID: 11400000, guid: cd52284fdcdd549acbb7ae24c86f5978, type: 2}
     <MinItemsForLevel>k__BackingField: 10
     <MaxItemsForLevel>k__BackingField: 20
     <HorizontalRange>k__BackingField: 15
